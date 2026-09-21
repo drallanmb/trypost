@@ -22,9 +22,9 @@ const forwardedProps = useForwardProps(delegatedProps)
       buttonVariants({ variant: 'ghost' }),
       'size-8 p-0 font-medium cursor-pointer aria-selected:opacity-100 hover:bg-foreground/5',
       // Today (not selected): violet pastel pill
-      '[&[data-today]:not([data-selected])]:bg-violet-100 [&[data-today]:not([data-selected])]:text-foreground [&[data-today]:not([data-selected])]:font-bold',
+      '[&[data-today]:not([data-selected])]:bg-secondary [&[data-today]:not([data-selected])]:text-foreground [&[data-today]:not([data-selected])]:font-medium',
       // Selected: ink sticker pill
-      'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:font-bold data-[selected]:opacity-100 data-[selected]:hover:bg-primary data-[selected]:hover:text-primary-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
+      'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:font-medium data-[selected]:opacity-100 data-[selected]:hover:bg-primary data-[selected]:hover:text-primary-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
       // Disabled
       'data-[disabled]:text-foreground/40 data-[disabled]:opacity-50',
       // Unavailable

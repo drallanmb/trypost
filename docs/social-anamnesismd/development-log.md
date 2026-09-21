@@ -185,3 +185,26 @@ docker compose -f compose.social-dev.yaml exec -T \
 - SSR bundle compilation is not hydrated-browser verification. SSR remains disabled by default; verify saved Afterglow state against server-rendered Solar before enabling hydration.
 - The shared Sonner wrapper still contains legacy presentation styling, including a light-default description treatment. Full toast styling, detailed calendar migration, remaining legacy pages, mobile visual recheck, and immutable release-image packaging remain follow-ups. No production-ready/all-pages claim is made.
 - The next product slice should validate the authenticated shell with approved synthetic data, then migrate calendar/post-list presentation without altering publishing or approval rules. D-01 and the Observer/approval/archive backend remain separate work.
+
+## 2026-09-21 — Development demo login
+
+- The user explicitly approved a fictitious login to inspect the internal application. Created `demo@social.example.invalid` (Demo Operator), its demo account, and the empty Demo Clinic workspace only in the isolated development Docker. Runtime guards verified the local environment, loopback app URL, and development database host before creation; a transaction prevented partial setup or overwriting an existing demo user.
+- Used the existing factories and normal workspace membership/current-workspace relations. No authentication bypass, production account, social connection, post, or publishing job was added. The demo password is not stored in source control or this log.
+- Signed in through the actual login form and verified the resulting `/calendar` page displays Demo Clinic, the navigation, the Afterglow control, and the empty calendar. The authenticated browser tab was left open for the user. This closes the basic login-to-shell smoke-check gap, not the full authenticated workflow or mobile visual coverage.
+- The internal calendar/onboarding surfaces still contain legacy presentation styles; their migration remains the next visual increment.
+
+## 2026-09-21 — Orbit-aligned calendar pilot
+
+### Approved direction and reference ledger
+
+- The user rejected the first increment's remaining neobrutalist presentation and approved a bounded sidebar/header/calendar pilot before migrating the remaining pages. This supersedes the earlier Figtree/display typography decision, not the Solar Social / Afterglow palette or the TryPost product structure.
+- Primary references: [Orbit catalog](https://orbit-studio.humanagentlab3.chatgpt.site/catalogo) and [Orbit homepage](https://orbit-studio.humanagentlab3.chatgpt.site/#inicio), inspected in the browser. Adopt light Inter hierarchy, generous spacing, thin contours, diffused elevation, restrained translucent navigation, and compact capsule controls. Do not copy the marketing hero into the working calendar.
+- Supporting Refero references: Linear Changelog (`11d3e58a-87d7-4a9a-bbf5-720f4fd3ffc6`) for layered dark surfaces and quiet typography; Dimension (`f2951292-dcf2-48db-af42-4bb3b783eb6e`) for restrained translucency. Orbit remains the controlling reference; these do not introduce replacement palettes or workflows.
+- Use the exact approved coral/plum/yellow tokens as accents and semantic indicators. Primary actions become neutral foreground/background capsules. Existing platform marks and social preview assets remain unchanged. Inter uses the existing font provider; no dependency or lockfile change is required.
+
+### Implementation and verification in progress
+
+- Refined the shared shell, onboarding panel, button/badge/tab/select/popover primitives, and calendar day/week/month surfaces. Status color is reduced to a narrow card edge, preserving the existing status mapping. Removed repeated date headings and mobile fixed-width spacing; the date picker now truncates long labels.
+- Added a translated day-view empty state using existing catalog keys. Its create action respects `canCreatePost` and carries the selected date. An actual Vue SSR regression test first failed because the component was absent, then passed for author and reader renderings after implementation.
+- Routes, membership rules, publishing behavior, approval/archive work, backend schema, production containers, and dependency versions are outside this increment. Shared primitives also affect their existing consumers, but those pages are not claimed as fully migrated.
+- Full verification and browser findings will be appended after the development build. The missing Chromium runtime limitation for Pest browser tests remains unchanged.

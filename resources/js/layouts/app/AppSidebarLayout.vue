@@ -39,9 +39,9 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <SidebarProvider :default-open="isOpen">
+    <SidebarProvider :default-open="isOpen" class="social-shell">
         <AppSidebar />
-        <SidebarInset class="overflow-x-hidden">
+        <SidebarInset class="min-w-0 overflow-x-hidden bg-transparent">
             <AppHeader>
                 <template v-if="$slots['header']" #left>
                     <slot name="header" />

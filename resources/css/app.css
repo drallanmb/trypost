@@ -53,16 +53,14 @@
     --sidebar-border: rgba(80, 58, 92, 0.13);
     --sidebar-ring: #68479b;
     --font-sans:
-        Figtree, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
         'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
     --font-serif:
         'Instrument Serif', ui-serif, Georgia, Cambria, 'Times New Roman',
         Times, serif;
-    --font-display:
-        'Instrument Serif', ui-serif, Georgia, Cambria, 'Times New Roman',
-        Times, serif;
+    --font-display: var(--font-sans);
     --font-mono:
         'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
         'Liberation Mono', 'Courier New', monospace;
@@ -198,10 +196,7 @@
     }
 }
 
-/* Site headline + container utility classes — mirrors trypost-site's
-   `assets/css/utility-patterns.css`. Use `.h1`/.h2`/.h3` for serif
-   display headlines (Instrument Serif) instead of stacking Tailwind
-   text-* utilities. */
+/* Shared display hierarchy follows Orbit's light sans-serif typography. */
 .h1 {
     font-family: var(--font-display);
     @apply text-4xl leading-[1.05] font-normal tracking-tight sm:text-5xl lg:text-7xl xl:text-[5.5rem];
@@ -219,6 +214,44 @@
 
 .trypost-container {
     @apply relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center;
+}
+
+/* Atmospheric color frames the workspace, never the content or social previews. */
+.social-shell {
+    background-image: radial-gradient(
+        ellipse at 90% 0%,
+        color-mix(in srgb, var(--primary) 7%, transparent),
+        transparent 48%
+    );
+}
+
+.social-shell [data-sidebar='sidebar'] {
+    background: color-mix(in srgb, var(--sidebar) 88%, transparent);
+    backdrop-filter: blur(16px);
+}
+
+.calendar-surface {
+    background: color-mix(in srgb, var(--card) 78%, var(--background));
+}
+
+.calendar-post {
+    border-inline-start: 2px solid var(--post-tone, var(--border));
+    background: var(--card);
+    color: var(--foreground);
+}
+
+.calendar-post[data-status='scheduled'] {
+    --post-tone: var(--brand-plum);
+}
+.calendar-post[data-status='publishing'],
+.calendar-post[data-status='partially_published'] {
+    --post-tone: var(--warning);
+}
+.calendar-post[data-status='published'] {
+    --post-tone: var(--success);
+}
+.calendar-post[data-status='failed'] {
+    --post-tone: var(--destructive);
 }
 
 @media (prefers-reduced-motion: reduce) {

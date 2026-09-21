@@ -23,6 +23,32 @@ function createComponentServer() {
     });
 }
 
+test('the calendar empty state offers the selected-date creation link only to authors', async () => {
+    const server = await createComponentServer();
+    try {
+        const { default: EmptyState } = await server.ssrLoadModule(
+            '/resources/js/components/calendar/CalendarEmptyState.vue',
+        );
+        const render = async (canCreate) => {
+            const app = createSSRApp(EmptyState, {
+                canCreate,
+                createUrl: '/posts/create?date=2026-09-21',
+            });
+            app.config.globalProperties.$t = (key) => key;
+            return renderToString(app);
+        };
+        const author = await render(true);
+        assert.match(author, /<h2[^>]*>posts.no_posts<\/h2>/);
+        assert.match(author, /href="\/posts\/create\?date=2026-09-21"/);
+        assert.match(author, /posts.start_creating/);
+        const reader = await render(false);
+        assert.match(reader, /posts.no_posts/);
+        assert.doesNotMatch(reader, /href=|posts.start_creating/);
+    } finally {
+        await server.close();
+    }
+});
+
 test('the real brand and theme components render accessible names and non-submitting controls', async () => {
     const server = await createComponentServer();
     try {

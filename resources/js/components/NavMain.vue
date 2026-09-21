@@ -38,13 +38,13 @@ const { urlIsActive } = useActiveUrl();
                     :tooltip="item.title"
                 >
                     <Link :href="item.href">
-                        <component :is="item.icon" />
+                        <component :is="item.icon" stroke-width="1.65" />
                         <span>{{ item.title }}</span>
                     </Link>
                 </SidebarMenuButton>
                 <Badge
                     v-if="item.badge"
-                    variant="warning"
+                    variant="secondary"
                     class="pointer-events-none absolute end-2 top-1/2 -translate-y-1/2 px-1.5 group-data-[collapsible=icon]:hidden"
                 >
                     {{ item.badge }}

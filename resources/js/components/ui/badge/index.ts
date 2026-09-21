@@ -3,11 +3,9 @@ import { cva } from "class-variance-authority"
 
 export { default as Badge } from "./Badge.vue"
 
-// Indies sticker badge — `border-2 border-foreground` + uppercase
-// `tracking-widest` + ink offset shadow, mirrors the eyebrow / channel
-// badge pattern from the marketing site (NetworksGrid, PricingTables).
+// Compact status labels retain paired semantic foreground and background tokens.
 export const badgeVariants = cva(
-  "inline-flex items-center justify-center w-fit shrink-0 whitespace-nowrap rounded-md border-2 border-foreground px-2 py-0.5 text-[10px] font-black uppercase tracking-widest gap-1 shadow-2xs [&>svg]:size-3 [&>svg]:pointer-events-none focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 transition-[color,box-shadow] overflow-hidden",
+  "inline-flex items-center justify-center w-fit shrink-0 whitespace-nowrap rounded-full border border-transparent px-2 py-0.5 text-[11px] font-medium tracking-wide gap-1 [&>svg]:size-3 [&>svg]:pointer-events-none focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 transition-[color,box-shadow] overflow-hidden",
   {
     variants: {
       variant: {

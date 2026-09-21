@@ -8,14 +8,14 @@ const { state, isMobile } = useSidebar();
 
 <template>
     <header
-        class="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-border bg-card px-4"
+        class="flex h-18 shrink-0 items-center justify-between gap-3 bg-transparent px-4 sm:px-6 lg:px-8"
     >
-        <div class="flex items-center gap-2">
+        <div class="flex min-w-0 items-center gap-2">
             <SidebarTrigger v-if="isMobile" class="-ml-1" />
             <ProductBrand v-if="state === 'collapsed' || isMobile" compact />
             <slot name="left" />
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex min-w-0 items-center gap-2">
             <slot name="right" />
             <ThemeToggle compact />
         </div>

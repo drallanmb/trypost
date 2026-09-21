@@ -16,7 +16,7 @@ const nextLabel = computed(() =>
 <template>
     <button
         type="button"
-        class="inline-flex h-10 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-lg border border-input bg-card px-3 text-sm font-medium text-foreground shadow-2xs transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none"
+        class="inline-flex h-10 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-full border border-border bg-card/60 px-3 text-sm font-medium text-foreground shadow-2xs transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none"
         :aria-label="`${label} → ${nextLabel}`"
         :aria-pressed="theme === 'afterglow'"
         :title="`${label} → ${nextLabel}`"

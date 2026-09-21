@@ -50,7 +50,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
       :model-value="String(date.month)"
       @update:model-value="(v) => placeholder = placeholder.set({ month: Number(v) })"
     >
-      <SelectTrigger class="h-8 w-auto gap-1 px-2.5 text-sm font-bold capitalize">
+      <SelectTrigger class="h-8 w-auto gap-1 px-2.5 text-sm font-medium capitalize">
         <SelectValue>{{ formatMonth(date) }}</SelectValue>
       </SelectTrigger>
       <SelectContent>
@@ -66,7 +66,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
       :model-value="String(date.year)"
       @update:model-value="(v) => placeholder = placeholder.set({ year: Number(v) })"
     >
-      <SelectTrigger class="h-8 w-auto gap-1 px-2.5 text-sm font-bold">
+      <SelectTrigger class="h-8 w-auto gap-1 px-2.5 text-sm font-medium">
         <SelectValue>{{ formatYear(date) }}</SelectValue>
       </SelectTrigger>
       <SelectContent>

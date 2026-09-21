@@ -205,8 +205,8 @@ const bottomNavItems = computed(() => [
 </script>
 
 <template>
-    <Sidebar collapsible="offcanvas">
-        <SidebarHeader>
+    <Sidebar collapsible="offcanvas" variant="floating" class="p-3">
+        <SidebarHeader class="gap-4 px-3 pt-5 pb-3">
             <ProductBrand class="px-2 py-2" />
             <SidebarMenu>
                 <SidebarMenuItem>
@@ -223,7 +223,7 @@ const bottomNavItems = computed(() => [
                                         :src="currentWorkspace?.logo_url"
                                         :name="currentWorkspace?.name ?? '?'"
                                         class="h-8 w-8 shrink-0 rounded-xl border border-border"
-                                        fallback-class="bg-secondary text-accent-foreground font-bold"
+                                        fallback-class="bg-secondary text-accent-foreground font-medium"
                                     />
                                     <div
                                         class="grid min-w-0 flex-1 text-left text-sm leading-tight"
@@ -266,10 +266,13 @@ const bottomNavItems = computed(() => [
             </SidebarMenu>
         </SidebarHeader>
 
-        <SidebarContent class="gap-px">
+        <SidebarContent class="gap-2 px-2">
             <div v-if="currentWorkspace && canCreatePost" class="px-2 py-2">
                 <Link :href="createPost.url()" class="block">
-                    <Button class="w-full">
+                    <Button
+                        variant="outline"
+                        class="w-full justify-start border-border bg-transparent text-sm font-medium"
+                    >
                         {{ $t('sidebar.create_post') }}
                     </Button>
                 </Link>
@@ -300,7 +303,7 @@ const bottomNavItems = computed(() => [
 
             <div
                 v-if="subscriptionPastDue"
-                class="mx-1 mb-1 rounded-md border-2 border-destructive bg-destructive/10 p-3"
+                class="mx-1 mb-1 rounded-2xl border border-destructive/30 bg-destructive/10 p-3"
             >
                 <div class="flex items-center gap-2 text-destructive">
                     <IconAlertTriangle class="size-4 shrink-0" />
