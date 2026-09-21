@@ -23,12 +23,14 @@ From a dedicated checkout on a Docker host:
 
 ```sh
 docker compose -f compose.social-dev.yaml config --quiet
-docker compose -f compose.social-dev.yaml up -d --build
+docker compose -f compose.social-dev.yaml up -d --build --wait --wait-timeout 600
 docker compose -f compose.social-dev.yaml logs --tail=80 app
 docker compose -f compose.social-dev.yaml exec -T app npm run build
 docker compose -f compose.social-dev.yaml ps
 curl -f http://127.0.0.1:18081/up
 ```
+
+Wait for container health before running the asset build: the entrypoint installs dependencies after the container starts. `up -d` alone does not mean bootstrap has finished.
 
 Use an SSH tunnel to view the private application from your workstation:
 
