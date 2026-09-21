@@ -48,9 +48,7 @@ Run only against this dedicated development stack. The test suite uses `trypost_
 docker compose -f compose.social-dev.yaml exec -T app php --version
 docker compose -f compose.social-dev.yaml exec -T app composer check-platform-reqs
 docker compose -f compose.social-dev.yaml exec -T -e APP_ENV=testing -e DB_DATABASE=trypost_test -e CACHE_STORE=array -e SESSION_DRIVER=array -e QUEUE_CONNECTION=sync -e MAIL_MAILER=array app php artisan test --compact --ci
-docker compose -f compose.social-dev.yaml exec -T app npm run format:check
-docker compose -f compose.social-dev.yaml exec -T app npx eslint .
-docker compose -f compose.social-dev.yaml exec -T app npx vue-tsc --noEmit
+docker compose -f compose.social-dev.yaml exec -T app npm run check
 docker compose -f compose.social-dev.yaml exec -T app npm run build
 docker compose -f compose.social-dev.yaml restart app
 docker compose -f compose.social-dev.yaml up -d --wait --wait-timeout 120
@@ -59,6 +57,8 @@ curl --fail --silent --show-error --output /dev/null http://127.0.0.1:18081/logi
 ```
 
 The explicit test environment overrides are required: container-level environment values take precedence over PHPUnit's non-forced defaults. `--ci` disables local test-impact caching so checks actually execute. Append specific test paths for a targeted check; omit them for the complete Unit and Feature suites. Never run database-resetting tests against the application database. Record existing failures before altering upstream application code. A successful container healthcheck is not equivalent to passing application tests.
+
+`npm run check` checks TypeScript, ESLint, Prettier, and the focused Vue node-adapter rendering tests without changing source files. It requires generated Wayfinder helpers and the development image's Node 24 runtime; bootstrap the container before running it. Use `npm run lint` and `npm run format` only when intentionally applying autofixes, and review their diff before committing. Build warnings and full browser interaction coverage are tracked separately from this gate.
 
 The final restart re-runs the upstream ownership repair after root-run tooling creates cache or log files. HTTP smoke checks exercise the actual FPM worker and catch permission failures that root-run CLI tests miss. The pool's `user` and `group` settings follow the [official PHP-FPM configuration reference](https://www.php.net/manual/en/install.fpm.configuration.php).
 

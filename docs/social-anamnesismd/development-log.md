@@ -77,7 +77,7 @@ docker compose -f compose.social-dev.yaml exec -T \
 - Configuration commits: `1e1bfbca` (isolated environment) and `735e028b` (development FPM ownership fix). Subsequent documentation commits record verification and review evidence.
 - This increment delivers the private runtime, source-controlled configuration, operating guide, and baseline inventory. Product UI and approval features remain subsequent work.
 
-## 2026-09-21 — Step 03: Frontend technical baseline (in progress)
+## 2026-09-21 — Step 03: Frontend technical baseline
 
 ### Scope
 
@@ -94,9 +94,49 @@ docker compose -f compose.social-dev.yaml exec -T \
 - Media source metadata is transported as JSON. Replaced `unknown` values with a recursive JSON value type, including nullable metadata supported by the backend; the gallery picker reuses the same metadata contract.
 - The welcome form submits an empty payload but receives a server-level `connect` validation error. It now uses the existing page-error composable for that error instead of inventing a submitted field or bypassing type safety.
 - Added non-mutating `typecheck`, `lint:check`, and combined `check` npm scripts. Generated Wayfinder helpers remain untracked build artifacts.
-- Automation edges now retain their inferred serializable shape instead of widening their values to `unknown`. The Vue Flow component registry uses a typed Vue component boundary, retaining the same eight raw component objects.
+- Automation edges now retain their inferred serializable shape instead of widening their values to `unknown`. The Vue Flow registry adapts the same eight node components through a typed functional boundary. The adapter forwards props explicitly and disables implicit attribute fallthrough; it does not change node templates or persisted payloads.
+- Extracted the node adapter for three Node/Vue rendering checks: data/selection/callback forwarding, rendered attribute equivalence, and raw renderer identity. These run through `test:frontend` and the combined `check` command, using the existing Node 24 runtime and Vue dependencies.
 
 ### Verification
 
 - After the first corrections, local type checking reduced the original eight diagnostics to the two automation-editor diagnostics. Final results follow after integration.
 - After integrating the automation corrections, a fresh `npm run typecheck` completed with exit 0. No TypeScript suppressions, dependency upgrades, or additional `any` annotations were added.
+- Applied the repository's existing Prettier/import-order rules, with the bulk 226-file cleanup isolated in commit `1cdb3c4e`. This is baseline normalization, not the Solar Social/Afterglow redesign. The automation form's formatting accompanies its adapter extraction in `28c78799`; initial contract corrections are in `c6d3b712`.
+- The complete `npm run check` passed on both Windows (Node 24.19) and the isolated Linux Docker runtime (Node 24.18.1): zero type/lint/format errors and **3 focused Vue rendering tests passed**. Those tests verify adapter equivalence, not a prior reported browser defect.
+- The dependency lockfiles are unchanged. Wayfinder helpers remain generated and ignored. A local build cannot run because PHP is unavailable on Windows; the isolated Docker runtime supplies PHP for Wayfinder generation.
+- Docker production-asset build passed with exit 0 in **9.62 seconds**. The existing dependency annotation and large-chunk warnings remain visible; no warning threshold was raised and no dependency was patched to hide them.
+- Focused backend regressions passed: **280 tests, 1,042 assertions, 25.67 seconds**, using the separate `trypost_test` database and explicit environment overrides. No test was skipped in this selected run.
+- After restarting only the development app to repair runtime-file ownership, all three development services were healthy and `/up` and `/login` returned **HTTP 200**. The development application database still held **0 users and 0 posts**. The three production TryPost containers remained healthy with **12 days** of uptime.
+- The remote checkout remained clean after generation, build, tests, and restart. No production data, secrets, containers, or public routes were changed.
+
+### Reproduce the selected backend regressions
+
+```sh
+docker compose -f compose.social-dev.yaml exec -T \
+  -e APP_ENV=testing -e DB_DATABASE=trypost_test \
+  -e CACHE_STORE=array -e SESSION_DRIVER=array \
+  -e QUEUE_CONNECTION=sync -e MAIL_MAILER=array \
+  app php artisan test --compact --ci \
+  tests/Feature/Auth/AuthenticationTest.php \
+  tests/Feature/WorkspaceInviteGuardTest.php \
+  tests/Feature/PostControllerTest.php \
+  tests/Feature/Welcome/WelcomeControllerTest.php \
+  tests/Feature/App/WebhookTest.php \
+  tests/Feature/Automation/AutomationCrudTest.php \
+  tests/Feature/PostMediaAltTextValidationTest.php \
+  tests/Feature/LocalizationParityTest.php
+```
+
+### Remaining work and limits
+
+- This increment clears the initialized frontend type/lint/format failures. It does not introduce Solar Social/Afterglow, Observer permissions, approval rules, or archival behavior.
+- Retain the existing Composer PSR-4 test-helper warning and Vite dependency/chunk warnings in the optimization backlog. They are not failures of the checks recorded above.
+- The three adapter checks exercise Vue rendering and prop forwarding, not drag-and-drop interaction with all eight node types. Full authenticated browser flows and the entire PHP suite were not run in this increment.
+- Scheduler, queue workers, realtime connections, and real social publishing remain deliberately disabled or unverified in the isolated runtime. No production rollout is authorized by these checks.
+- Next product slice: branding tokens and the login/authenticated shell, with existing platform assets and translations preserved. Keep D-01 and the additive approval/archive backend milestones separate.
+
+### Independent review
+
+- Read-only review of `2a9ee9fd..1cdb3c4e` found no critical, important, or minor issues. It confirmed the media/error/reload/edge contracts and the final node adapter.
+- The mechanical audit matched 221 of 226 cleanup files exactly to Prettier output from the parent revision. The other five differed only by ESLint import ordering or blank-line grouping; no behavioral formatter edits were found.
+- The review identified inaccurate draft wording about retaining raw component objects; the log now describes the functional adapter correctly. Authenticated browser interaction with all eight node types remains a documented follow-up, not a claimed completed check.
