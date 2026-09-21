@@ -30,4 +30,9 @@
 ### Verification
 
 - VPS read-only preflight: Docker 29.7.2 and Compose v5.5.0; existing production containers healthy; adequate memory and disk available.
-- Compose validation, image build, application bootstrap, and backend baseline results will be recorded below after execution.
+- Compose validation and image build succeeded; the isolated PostgreSQL and Redis services became healthy.
+- Locked dependencies installed and development migrations completed. Composer platform requirements passed with PHP 8.4.25. The upstream Alpine dev image currently resolves Node 24.18.1 and npm 11.12.1.
+- Authentication, workspace invite guards, and post controller baseline: **85 passed, 355 assertions**, 19.33 seconds (`--ci`, explicit test database overrides).
+- Frontend build passed with Vite 8.0.16 in 25.58 seconds. Existing dependency annotation and large-chunk warnings remain.
+- HTTP smoke test exposed a separate runtime failure: `/up` returned 500 (`curl --fail` exit 22), reporting `tempnam(): file created in the system's temporary directory`. FPM ran as UID 82, while runtime directories were UID 1000 with mode 755. CLI tests ran as root and therefore did not detect this mismatch.
+- Added a development-only FPM pool override matching the entrypoint's UID-1000 `app` user. Verification after this fix is recorded below.

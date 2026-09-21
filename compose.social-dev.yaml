@@ -41,6 +41,7 @@ services:
             - vendor:/var/www/html/vendor
             - node-modules:/var/www/html/node_modules
             - ./docker/social-dev-supervisord.conf:/etc/supervisor/conf.d/supervisord.conf:ro
+            - ./docker/social-dev-php-fpm.conf:/usr/local/etc/php-fpm.d/zz-social-dev.conf:ro
         depends_on:
             pgsql:
                 condition: service_healthy
