@@ -1,4 +1,5 @@
 import type { MediaType } from '@/lib/mediaType';
+import type { JsonValue } from '@/types/json';
 
 export type MediaSource = 'ai' | 'unsplash' | 'giphy';
 
@@ -11,7 +12,7 @@ export interface MediaItem {
     original_filename?: string;
     size?: number;
     source?: MediaSource;
-    source_meta?: Record<string, unknown>;
+    source_meta?: Record<string, JsonValue> | null;
     meta?: {
         width?: number;
         height?: number;

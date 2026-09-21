@@ -8,6 +8,7 @@ import NetworkConnectGrid, {
 } from '@/components/accounts/NetworkConnectGrid.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
+import { usePageErrors } from '@/composables/usePageErrors';
 import WelcomeLayout from '@/layouts/WelcomeLayout.vue';
 import { store } from '@/routes/app/welcome/connect';
 import { SocialAccountStatus } from '@/types/social-account-status';
@@ -18,6 +19,7 @@ const props = defineProps<{
 }>();
 
 const form = useForm({});
+const errors = usePageErrors();
 
 const hasConnectedAccount = computed((): boolean =>
     props.accounts.some(
@@ -53,7 +55,7 @@ const submit = (): void => {
 
         <div class="mx-auto flex w-full max-w-sm flex-col items-center gap-3">
             <InputError
-                :message="form.errors.connect"
+                :message="errors.connect"
             />
             <Button as-child size="lg" class="w-full rounded-full">
                 <button

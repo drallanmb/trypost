@@ -76,3 +76,27 @@ docker compose -f compose.social-dev.yaml exec -T \
 - The successful FPM HTTP smoke test supplies the readiness check for that wait. A complete fresh-volume second installation was not repeated.
 - Configuration commits: `1e1bfbca` (isolated environment) and `735e028b` (development FPM ownership fix). Subsequent documentation commits record verification and review evidence.
 - This increment delivers the private runtime, source-controlled configuration, operating guide, and baseline inventory. Product UI and approval features remain subsequent work.
+
+## 2026-09-21 — Step 03: Frontend technical baseline (in progress)
+
+### Scope
+
+- Resolve the eight initialized TypeScript diagnostics, then the import-order and formatting debt, before adding Solar Social/Afterglow.
+- Keep dependency versions, server routes, database schema, publishing permissions, and existing visual identity unchanged.
+- Use the existing type checker as the failing contract check; run affected backend regressions and the asset build after corrections.
+- Keep semantic corrections separate from mechanical formatting in Git history.
+
+### Investigation
+
+- Fresh Docker reproduction returned TypeScript exit 2 with the same eight diagnostics recorded in Step 02.
+- Confirmed installed Inertia 3.6.1: `reload()` always preserves scroll/state; its `ReloadOptions` deliberately excludes those overrides. Removed the redundant unsupported option without changing behavior. See [Inertia manual visits](https://inertiajs.com/docs/v3/the-basics/manual-visits).
+- Tabler's exported Vue icon contract inherits SVG's string `stroke` attribute. Static `stroke="1.75"` preserves the emitted SVG value without a numeric type mismatch.
+- Media source metadata is transported as JSON. Replaced `unknown` values with a recursive JSON value type, including nullable metadata supported by the backend; the gallery picker reuses the same metadata contract.
+- The welcome form submits an empty payload but receives a server-level `connect` validation error. It now uses the existing page-error composable for that error instead of inventing a submitted field or bypassing type safety.
+- Added non-mutating `typecheck`, `lint:check`, and combined `check` npm scripts. Generated Wayfinder helpers remain untracked build artifacts.
+- Automation edges now retain their inferred serializable shape instead of widening their values to `unknown`. The Vue Flow component registry uses a typed Vue component boundary, retaining the same eight raw component objects.
+
+### Verification
+
+- After the first corrections, local type checking reduced the original eight diagnostics to the two automation-editor diagnostics. Final results follow after integration.
+- After integrating the automation corrections, a fresh `npm run typecheck` completed with exit 0. No TypeScript suppressions, dependency upgrades, or additional `any` annotations were added.

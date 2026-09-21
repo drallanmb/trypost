@@ -11,10 +11,12 @@ import {
     type Connection,
     type Edge,
     type Node,
+    type NodeProps,
+    type NodeTypesObject,
     type XYPosition,
 } from '@vue-flow/core';
 import { trans } from 'laravel-vue-i18n';
-import { computed, markRaw, provide, reactive, ref, watch } from 'vue';
+import { computed, h, markRaw, provide, reactive, ref, watch, type Component, type FunctionalComponent } from 'vue';
 import { toast } from 'vue-sonner';
 
 import '@vue-flow/core/dist/style.css';
@@ -69,15 +71,18 @@ import { TriggerType } from '@/types/automation/trigger-type';
 
 const props = defineProps<{ automation: Automation }>();
 
-const nodeTypes = {
-    [NodeType.Trigger]: markRaw(TriggerNode),
-    [NodeType.Generate]: markRaw(GenerateNode),
-    [NodeType.Delay]: markRaw(DelayNode),
-    [NodeType.Condition]: markRaw(ConditionNode),
-    [NodeType.Publish]: markRaw(PublishNode),
-    [NodeType.End]: markRaw(EndNode),
-    [NodeType.FetchRss]: markRaw(FetchRssNode),
-    [NodeType.HttpRequest]: markRaw(HttpRequestNode),
+const nodeComponent = (component: Component): FunctionalComponent<NodeProps> =>
+    markRaw((props) => h(component, { ...props }));
+
+const nodeTypes: NodeTypesObject = {
+    [NodeType.Trigger]: nodeComponent(TriggerNode),
+    [NodeType.Generate]: nodeComponent(GenerateNode),
+    [NodeType.Delay]: nodeComponent(DelayNode),
+    [NodeType.Condition]: nodeComponent(ConditionNode),
+    [NodeType.Publish]: nodeComponent(PublishNode),
+    [NodeType.End]: nodeComponent(EndNode),
+    [NodeType.FetchRss]: nodeComponent(FetchRssNode),
+    [NodeType.HttpRequest]: nodeComponent(HttpRequestNode),
 };
 
 const configByType: Record<string, unknown> = {
@@ -354,16 +359,13 @@ const sanitizeNodes = (list: Node[]) =>
     }));
 
 const sanitizeEdges = (list: Edge[]) =>
-    list.map((e) => {
-        const edge: Record<string, unknown> = {
-            id: e.id,
-            source: e.source,
-            target: e.target,
-        };
-        if (e.sourceHandle) edge.source_handle = e.sourceHandle;
-        if (e.targetHandle) edge.target_handle = e.targetHandle;
-        return edge;
-    });
+    list.map((e) => ({
+        id: e.id,
+        source: e.source,
+        target: e.target,
+        ...(e.sourceHandle ? { source_handle: e.sourceHandle } : {}),
+        ...(e.targetHandle ? { target_handle: e.targetHandle } : {}),
+    }));
 
 const save = (): Promise<boolean> =>
     new Promise((resolve) => {
