@@ -5,11 +5,7 @@ import { onBeforeUnmount, onMounted } from 'vue';
 import AppHeader from '@/components/AppHeader.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
 import Toast from '@/components/Toast.vue';
-import {
-    SidebarInset,
-    SidebarProvider,
-    SidebarTrigger,
-} from '@/components/ui/sidebar';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { heartbeat as heartbeatRoute } from '@/routes/app/presence';
 
 const page = usePage();
@@ -46,7 +42,7 @@ onBeforeUnmount(() => {
     <SidebarProvider :default-open="isOpen">
         <AppSidebar />
         <SidebarInset class="overflow-x-hidden">
-            <AppHeader v-if="$slots['header'] || $slots['header-actions']">
+            <AppHeader>
                 <template v-if="$slots['header']" #left>
                     <slot name="header" />
                 </template>
@@ -54,10 +50,6 @@ onBeforeUnmount(() => {
                     <slot name="header-actions" />
                 </template>
             </AppHeader>
-            <SidebarTrigger
-                v-else
-                class="absolute top-3 left-4 z-30 size-10 rounded-md border-2 border-foreground bg-card text-foreground shadow-2xs md:hidden"
-            />
             <div
                 :class="
                     fullWidth
@@ -70,11 +62,6 @@ onBeforeUnmount(() => {
                         fullWidth
                             ? 'flex min-h-0 flex-1 flex-col'
                             : 'mx-auto w-full max-w-7xl',
-                        !fullWidth &&
-                        !$slots['header'] &&
-                        !$slots['header-actions']
-                            ? 'pt-14 md:pt-0'
-                            : '',
                     ]"
                 >
                     <slot />

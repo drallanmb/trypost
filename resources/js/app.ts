@@ -7,9 +7,11 @@ import { i18nVue } from 'laravel-vue-i18n';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 
+import { productTitle } from './brand';
 import { initializeDataLayer } from './datalayer';
 import dayjs from './dayjs';
 import { syncContentTypeMediaRules } from './lib/contentTypeMediaRules';
+import { initializeTheme } from './lib/theme';
 import {
     capturePageview,
     initializePostHog,
@@ -17,10 +19,10 @@ import {
 } from './posthog';
 import type { Auth } from './types';
 
-const appName = import.meta.env.VITE_APP_NAME || 'TryPost.it';
+initializeTheme();
 
 createInertiaApp({
-    title: (title) => (title ? `${title} - ${appName}` : appName),
+    title: productTitle,
     resolve: (name) =>
         resolvePageComponent(
             `./pages/${name}.vue`,

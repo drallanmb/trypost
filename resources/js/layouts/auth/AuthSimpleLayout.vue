@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 
+import ProductBrand from '@/components/brand/ProductBrand.vue';
+import ThemeToggle from '@/components/ThemeToggle.vue';
 import { home } from '@/routes/app';
 
 defineProps<{
@@ -20,18 +22,10 @@ defineProps<{
                         :href="home()"
                         class="flex flex-col items-center gap-2 font-medium"
                     >
-                        <img
-                            src="/images/trypost/logo-light.png"
-                            alt="TryPost"
-                            class="h-8 w-auto dark:hidden"
-                        />
-                        <img
-                            src="/images/trypost/logo-dark.png"
-                            alt="TryPost"
-                            class="hidden h-8 w-auto dark:block"
-                        />
+                        <ProductBrand />
                         <span class="sr-only">{{ title }}</span>
                     </Link>
+                    <ThemeToggle />
                     <div class="space-y-2 text-center">
                         <h1 class="text-xl font-medium">{{ title }}</h1>
                         <p class="text-center text-sm text-muted-foreground">

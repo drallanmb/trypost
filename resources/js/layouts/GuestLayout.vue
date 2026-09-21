@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { PRODUCT_NAME } from '@/brand';
+import ProductBrand from '@/components/brand/ProductBrand.vue';
+import ThemeToggle from '@/components/ThemeToggle.vue';
 import dayjs from '@/dayjs';
 
 defineProps<{
@@ -16,17 +19,9 @@ const currentYear = dayjs().year();
                 class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4"
             >
                 <div class="flex items-center gap-2">
-                    <img
-                        src="/images/trypost/logo-light.png"
-                        alt="TryPost"
-                        class="h-7 w-auto dark:hidden"
-                    />
-                    <img
-                        src="/images/trypost/logo-dark.png"
-                        alt="TryPost"
-                        class="hidden h-7 w-auto dark:block"
-                    />
+                    <ProductBrand />
                 </div>
+                <ThemeToggle />
             </div>
         </header>
 
@@ -40,7 +35,8 @@ const currentYear = dayjs().year();
         <footer class="mt-auto border-t">
             <div class="mx-auto max-w-5xl px-6 py-8">
                 <p class="text-center text-sm text-muted-foreground">
-                    &copy; {{ currentYear }} TryPost. All rights reserved.
+                    &copy; {{ currentYear }} {{ PRODUCT_NAME }}. All rights
+                    reserved.
                 </p>
             </div>
         </footer>

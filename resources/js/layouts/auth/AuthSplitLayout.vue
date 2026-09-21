@@ -10,6 +10,10 @@ import {
 import { trans } from 'laravel-vue-i18n';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
+import { PRODUCT_NAME } from '@/brand';
+import ProductBrand from '@/components/brand/ProductBrand.vue';
+import ThemeToggle from '@/components/ThemeToggle.vue';
+
 defineProps<{
     title?: string;
     description?: string;
@@ -43,6 +47,11 @@ const slides = computed(() =>
 
 const activeIndex = ref(0);
 const isPaused = ref(false);
+const reducedMotion = ref(false);
+let motionPreference: MediaQueryList | undefined;
+const updateMotionPreference = () => {
+    reducedMotion.value = motionPreference?.matches ?? false;
+};
 let intervalId: ReturnType<typeof setInterval> | null = null;
 
 const activeSlide = computed(() => slides.value[activeIndex.value]);
@@ -54,7 +63,7 @@ const goTo = (index: number) => {
 
 const startInterval = () => {
     intervalId = setInterval(() => {
-        if (!isPaused.value) {
+        if (!isPaused.value && !reducedMotion.value) {
             activeIndex.value = (activeIndex.value + 1) % slides.value.length;
         }
     }, 4000);
@@ -68,10 +77,14 @@ const restartInterval = () => {
 };
 
 onMounted(() => {
+    motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    updateMotionPreference();
+    motionPreference.addEventListener('change', updateMotionPreference);
     startInterval();
 });
 
 onBeforeUnmount(() => {
+    motionPreference?.removeEventListener('change', updateMotionPreference);
     if (intervalId) {
         clearInterval(intervalId);
     }
@@ -92,23 +105,25 @@ const platforms = [
 </script>
 
 <template>
-    <div class="grid min-h-svh grid-cols-1 lg:grid-cols-2">
-        <div class="flex min-w-0 flex-col gap-4 p-6 md:p-10">
-            <div class="flex items-start">
-                <img
-                    src="/images/trypost/logo-light.png"
-                    alt="TryPost"
-                    class="h-7"
-                />
+    <div class="grid min-h-svh grid-cols-1 gap-4 p-3 lg:grid-cols-2 lg:p-5">
+        <div
+            class="flex min-w-0 flex-col gap-8 rounded-[26px] border border-border bg-card p-5 shadow-sm md:p-8"
+        >
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <ProductBrand />
+                <ThemeToggle />
             </div>
 
             <div class="flex flex-1 items-center justify-center">
-                <div class="w-full max-w-lg">
+                <div class="w-full max-w-md py-8">
                     <div class="flex flex-col gap-6">
                         <div
                             class="flex flex-col items-center gap-2 text-center"
                         >
-                            <h1 v-if="title" class="text-2xl font-bold">
+                            <h1
+                                v-if="title"
+                                class="font-display text-4xl leading-tight"
+                            >
                                 {{ title }}
                             </h1>
                             <p
@@ -126,16 +141,18 @@ const platforms = [
         </div>
 
         <div
-            class="relative hidden overflow-hidden border-l-2 border-foreground bg-accent lg:sticky lg:top-0 lg:block lg:h-svh lg:self-start"
+            class="relative hidden overflow-hidden rounded-[30px] border border-border bg-secondary lg:sticky lg:top-5 lg:block lg:h-[calc(100svh-2.5rem)] lg:self-start"
             @mouseenter="isPaused = true"
             @mouseleave="isPaused = false"
+            @focusin="isPaused = true"
+            @focusout="isPaused = false"
         >
-            <!-- Soft violet glow blobs for ambient depth (off-canvas). -->
+            <!-- Atmospheric color stays in the promotional half. -->
             <div
-                class="pointer-events-none absolute -top-24 -right-24 size-[440px] rounded-full bg-violet-200/50 blur-3xl"
+                class="pointer-events-none absolute -top-24 -right-24 size-[440px] rounded-full bg-brand-plum/15 blur-3xl"
             />
             <div
-                class="pointer-events-none absolute -bottom-32 -left-32 size-[440px] rounded-full bg-fuchsia-200/40 blur-3xl"
+                class="pointer-events-none absolute -bottom-32 -left-32 size-[440px] rounded-full bg-primary/20 blur-3xl"
             />
 
             <!-- Dot pattern overlay (subtle). -->
@@ -144,7 +161,7 @@ const platforms = [
                 style="
                     background-image: radial-gradient(
                         circle,
-                        #0a0a0a 1px,
+                        var(--foreground) 1px,
                         transparent 1px
                     );
                     background-size: 28px 28px;
@@ -170,39 +187,39 @@ const platforms = [
                                 class="absolute inset-0 flex items-center justify-center"
                             >
                                 <div
-                                    class="w-full -rotate-1 overflow-hidden rounded-xl border-2 border-foreground bg-card shadow-xl"
+                                    class="w-full overflow-hidden rounded-[22px] border border-border bg-card shadow-xl"
                                 >
                                     <!-- Title bar with traffic lights + live badge -->
                                     <div
-                                        class="flex items-center gap-3 border-b-2 border-foreground bg-muted px-4 py-2.5"
+                                        class="flex items-center gap-3 border-b border-border bg-card px-4 py-3"
                                     >
                                         <div class="flex gap-1.5">
                                             <span
-                                                class="size-3 rounded-full border border-foreground bg-rose-300"
+                                                class="size-2.5 rounded-full bg-primary"
                                             />
                                             <span
-                                                class="size-3 rounded-full border border-foreground bg-amber-300"
+                                                class="size-2.5 rounded-full bg-brand-yellow"
                                             />
                                             <span
-                                                class="size-3 rounded-full border border-foreground bg-emerald-300"
+                                                class="size-2.5 rounded-full bg-success"
                                             />
                                         </div>
                                         <div
                                             class="ml-2 truncate text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
                                         >
-                                            trypost.it
+                                            {{ PRODUCT_NAME }}
                                         </div>
                                         <span
-                                            class="ml-auto inline-flex items-center gap-1.5 rounded-md border-2 border-foreground bg-foreground px-2 py-0.5 text-[10px] font-black tracking-widest text-background uppercase shadow-2xs"
+                                            class="ml-auto inline-flex items-center gap-1.5 rounded-full bg-secondary px-2 py-1 text-[10px] font-semibold tracking-widest text-foreground uppercase"
                                         >
                                             <span
                                                 class="relative flex size-1.5"
                                             >
                                                 <span
-                                                    class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/80"
+                                                    class="absolute inline-flex h-full w-full animate-ping rounded-full bg-success/80"
                                                 />
                                                 <span
-                                                    class="relative inline-flex size-1.5 rounded-full bg-emerald-400"
+                                                    class="relative inline-flex size-1.5 rounded-full bg-success"
                                                 />
                                             </span>
                                             Live
@@ -214,25 +231,25 @@ const platforms = [
                                         class="flex items-center justify-center bg-card py-8"
                                     >
                                         <div
-                                            class="flex size-20 -rotate-2 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-200 shadow-sm"
+                                            class="flex size-20 items-center justify-center rounded-[22px] border border-border bg-secondary text-accent-foreground shadow-sm"
                                         >
                                             <component
                                                 :is="slide.icon"
-                                                class="size-10 text-foreground"
+                                                class="size-10"
                                             />
                                         </div>
                                     </div>
 
                                     <!-- Platform strip -->
                                     <div
-                                        class="flex flex-wrap justify-center gap-1.5 border-t-2 border-foreground/15 bg-card px-4 py-3"
+                                        class="flex flex-wrap justify-center gap-2 border-t border-border bg-card px-4 py-3"
                                     >
                                         <img
                                             v-for="platform in platforms"
                                             :key="platform.name"
                                             :src="platform.icon"
                                             :alt="platform.name"
-                                            class="size-7 rounded-full border-2 border-foreground bg-card p-0.5 shadow-2xs"
+                                            class="size-7 rounded-full border border-border bg-white p-0.5"
                                         />
                                     </div>
                                 </div>
@@ -260,7 +277,7 @@ const platforms = [
                                     {{ activeSlide.title }}
                                 </h3>
                                 <p
-                                    class="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-foreground/70"
+                                    class="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-foreground"
                                 >
                                     {{ activeSlide.description }}
                                 </p>
@@ -273,7 +290,12 @@ const platforms = [
                         <button
                             v-for="(_, index) in slides"
                             :key="index"
-                            class="group relative flex h-5 cursor-pointer items-center justify-center"
+                            type="button"
+                            :aria-label="slides[index].title"
+                            :aria-current="
+                                activeIndex === index ? 'true' : undefined
+                            "
+                            class="group relative flex size-8 cursor-pointer items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                             @click="goTo(index)"
                         >
                             <span

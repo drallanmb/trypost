@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 
+import ProductBrand from '@/components/brand/ProductBrand.vue';
+import ThemeToggle from '@/components/ThemeToggle.vue';
 import {
     Card,
     CardContent,
@@ -25,22 +27,12 @@ defineProps<{
                 :href="home()"
                 class="flex items-center gap-2 self-center font-medium"
             >
-                <div class="flex h-9 w-9 items-center justify-center">
-                    <img
-                        src="/images/trypost/logo-light.png"
-                        alt="TryPost"
-                        class="h-8 w-auto dark:hidden"
-                    />
-                    <img
-                        src="/images/trypost/logo-dark.png"
-                        alt="TryPost"
-                        class="hidden h-8 w-auto dark:block"
-                    />
-                </div>
+                <ProductBrand />
             </Link>
+            <ThemeToggle class="self-center" />
 
             <div class="flex flex-col gap-6">
-                <Card class="rounded-xl">
+                <Card class="rounded-[26px]">
                     <CardHeader class="px-10 pt-8 pb-0 text-center">
                         <CardTitle class="text-xl">{{ title }}</CardTitle>
                         <CardDescription>

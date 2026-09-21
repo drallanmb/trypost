@@ -28,6 +28,7 @@ import {
     create as createPost,
     index as postsIndex,
 } from '@/actions/App/Http/Controllers/App/PostController';
+import ProductBrand from '@/components/brand/ProductBrand.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavSupport from '@/components/NavSupport.vue';
 import NotificationBell from '@/components/NotificationBell.vue';
@@ -206,6 +207,7 @@ const bottomNavItems = computed(() => [
 <template>
     <Sidebar collapsible="offcanvas">
         <SidebarHeader>
+            <ProductBrand class="px-2 py-2" />
             <SidebarMenu>
                 <SidebarMenuItem>
                     <div class="flex items-center gap-1">
@@ -220,8 +222,8 @@ const bottomNavItems = computed(() => [
                                     <Avatar
                                         :src="currentWorkspace?.logo_url"
                                         :name="currentWorkspace?.name ?? '?'"
-                                        class="h-8 w-8 shrink-0 rounded-md border-2 border-foreground"
-                                        fallback-class="bg-violet-100 text-violet-700 font-bold"
+                                        class="h-8 w-8 shrink-0 rounded-xl border border-border"
+                                        fallback-class="bg-secondary text-accent-foreground font-bold"
                                     />
                                     <div
                                         class="grid min-w-0 flex-1 text-left text-sm leading-tight"

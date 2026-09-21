@@ -2,6 +2,8 @@
 import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
+import ProductBrand from '@/components/brand/ProductBrand.vue';
+import ThemeToggle from '@/components/ThemeToggle.vue';
 import Toast from '@/components/Toast.vue';
 import {
     connect as connectRoute,
@@ -64,17 +66,9 @@ const canNavigateTo = (stepNumber: number): boolean =>
                         :href="personaRoute()"
                         class="flex flex-col items-center gap-2 font-medium"
                     >
-                        <img
-                            src="/images/trypost/logo-light.png"
-                            alt="TryPost"
-                            class="h-8 w-auto dark:hidden"
-                        />
-                        <img
-                            src="/images/trypost/logo-dark.png"
-                            alt="TryPost"
-                            class="hidden h-8 w-auto dark:block"
-                        />
+                        <ProductBrand />
                     </Link>
+                    <ThemeToggle />
 
                     <nav
                         v-if="step !== undefined"

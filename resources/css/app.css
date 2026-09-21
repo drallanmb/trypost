@@ -7,53 +7,49 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
-/* Dark mode is intentionally disabled to match the marketing site
-   (which is light-only). Tailwind v4 defaults `dark:` to the
-   `prefers-color-scheme: dark` media query, so without this override
-   the OS theme would still flip preview internals to dark. Pin the
-   variant to a `.dark` class that we never apply. */
-@custom-variant dark (&:where(.dark, .dark *));
+/* Theme is an explicit product preference, independent of the OS. */
+@custom-variant dark (&:where([data-theme='afterglow'], [data-theme='afterglow'] *));
 
 :root {
-    /* TryPost design system — warm cream + ink + signature violet.
-     Mirrors the marketing site (~/Herd/trypost-site) so the app and the
-     site share one identity. All structural borders are ink-black. */
-    --background: #faf8f5;
-    --foreground: #0a0a0a;
+    color-scheme: light;
+    --background: #f5f1f7;
+    --foreground: #302c38;
     --card: #ffffff;
-    --card-foreground: #0a0a0a;
+    --card-foreground: #302c38;
     --popover: #ffffff;
-    --popover-foreground: #0a0a0a;
-    --primary: #7c3aed;
-    --primary-foreground: #ffffff;
-    --secondary: #f4f4f0;
-    --secondary-foreground: #0a0a0a;
-    --muted: #f4f4f0;
-    --muted-foreground: #52525b;
-    --accent: #ede9fe;
-    --accent-foreground: #5b21b6;
-    --destructive: #e54b4f;
+    --popover-foreground: #302c38;
+    --primary: #ed5f7a;
+    --primary-foreground: #25121c;
+    --secondary: #eee8f2;
+    --secondary-foreground: #302c38;
+    --muted: #eee8f2;
+    --muted-foreground: #716a7a;
+    --accent: #eee8f2;
+    --accent-foreground: #68479b;
+    --brand-plum: #68479b;
+    --brand-yellow: #f5c84c;
+    --destructive: #c64a5a;
     --destructive-foreground: #ffffff;
-    --success: #16a34a;
-    --error: #e54b4f;
-    --warning: #d97706;
-    --info: #2563eb;
-    --border: #0a0a0a;
-    --input: #0a0a0a;
-    --ring: #7c3aed;
-    --chart-1: #7c3aed;
-    --chart-2: #8b5cf6;
-    --chart-3: #a78bfa;
-    --chart-4: #5b21b6;
-    --chart-5: #4c1d95;
+    --success: #2f7d65;
+    --error: #c64a5a;
+    --warning: #84620b;
+    --info: #68479b;
+    --border: rgba(80, 58, 92, 0.13);
+    --input: #928598;
+    --ring: #68479b;
+    --chart-1: #68479b;
+    --chart-2: #ed5f7a;
+    --chart-3: #2f7d65;
+    --chart-4: #84620b;
+    --chart-5: #716a7a;
     --sidebar: #ffffff;
-    --sidebar-foreground: #0a0a0a;
-    --sidebar-primary: #7c3aed;
-    --sidebar-primary-foreground: #ffffff;
-    --sidebar-accent: #ede9fe;
-    --sidebar-accent-foreground: #5b21b6;
-    --sidebar-border: #0a0a0a;
-    --sidebar-ring: #7c3aed;
+    --sidebar-foreground: #302c38;
+    --sidebar-primary: #ed5f7a;
+    --sidebar-primary-foreground: #25121c;
+    --sidebar-accent: #eee8f2;
+    --sidebar-accent-foreground: #68479b;
+    --sidebar-border: rgba(80, 58, 92, 0.13);
+    --sidebar-ring: #68479b;
     --font-sans:
         Figtree, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
         'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
@@ -69,17 +65,60 @@
         'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
         'Liberation Mono', 'Courier New', monospace;
     --radius: 0.75rem;
-    /* Gumroad-style offset shadows: solid ink, no blur. */
-    --shadow-2xs: 1px 1px 0 0 #0a0a0a;
-    --shadow-xs: 2px 2px 0 0 #0a0a0a;
-    --shadow-sm: 3px 3px 0 0 #0a0a0a;
-    --shadow: 4px 4px 0 0 #0a0a0a;
-    --shadow-md: 5px 5px 0 0 #0a0a0a;
-    --shadow-lg: 6px 6px 0 0 #0a0a0a;
-    --shadow-xl: 8px 8px 0 0 #0a0a0a;
-    --shadow-2xl: 10px 10px 0 0 #0a0a0a;
+    --elevation-color: 80 58 92;
+    --shadow-2xs: 0 1px 3px rgb(var(--elevation-color) / 0.04);
+    --shadow-xs: 0 2px 6px rgb(var(--elevation-color) / 0.05);
+    --shadow-sm: 0 3px 12px rgb(var(--elevation-color) / 0.06);
+    --shadow: 0 4px 16px rgb(var(--elevation-color) / 0.07);
+    --shadow-md: 0 6px 20px rgb(var(--elevation-color) / 0.08);
+    --shadow-lg: 0 10px 30px rgb(var(--elevation-color) / 0.09);
+    --shadow-xl: 0 16px 44px rgb(var(--elevation-color) / 0.1);
+    --shadow-2xl: 0 24px 64px rgb(var(--elevation-color) / 0.12);
     --tracking-normal: 0em;
     --spacing: 0.25rem;
+}
+
+[data-theme='afterglow'] {
+    color-scheme: dark;
+    --background: #17121d;
+    --foreground: #fbf7f0;
+    --card: #2b2131;
+    --card-foreground: #fbf7f0;
+    --popover: #2b2131;
+    --popover-foreground: #fbf7f0;
+    --primary: #f05f9b;
+    --primary-foreground: #17121d;
+    --secondary: #211824;
+    --secondary-foreground: #fbf7f0;
+    --muted: #211824;
+    --muted-foreground: #bcb2c1;
+    --accent: #211824;
+    --accent-foreground: #c5aaff;
+    --brand-plum: #9a6cff;
+    --brand-yellow: #f7b64d;
+    --destructive: #ff7d8f;
+    --destructive-foreground: #17121d;
+    --success: #68c9a1;
+    --error: #ff7d8f;
+    --warning: #f7b64d;
+    --info: #c5aaff;
+    --border: rgba(255, 255, 255, 0.11);
+    --input: #8c7a96;
+    --ring: #b795ff;
+    --chart-1: #9a6cff;
+    --chart-2: #f05f9b;
+    --chart-3: #68c9a1;
+    --chart-4: #f7b64d;
+    --chart-5: #bcb2c1;
+    --sidebar: #211824;
+    --sidebar-foreground: #fbf7f0;
+    --sidebar-primary: #f05f9b;
+    --sidebar-primary-foreground: #17121d;
+    --sidebar-accent: #2b2131;
+    --sidebar-accent-foreground: #c5aaff;
+    --sidebar-border: rgba(255, 255, 255, 0.11);
+    --sidebar-ring: #b795ff;
+    --elevation-color: 0 0 0;
 }
 
 @theme inline {
@@ -102,6 +141,12 @@
     --color-border: var(--border);
     --color-input: var(--input);
     --color-ring: var(--ring);
+    --color-brand-plum: var(--brand-plum);
+    --color-brand-yellow: var(--brand-yellow);
+    --color-success: var(--success);
+    --color-error: var(--error);
+    --color-warning: var(--warning);
+    --color-info: var(--info);
     --color-chart-1: var(--chart-1);
     --color-chart-2: var(--chart-2);
     --color-chart-3: var(--chart-3);
@@ -168,4 +213,15 @@
 
 .trypost-container {
     @apply relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

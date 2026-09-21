@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 
+import ProductBrand from '@/components/brand/ProductBrand.vue';
+import ThemeToggle from '@/components/ThemeToggle.vue';
+
 defineProps<{
     title: string;
     description?: string;
@@ -16,11 +19,8 @@ defineProps<{
 
         <div class="w-full max-w-md space-y-8">
             <div class="flex flex-col items-center gap-4 text-center">
-                <img
-                    src="/images/trypost/logo-light.png"
-                    alt="TryPost"
-                    class="h-10 w-auto"
-                />
+                <ProductBrand />
+                <ThemeToggle />
                 <div class="space-y-2">
                     <h1
                         class="text-xl font-semibold tracking-tight text-foreground"
@@ -34,7 +34,7 @@ defineProps<{
             </div>
 
             <div
-                class="space-y-6 rounded-xl border-2 border-foreground bg-card p-6 shadow-sm"
+                class="space-y-6 rounded-[26px] border border-border bg-card p-6 shadow-sm"
             >
                 <slot />
             </div>

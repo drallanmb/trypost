@@ -1,9 +1,20 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ $htmlDir ?? 'ltr' }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ $htmlDir ?? 'ltr' }}" data-theme="solar">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <script data-theme-init>
+            (function () {
+                var theme = 'solar';
+                try {
+                    if (localStorage.getItem('social-anamnesismd.theme') === 'afterglow') theme = 'afterglow';
+                } catch (_) {}
+                document.documentElement.dataset.theme = theme;
+                document.documentElement.style.colorScheme = theme === 'afterglow' ? 'dark' : 'light';
+            })();
+        </script>
 
         @include('partials.gtm')
 
@@ -11,13 +22,15 @@
              first paint doesn't flash white before CSS loads. --}}
         <style>
             html {
-                background-color: #faf8f5;
+                background-color: #f5f1f7;
+            }
+            html[data-theme='afterglow'] {
+                background-color: #17121d;
             }
         </style>
 
-        <title data-inertia>{{ config('app.name', 'TryPost.it') }}</title>
+        <title data-inertia>Social AnamnesisMD</title>
 
-        <link rel="icon" href="/favicon.ico" sizes="any">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 

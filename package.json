@@ -11,7 +11,7 @@
         "lint": "eslint . --fix",
         "lint:check": "eslint .",
         "typecheck": "vue-tsc --noEmit",
-        "test:frontend": "node --test tests/fixtures/automation-node-renderer.test.js",
+        "test:frontend": "node --test tests/fixtures/automation-node-renderer.test.js tests/fixtures/theme.test.js tests/fixtures/brand-theme-controls.test.js",
         "check": "npm run typecheck && npm run lint:check && npm run format:check && npm run test:frontend"
     },
     "devDependencies": {
