@@ -31,8 +31,10 @@
     --destructive: #c64a5a;
     --destructive-foreground: #ffffff;
     --success: #2f7d65;
+    --success-foreground: #ffffff;
     --error: #c64a5a;
     --warning: #84620b;
+    --warning-foreground: #ffffff;
     --info: #68479b;
     --border: rgba(80, 58, 92, 0.13);
     --input: #928598;
@@ -99,8 +101,10 @@
     --destructive: #ff7d8f;
     --destructive-foreground: #17121d;
     --success: #68c9a1;
+    --success-foreground: #17121d;
     --error: #ff7d8f;
     --warning: #f7b64d;
+    --warning-foreground: #17121d;
     --info: #c5aaff;
     --border: rgba(255, 255, 255, 0.11);
     --input: #8c7a96;
@@ -144,8 +148,10 @@
     --color-brand-plum: var(--brand-plum);
     --color-brand-yellow: var(--brand-yellow);
     --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
     --color-error: var(--error);
     --color-warning: var(--warning);
+    --color-warning-foreground: var(--warning-foreground);
     --color-info: var(--info);
     --color-chart-1: var(--chart-1);
     --color-chart-2: var(--chart-2);

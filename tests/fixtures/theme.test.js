@@ -140,6 +140,16 @@ test('both themes expose the approved semantic colors and accessible action fore
         assert.ok(
             contrast(values['muted-foreground'], values.background) >= 4.5,
         );
+        for (const status of ['success', 'warning']) {
+            assert.ok(
+                values[`${status}-foreground`],
+                `${selector} must define a ${status} foreground`,
+            );
+            assert.ok(
+                contrast(values[status], values[`${status}-foreground`]) >= 4.5,
+                `${selector} ${status} contrast`,
+            );
+        }
     }
 });
 

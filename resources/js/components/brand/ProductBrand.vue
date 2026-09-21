@@ -7,6 +7,7 @@ withDefaults(defineProps<{ compact?: boolean }>(), { compact: false });
 <template>
     <span
         class="inline-flex min-w-0 items-center gap-2.5"
+        role="img"
         :aria-label="PRODUCT_NAME"
         data-testid="product-brand"
     >

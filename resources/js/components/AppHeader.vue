@@ -11,7 +11,7 @@ const { state, isMobile } = useSidebar();
         class="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-border bg-card px-4"
     >
         <div class="flex items-center gap-2">
-            <SidebarTrigger class="-ml-1" />
+            <SidebarTrigger v-if="isMobile" class="-ml-1" />
             <ProductBrand v-if="state === 'collapsed' || isMobile" compact />
             <slot name="left" />
         </div>
