@@ -11,18 +11,16 @@ import {
     type Connection,
     type Edge,
     type Node,
-    type NodeProps,
     type NodeTypesObject,
     type XYPosition,
 } from '@vue-flow/core';
 import { trans } from 'laravel-vue-i18n';
-import { computed, h, markRaw, provide, reactive, ref, watch, type Component, type FunctionalComponent } from 'vue';
+import { computed, provide, reactive, ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 
+import '@vue-flow/controls/dist/style.css';
 import '@vue-flow/core/dist/style.css';
 import '@vue-flow/core/dist/theme-default.css';
-import '@vue-flow/controls/dist/style.css';
-
 
 import AutomationConnectionLine from '@/components/automations/AutomationConnectionLine.vue';
 import AutomationHeader from '@/components/automations/AutomationHeader.vue';
@@ -45,7 +43,12 @@ import HttpRequestNode from '@/components/automations/nodes/HttpRequestNode.vue'
 import PublishNode from '@/components/automations/nodes/PublishNode.vue';
 import TriggerNode from '@/components/automations/nodes/TriggerNode.vue';
 import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { AddEdgeCommand } from '@/composables/history/commands/AddEdgeCommand';
 import { AddNodeCommand } from '@/composables/history/commands/AddNodeCommand';
 import { MoveNodeCommand } from '@/composables/history/commands/MoveNodeCommand';
@@ -57,9 +60,13 @@ import { buildExpressionCatalog } from '@/composables/useExpressionCompletions';
 import { usePageErrors } from '@/composables/usePageErrors';
 import { useShortcut } from '@/composables/useShortcut';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { nodeComponent } from '@/lib/automationNodeComponent';
 import { update as updateAutomation } from '@/routes/app/automations';
 import { AuthType } from '@/types/automation/auth-type';
-import type { Automation, AutomationVariable } from '@/types/automation/automation';
+import type {
+    Automation,
+    AutomationVariable,
+} from '@/types/automation/automation';
 import { ConditionOperator } from '@/types/automation/condition-operator';
 import { DelayUnit } from '@/types/automation/delay-unit';
 import { HttpMethod } from '@/types/automation/http-method';
@@ -70,9 +77,6 @@ import { ScheduleField } from '@/types/automation/schedule-field';
 import { TriggerType } from '@/types/automation/trigger-type';
 
 const props = defineProps<{ automation: Automation }>();
-
-const nodeComponent = (component: Component): FunctionalComponent<NodeProps> =>
-    markRaw((props) => h(component, { ...props }));
 
 const nodeTypes: NodeTypesObject = {
     [NodeType.Trigger]: nodeComponent(TriggerNode),
@@ -123,18 +127,30 @@ watch(
     },
 );
 
-watch(() => props.automation.variables, (newVariables) => {
-    variables.value = newVariables ?? [];
-});
+watch(
+    () => props.automation.variables,
+    (newVariables) => {
+        variables.value = newVariables ?? [];
+    },
+);
 
-const selectedNode = computed(() => nodes.value.find((n) => n.id === selectedNodeId.value));
+const selectedNode = computed(() =>
+    nodes.value.find((n) => n.id === selectedNodeId.value),
+);
 
 // `{{ ... }}` suggestions available to the selected node's config editors —
 // everything its upstream nodes provide, plus workflow variables and `now`.
 // Injected by every CodeEditor inside this editor (see CodeEditor.vue).
 provide(
     'automationExpressionCompletions',
-    computed(() => buildExpressionCatalog(selectedNodeId.value, nodes.value, edges.value, variables.value)),
+    computed(() =>
+        buildExpressionCatalog(
+            selectedNodeId.value,
+            nodes.value,
+            edges.value,
+            variables.value,
+        ),
+    ),
 );
 provide('automationId', props.automation.id);
 
@@ -224,7 +240,8 @@ onNodeDragStop(({ node }) => {
 // When the user switches nodes (or closes the panel), we diff against the live
 // data and push a single UpdateNodeDataCommand for the whole editing session —
 // avoids one undo step per keystroke.
-let configSnapshot: { nodeId: string; data: Record<string, unknown> } | null = null;
+let configSnapshot: { nodeId: string; data: Record<string, unknown> } | null =
+    null;
 
 // JSON-based clone because Vue Flow wraps node.data in reactive proxies that
 // `structuredClone` rejects. Node data is always JSON-serializable (it's what
@@ -239,7 +256,12 @@ const commitConfigSnapshot = (): void => {
         const liveData = cloneNodeData(node.data);
         if (JSON.stringify(liveData) !== JSON.stringify(configSnapshot.data)) {
             history.push(
-                new UpdateNodeDataCommand(configSnapshot.nodeId, configSnapshot.data, liveData, nodes),
+                new UpdateNodeDataCommand(
+                    configSnapshot.nodeId,
+                    configSnapshot.data,
+                    liveData,
+                    nodes,
+                ),
             );
         }
     }
@@ -260,37 +282,54 @@ const updateSelectedConfig = (newData: Record<string, unknown>) => {
     if (!selectedNode.value) return;
     const idx = nodes.value.findIndex((n) => n.id === selectedNode.value!.id);
     if (idx === -1) return;
-    nodes.value[idx] = { ...nodes.value[idx], data: { ...nodes.value[idx].data, ...newData } };
+    nodes.value[idx] = {
+        ...nodes.value[idx],
+        data: { ...nodes.value[idx].data, ...newData },
+    };
 };
 
 const defaultConfigFor = (type: string): Record<string, unknown> => {
     switch (type) {
-        case NodeType.Trigger: return {
-            trigger_type: TriggerType.Schedule,
-            cron: '0 9 * * *',
-            schedule_field: ScheduleField.Days,
-            schedule_days_interval: 1,
-            schedule_hour: 9,
-            schedule_minute: 0,
-            schedule_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        };
-        case NodeType.Generate: return { accounts: [], prompt_template: '', target_slide_count: 1 };
-        case NodeType.Delay: return { duration: 1, unit: DelayUnit.Hours };
-        case NodeType.Condition: return { field: '', operator: ConditionOperator.Contains, value: '' };
-        case NodeType.Publish: return { mode: PublishMode.Now, scheduled_offset: 60 };
-        case NodeType.End: return { reason: '' };
-        case NodeType.FetchRss: return { feed_url: '' };
-        case NodeType.HttpRequest: return {
-            url: '',
-            method: HttpMethod.Get,
-            auth_type: AuthType.None,
-            headers: {},
-            body_template: '',
-            items_path: '',
-            item_key_path: '',
-            item_date_path: '',
-        };
-        default: return {};
+        case NodeType.Trigger:
+            return {
+                trigger_type: TriggerType.Schedule,
+                cron: '0 9 * * *',
+                schedule_field: ScheduleField.Days,
+                schedule_days_interval: 1,
+                schedule_hour: 9,
+                schedule_minute: 0,
+                schedule_timezone:
+                    Intl.DateTimeFormat().resolvedOptions().timeZone,
+            };
+        case NodeType.Generate:
+            return { accounts: [], prompt_template: '', target_slide_count: 1 };
+        case NodeType.Delay:
+            return { duration: 1, unit: DelayUnit.Hours };
+        case NodeType.Condition:
+            return {
+                field: '',
+                operator: ConditionOperator.Contains,
+                value: '',
+            };
+        case NodeType.Publish:
+            return { mode: PublishMode.Now, scheduled_offset: 60 };
+        case NodeType.End:
+            return { reason: '' };
+        case NodeType.FetchRss:
+            return { feed_url: '' };
+        case NodeType.HttpRequest:
+            return {
+                url: '',
+                method: HttpMethod.Get,
+                auth_type: AuthType.None,
+                headers: {},
+                body_template: '',
+                items_path: '',
+                item_key_path: '',
+                item_date_path: '',
+            };
+        default:
+            return {};
     }
 };
 
@@ -314,9 +353,14 @@ const onDragOver = (event: DragEvent) => {
 
 const onDrop = (event: DragEvent) => {
     event.preventDefault();
-    const nodeType = event.dataTransfer?.getData('application/automation-node-type');
+    const nodeType = event.dataTransfer?.getData(
+        'application/automation-node-type',
+    );
     if (!nodeType) return;
-    const position = screenToFlowCoordinate({ x: event.clientX, y: event.clientY });
+    const position = screenToFlowCoordinate({
+        x: event.clientX,
+        y: event.clientY,
+    });
     createNodeAt(nodeType, position);
 };
 
@@ -325,7 +369,9 @@ const deleteSelectedNode = () => {
     // The trigger is the automation's single entry point — it can't be deleted.
     if (selectedNode.value.type === NodeType.Trigger) return;
     const node = selectedNode.value;
-    const cascadedEdges = edges.value.filter((e) => e.source === node.id || e.target === node.id);
+    const cascadedEdges = edges.value.filter(
+        (e) => e.source === node.id || e.target === node.id,
+    );
 
     history.startBulk();
     cascadedEdges.forEach((e) => history.push(new RemoveEdgeCommand(e, edges)));
@@ -333,7 +379,9 @@ const deleteSelectedNode = () => {
     history.endBulk();
 
     selectedNodeId.value = null;
-    edges.value = edges.value.filter((e) => e.source !== node.id && e.target !== node.id);
+    edges.value = edges.value.filter(
+        (e) => e.source !== node.id && e.target !== node.id,
+    );
     nodes.value = nodes.value.filter((n) => n.id !== node.id);
 };
 
@@ -376,11 +424,15 @@ const save = (): Promise<boolean> =>
             {
                 nodes: sanitizeNodes(nodes.value),
                 connections: sanitizeEdges(edges.value),
-                variables: variables.value.filter((variable) => variable.key.trim() !== ''),
+                variables: variables.value.filter(
+                    (variable) => variable.key.trim() !== '',
+                ),
             },
             {
                 preserveScroll: true,
-                onFinish: () => { isSaving.value = false; },
+                onFinish: () => {
+                    isSaving.value = false;
+                },
                 onSuccess: () => {
                     toast.success(trans('automations.form.save_success'));
                     resolve(true);
@@ -389,11 +441,18 @@ const save = (): Promise<boolean> =>
                     // Field errors render inline via the node config's <InputError>,
                     // so we just reveal the node carrying the first one. Only general
                     // failures (no field to attach to) fall back to a toast.
-                    const erroredNodeIndex = Object.keys(errors).find((key) => key.startsWith('nodes.'))?.split('.')[1];
+                    const erroredNodeIndex = Object.keys(errors)
+                        .find((key) => key.startsWith('nodes.'))
+                        ?.split('.')[1];
                     if (erroredNodeIndex !== undefined) {
-                        selectedNodeId.value = nodes.value[Number(erroredNodeIndex)]?.id ?? selectedNodeId.value;
+                        selectedNodeId.value =
+                            nodes.value[Number(erroredNodeIndex)]?.id ??
+                            selectedNodeId.value;
                     } else {
-                        toast.error(errors.message ?? trans('automations.form.save_error_fallback'));
+                        toast.error(
+                            errors.message ??
+                                trans('automations.form.save_error_fallback'),
+                        );
                     }
                     resolve(false);
                 },
@@ -414,14 +473,22 @@ useShortcut('mod+shift+z', () => {
     commitConfigSnapshot();
     history.redo();
 });
-useShortcut('backspace', () => {
-    if (selectedNode.value) deleteSelectedNode();
-    else if (selectedEdgeId.value) deleteSelectedEdge();
-}, { ignoreOnInput: true });
-useShortcut('delete', () => {
-    if (selectedNode.value) deleteSelectedNode();
-    else if (selectedEdgeId.value) deleteSelectedEdge();
-}, { ignoreOnInput: true });
+useShortcut(
+    'backspace',
+    () => {
+        if (selectedNode.value) deleteSelectedNode();
+        else if (selectedEdgeId.value) deleteSelectedEdge();
+    },
+    { ignoreOnInput: true },
+);
+useShortcut(
+    'delete',
+    () => {
+        if (selectedNode.value) deleteSelectedNode();
+        else if (selectedEdgeId.value) deleteSelectedEdge();
+    },
+    { ignoreOnInput: true },
+);
 
 const defaultEdgeOptions = {
     type: 'smoothstep',
@@ -447,7 +514,11 @@ const defaultEdgeOptions = {
         <div class="flex min-h-0 flex-1 flex-col bg-background">
             <AutomationMobileBackHeader />
 
-            <AutomationHeader :automation="automation" current="workflow" class="hidden lg:block">
+            <AutomationHeader
+                :automation="automation"
+                current="workflow"
+                class="hidden lg:block"
+            >
                 <template #actions>
                     <TooltipProvider>
                         <Tooltip>
@@ -460,15 +531,23 @@ const defaultEdgeOptions = {
                                     variant="outline"
                                     size="icon-sm"
                                     class="group"
-                                    :aria-label="$t('automations.actions.guide')"
+                                    :aria-label="
+                                        $t('automations.actions.guide')
+                                    "
                                 >
-                                    <IconLifebuoy class="size-4 transition-transform duration-500 group-hover:rotate-180" />
+                                    <IconLifebuoy
+                                        class="size-4 transition-transform duration-500 group-hover:rotate-180"
+                                    />
                                 </Button>
                             </TooltipTrigger>
-                            <TooltipContent>{{ $t('automations.actions.guide') }}</TooltipContent>
+                            <TooltipContent>{{
+                                $t('automations.actions.guide')
+                            }}</TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
-                    <Button size="sm" @click="save" :disabled="isSaving">{{ $t('automations.actions.save') }}</Button>
+                    <Button size="sm" @click="save" :disabled="isSaving">{{
+                        $t('automations.actions.save')
+                    }}</Button>
                 </template>
             </AutomationHeader>
 
@@ -507,9 +586,20 @@ const defaultEdgeOptions = {
                         class="pointer-events-none absolute inset-0 flex items-center justify-center"
                     >
                         <div class="text-center text-muted-foreground">
-                            <IconBolt :size="48" class="mx-auto mb-3 opacity-40" />
-                            <p class="font-medium">{{ $t('automations.form.empty_canvas_title') }}</p>
-                            <p class="mt-1 text-sm">{{ $t('automations.form.empty_canvas_description') }}</p>
+                            <IconBolt
+                                :size="48"
+                                class="mx-auto mb-3 opacity-40"
+                            />
+                            <p class="font-medium">
+                                {{ $t('automations.form.empty_canvas_title') }}
+                            </p>
+                            <p class="mt-1 text-sm">
+                                {{
+                                    $t(
+                                        'automations.form.empty_canvas_description',
+                                    )
+                                }}
+                            </p>
                         </div>
                     </div>
                 </main>
@@ -520,7 +610,11 @@ const defaultEdgeOptions = {
                     :automation-id="automation.id"
                     :before-run="save"
                     :editing="!!selectedNode"
-                    :node-title="selectedNode ? $t(`automations.nodes.${selectedNode.type}`) : ''"
+                    :node-title="
+                        selectedNode
+                            ? $t(`automations.nodes.${selectedNode.type}`)
+                            : ''
+                    "
                     :deletable="selectedNode?.type !== NodeType.Trigger"
                     @back="closePanel"
                     @delete="deleteSelectedNode"
@@ -536,7 +630,10 @@ const defaultEdgeOptions = {
                     </template>
                 </EditorSidebar>
 
-                <aside v-show="expandedEditor.active" class="flex w-[30rem] shrink-0 flex-col py-3 pr-3">
+                <aside
+                    v-show="expandedEditor.active"
+                    class="flex w-[30rem] shrink-0 flex-col py-3 pr-3"
+                >
                     <div
                         id="automation-expanded-editor"
                         class="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border-2 border-foreground bg-card shadow-[3px_3px_0_var(--foreground)]"
@@ -548,10 +645,17 @@ const defaultEdgeOptions = {
                 data-testid="automation-mobile-notice"
                 class="flex flex-1 flex-col items-center justify-center gap-3 p-8 text-center lg:hidden"
             >
-                <div class="inline-flex size-14 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-200 shadow-2xs">
-                    <IconDeviceDesktop class="size-7 text-foreground" stroke-width="2" />
+                <div
+                    class="inline-flex size-14 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-200 shadow-2xs"
+                >
+                    <IconDeviceDesktop
+                        class="size-7 text-foreground"
+                        stroke-width="2"
+                    />
                 </div>
-                <p class="max-w-sm text-sm text-foreground/70">{{ $t('automations.mobile_notice') }}</p>
+                <p class="max-w-sm text-sm text-foreground/70">
+                    {{ $t('automations.mobile_notice') }}
+                </p>
             </div>
         </div>
     </AppLayout>
@@ -582,7 +686,8 @@ const defaultEdgeOptions = {
 
 .automations-canvas .vue-flow__controls-button {
     background: var(--card);
-    border-bottom: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+    border-bottom: 1px solid
+        color-mix(in srgb, var(--foreground) 10%, transparent);
     color: var(--foreground);
     width: 24px;
     height: 24px;
@@ -628,7 +733,6 @@ const defaultEdgeOptions = {
     stroke-linecap: round;
     stroke-linejoin: round;
 }
-
 
 /* Handles — solid ink-bordered dots in the TryPost brutalist style. Offset by
    -2px on the active side compensates for the node's 2px border so the dot

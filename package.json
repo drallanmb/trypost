@@ -11,7 +11,8 @@
         "lint": "eslint . --fix",
         "lint:check": "eslint .",
         "typecheck": "vue-tsc --noEmit",
-        "check": "npm run typecheck && npm run lint:check && npm run format:check"
+        "test:frontend": "node --test tests/fixtures/automation-node-renderer.test.js",
+        "check": "npm run typecheck && npm run lint:check && npm run format:check && npm run test:frontend"
     },
     "devDependencies": {
         "@eslint/js": "^9.19.0",
