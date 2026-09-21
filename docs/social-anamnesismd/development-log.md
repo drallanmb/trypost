@@ -140,3 +140,48 @@ docker compose -f compose.social-dev.yaml exec -T \
 - Read-only review of `2a9ee9fd..1cdb3c4e` found no critical, important, or minor issues. It confirmed the media/error/reload/edge contracts and the final node adapter.
 - The mechanical audit matched 221 of 226 cleanup files exactly to Prettier output from the parent revision. The other five differed only by ESLint import ordering or blank-line grouping; no behavioral formatter edits were found.
 - The review identified inaccurate draft wording about retaining raw component objects; the log now describes the functional adapter correctly. Authenticated browser interaction with all eight node types remains a documented follow-up, not a claimed completed check.
+
+## 2026-09-21 — Step 04: Solar Social / Afterglow first visual increment
+
+### Scope and design lock
+
+- Continue from `805ef33e` on the existing development branch. The approved identity/theme/login/shell slice is recorded in `solar-foundation-plan.md`; detailed calendar migration, approval features, and release-image packaging remain later increments.
+- The approved Solar/Afterglow spec and `social-anamnesismd-full-preview.html` are the primary visual references. Exact palettes, existing Figtree typography, restrained surfaces, compact navigation, and original social-platform assets are retained.
+- Refero research reviewed Pietrastudio (soft elevation and warm action hierarchy), Suno (dark-layer separation and sparse warm accents), and Understory's scheduling screen (compact persistent navigation with a large working canvas). These support narrowly scoped treatments, not replacement palettes or new workflows.
+- Palette/accessibility ruling: preserve approved background/accent values, but use a dark foreground on coral action surfaces where white text would not meet normal-text contrast requirements. Do not weaken the theme or contrast checks to match an inaccessible mockup.
+
+### Browser-runner preflight
+
+- Ran the existing `AuthLegalLinksTest.php` against the unchanged baseline in isolated Docker with explicit `trypost_test` overrides: **2 failed, 0 assertions**, before any new visual implementation.
+- The error was labeled `PlaywrightOutdatedException`, but both installed Playwright and the plugin's required version are **1.61.1**. A direct browser-launch probe identified the underlying issue: the expected Chromium headless executable is absent from `/root/.cache/ms-playwright/`. The plugin translates Playwright's generic installation message into the misleading outdated-version exception.
+- The private application is reachable through the loopback-only SSH tunnel; the in-app browser successfully rendered the baseline login with the original platform assets. No dependency version was changed to address the test-runner message. Automated Pest browser coverage must not be reported as passing until a supported browser runtime exists.
+- No production environment, account, or social connection is used for visual verification.
+
+### Implementation
+
+- Implementation commit `ba973055` adds the display brand, reusable mark/favicon, matching client/SSR titles, paired semantic palettes, and a non-submitting theme control in the active auth and navigation layouts.
+- Theme initialization runs synchronously before the app; missing, invalid, or inaccessible storage selects Solar. The theme control updates the page without reload and persists when browser storage is available.
+- Shared Button/Input/Card/Dialog styles use softer elevation and the approved radius scale. The auth carousel retains its six slides and ten platform images; rotation pauses for keyboard focus and reduced motion.
+- Five new frontend tests exercise the actual pre-paint script, theme-state module, semantic color/contrast contract, and rendered Vue brand/theme controls. They join the three existing automation renderer checks. Initial failures established the missing initializer/module/component and old palette before implementation.
+- The implementation leaves routes, permission and publishing logic, legal destinations, dependency versions, lockfiles, native social preview canvases, and calendar internals unchanged. Existing secondary auth/guest/welcome/popup/MCP layouts reuse the display identity without changing their flow.
+- The approved Solar coral uses dark `#25121c` text (approximately 5.52:1 contrast). The exact approved muted color remains a token; the auth promotional copy uses full foreground on the soft surface for readability.
+
+### Review and integration evidence
+
+- Independent review identified one important issue: legacy status badge fills became unreadable against the new Afterglow foreground. It also found an ineffective desktop sidebar trigger and insufficient accessible semantics on compact branding.
+- Fix commit `fb99c7aa` pairs badge status colors with contrasting foregrounds, keeps the trigger mobile-only, and gives the product mark an image role with its name. Regression tests failed before the fixes and now exercise the real components, desktop/mobile rendering conditions, and contrast in both palettes. Re-review found no remaining issues in this fix scope.
+- The first implementation passed the complete frontend gate in Docker with **8/8** Node tests. The final `fb99c7aa` gate also passed in Docker: type checking, lint, formatting, and **10/10** Node tests, zero skips. Both final client and SSR bundles built successfully with exit 0; existing annotation/chunk warnings remain, and the SSR build reported plugin timing information. Local verification likewise passed **10/10** tests.
+- Selected PHP regressions on `ba973055` passed: **280 tests, 1,042 assertions, 28.65 seconds**, with explicit `trypost_test` isolation and no skipped tests. The later fix changes only CSS, Vue components, and Node tests. This is the same eight-file selection documented in Step 03, not the full PHP suite.
+- Real-browser desktop verification rendered Solar and Afterglow, retained Afterglow after reload, and loaded all ten original social images. Terms and privacy destinations remain `https://trypost.it/terms` and `https://trypost.it/privacy`.
+- Pressing Enter on the theme control switched the theme with visible solid keyboard focus. Submitting an empty login produced the existing required-email/password errors while remaining on `/login`. No account or credentials were created or submitted.
+- At an emulated width of **375px**, the document client width and scroll width were both **375px**. Mobile screenshot capture stalled and returned an unreliable scaled image; this proves the overflow measurement, not a complete visual mobile pass. All temporary viewport overrides were reset. Desktop screenshots were inspected in both themes, and no browser console errors/warnings were reported in these checks.
+- After the final build, the browser reloaded the corrected version and switched to Afterglow by keyboard. Only the development app was restarted; all three development services became healthy, `/up` and `/login` returned **HTTP 200**, and the remote tracked checkout remained clean. The development database still contains **0 users and 0 posts**. Production containers retained continuous uptime (now rounded to **13 days**) and stayed healthy.
+- Both implementation commits were pushed only to `codex/social-anamnesismd-foundation` on the user's fork. No production deployment, merge, release tag, dependency change, or lockfile change occurred. The private preview uses the loopback SSH tunnel at `http://127.0.0.1:18081/login`; it is available only while that tunnel is active.
+
+### Coverage limits and next step
+
+- The Pest browser runner is still blocked by its missing Chromium executable; manual browser evidence above is separate and must not be relabeled as passing Pest browser tests.
+- Authenticated browser navigation remains pending explicit approval for a synthetic development account. No production account/data was reused. Component render tests cover the shell changes but are not authenticated end-to-end evidence.
+- SSR bundle compilation is not hydrated-browser verification. SSR remains disabled by default; verify saved Afterglow state against server-rendered Solar before enabling hydration.
+- The shared Sonner wrapper still contains legacy presentation styling, including a light-default description treatment. Full toast styling, detailed calendar migration, remaining legacy pages, mobile visual recheck, and immutable release-image packaging remain follow-ups. No production-ready/all-pages claim is made.
+- The next product slice should validate the authenticated shell with approved synthetic data, then migrate calendar/post-list presentation without altering publishing or approval rules. D-01 and the Observer/approval/archive backend remain separate work.
