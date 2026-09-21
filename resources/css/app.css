@@ -230,6 +230,11 @@
     backdrop-filter: blur(16px);
 }
 
+[data-sidebar='content'] {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+}
+
 .calendar-surface {
     background: color-mix(in srgb, var(--card) 78%, var(--background));
 }
