@@ -1,0 +1,90 @@
+name: social-anamnesismd-dev
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+            target: dev
+        image: social-anamnesismd:dev
+        cpus: 2
+        mem_limit: 3g
+        ports:
+            - '127.0.0.1:18081:80'
+        environment:
+            TRYPOST_DOCKER_BOOTSTRAP: '1'
+            APP_ENV: local
+            APP_DEBUG: 'true'
+            APP_URL: http://127.0.0.1:18081
+            SELF_HOSTED: 'true'
+            DB_CONNECTION: pgsql
+            DB_HOST: pgsql
+            DB_PORT: '5432'
+            DB_DATABASE: trypost
+            DB_USERNAME: postgres
+            DB_PASSWORD: local-dev-only
+            REDIS_HOST: redis
+            REDIS_PORT: '6379'
+            MAIL_MAILER: log
+            QUEUE_CONNECTION: database
+            BROADCAST_CONNECTION: 'null'
+            SESSION_DRIVER: database
+            CACHE_STORE: file
+            NIGHTWATCH_ENABLED: 'false'
+            TELESCOPE_ENABLED: 'false'
+            POSTHOG_ENABLED: 'false'
+            VITE_POSTHOG_ENABLED: 'false'
+            GOOGLE_AUTH_ENABLED: 'false'
+            GITHUB_AUTH_ENABLED: 'false'
+        volumes:
+            - .:/var/www/html
+            - vendor:/var/www/html/vendor
+            - node-modules:/var/www/html/node_modules
+            - ./docker/social-dev-supervisord.conf:/etc/supervisor/conf.d/supervisord.conf:ro
+        depends_on:
+            pgsql:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+        healthcheck:
+            test: ['CMD', 'curl', '-fsS', 'http://127.0.0.1/up']
+            interval: 15s
+            timeout: 5s
+            retries: 5
+            start_period: 300s
+
+    pgsql:
+        image: postgres:16-alpine
+        cpus: 1
+        mem_limit: 1g
+        environment:
+            POSTGRES_DB: trypost
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: local-dev-only
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+            - ./docker/postgres-init.sh:/docker-entrypoint-initdb.d/10-create-test-db.sh:ro
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U postgres -d trypost']
+            interval: 5s
+            timeout: 5s
+            retries: 10
+
+    redis:
+        image: redis:7-alpine
+        cpus: 0.5
+        mem_limit: 256m
+        command: redis-server --appendonly yes
+        volumes:
+            - redisdata:/data
+        healthcheck:
+            test: ['CMD', 'redis-cli', 'ping']
+            interval: 5s
+            timeout: 3s
+            retries: 10
+
+volumes:
+    pgdata:
+    redisdata:
+    vendor:
+    node-modules:

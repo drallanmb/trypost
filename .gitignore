@@ -29,5 +29,6 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
-/docs/
+/docs/*
+!/docs/social-anamnesismd/
 /.superpowers/
