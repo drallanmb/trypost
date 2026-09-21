@@ -156,4 +156,3 @@ export interface AiTemplate {
     supported_formats: string[];
     applies_brand_visuals: boolean;
 }
-

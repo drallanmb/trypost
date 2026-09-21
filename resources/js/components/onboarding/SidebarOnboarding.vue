@@ -3,8 +3,8 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { IconListCheck } from '@tabler/icons-vue';
 import { computed } from 'vue';
 
-import { useOnboardingLiveReload } from '@/composables/useOnboardingLiveReload';
 import { useActiveUrl } from '@/composables/useActiveUrl';
+import { useOnboardingLiveReload } from '@/composables/useOnboardingLiveReload';
 import { onboarding } from '@/routes/app';
 import type { OnboardingProgress } from '@/types';
 
@@ -16,7 +16,7 @@ const onboardingProgress = computed<OnboardingProgress | false | undefined>(
 );
 
 const progressPercent = computed(() => {
-    if (! onboardingProgress.value) {
+    if (!onboardingProgress.value) {
         return 0;
     }
 
