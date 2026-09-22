@@ -2,6 +2,7 @@
 import { IconAlertCircle, IconCircleCheck } from '@tabler/icons-vue';
 import { computed } from 'vue';
 
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import DiscordSettings from '@/components/posts/editor/DiscordSettings.vue';
 import FacebookSettings from '@/components/posts/editor/FacebookSettings.vue';
 import InstagramSettings from '@/components/posts/editor/InstagramSettings.vue';
@@ -16,10 +17,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import {
-    getPlatformLabel,
-    getPlatformLogo,
-} from '@/composables/usePlatformLogo';
+import { getPlatformLabel } from '@/composables/usePlatformLogo';
 import type { Channel } from '@/types/channel';
 import type { MediaItem } from '@/types/media';
 import { Platform } from '@/types/platform';
@@ -103,12 +101,11 @@ const selectedChannels = computed(() =>
                                     ]"
                                 />
                                 <span
-                                    class="absolute -right-1 -bottom-1 inline-flex size-5 items-center justify-center overflow-hidden rounded-full border-2 border-foreground bg-card shadow-2xs"
+                                    class="absolute -right-1 -bottom-1 inline-flex size-5 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
                                 >
-                                    <img
-                                        :src="getPlatformLogo(channel.platform)"
-                                        :alt="channel.platform"
-                                        class="size-full object-cover"
+                                    <PlatformIcon
+                                        :platform="channel.platform"
+                                        class="size-full p-0.5"
                                     />
                                 </span>
                                 <Badge

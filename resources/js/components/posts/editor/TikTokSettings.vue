@@ -9,6 +9,7 @@ import { computed, ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 
 import InputError from '@/components/InputError.vue';
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Avatar } from '@/components/ui/avatar';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
@@ -19,7 +20,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { getPlatformLogo } from '@/composables/usePlatformLogo';
 import {
     fallbackImageCapableVariant,
     filterImageCapableVariants,
@@ -268,12 +268,11 @@ watch(
         >
             <span class="flex min-w-0 items-center gap-2">
                 <span
-                    class="inline-flex size-6 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-foreground bg-card shadow-2xs"
+                    class="inline-flex size-6 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
                 >
-                    <img
-                        :src="getPlatformLogo('tiktok')"
-                        alt="TikTok"
-                        class="size-full object-cover"
+                    <PlatformIcon
+                        :platform="'tiktok'"
+                        class="size-full p-0.5"
                     />
                 </span>
                 <span class="truncate font-bold text-foreground">{{

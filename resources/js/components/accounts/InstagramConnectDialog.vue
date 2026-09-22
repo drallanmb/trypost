@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { IconBrandFacebook, IconBrandInstagram } from '@tabler/icons-vue';
-
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -43,11 +42,7 @@ const showsFacebook = () => props.methods.includes(Platform.InstagramFacebook);
         >
             <DialogHeader>
                 <div class="flex items-start gap-3">
-                    <img
-                        src="/images/accounts/instagram.png"
-                        alt="Instagram"
-                        class="size-10 rounded-lg"
-                    />
+                    <PlatformIcon platform="instagram" class="size-10 p-1" />
                     <div class="text-left">
                         <DialogTitle>{{
                             $t('accounts.instagram_connect.title')
@@ -68,9 +63,13 @@ const showsFacebook = () => props.methods.includes(Platform.InstagramFacebook);
                     @click="choose(Platform.Instagram)"
                 >
                     <span
-                        class="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-pink-100 text-pink-600 dark:bg-pink-900 dark:text-pink-300"
+                        class="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground"
                     >
-                        <IconBrandInstagram class="size-5" />
+                        <PlatformIcon
+                            platform="instagram"
+                            decorative
+                            class="size-5"
+                        />
                     </span>
                     <span class="min-w-0 flex-1">
                         <span
@@ -100,9 +99,13 @@ const showsFacebook = () => props.methods.includes(Platform.InstagramFacebook);
                     @click="choose(Platform.InstagramFacebook)"
                 >
                     <span
-                        class="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-sky-100 text-sky-600 dark:bg-sky-900 dark:text-sky-300"
+                        class="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-foreground"
                     >
-                        <IconBrandFacebook class="size-5" />
+                        <PlatformIcon
+                            platform="facebook"
+                            decorative
+                            class="size-5"
+                        />
                     </span>
                     <span class="min-w-0 flex-1">
                         <span

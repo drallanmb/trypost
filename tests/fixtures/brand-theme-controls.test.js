@@ -23,6 +23,70 @@ function createComponentServer() {
     });
 }
 
+test('platform icons resolve every network and account alias to its own monochrome SVG', async () => {
+    const server = await createComponentServer();
+    try {
+        const { default: PlatformIcon } = await server.ssrLoadModule(
+            '/resources/js/components/PlatformIcon.vue',
+        );
+        const cases = [
+            ['instagram', 'instagram', 'Instagram'],
+            ['instagram-facebook', 'instagram', 'Instagram'],
+            ['facebook', 'facebook', 'Facebook'],
+            ['linkedin', 'linkedin', 'LinkedIn'],
+            ['linkedin-page', 'linkedin', 'LinkedIn Page'],
+            ['x', 'x', 'X'],
+            ['tiktok', 'tiktok', 'TikTok'],
+            ['youtube', 'youtube', 'YouTube'],
+            ['threads', 'threads', 'Threads'],
+            ['bluesky', 'bluesky', 'Bluesky'],
+            ['pinterest', 'pinterest', 'Pinterest'],
+            ['mastodon', 'mastodon', 'Mastodon'],
+            ['telegram', 'telegram', 'Telegram'],
+            ['discord', 'discord', 'Discord'],
+        ];
+        for (const [platform, glyph, label] of cases) {
+            const html = await renderToString(createSSRApp(PlatformIcon, { platform }));
+            assert.ok(html.includes(`tabler-icon-brand-${glyph}`), platform);
+            assert.ok(html.includes(`aria-label="${label}"`), platform);
+            assert.match(html, /role="img"/);
+            assert.match(html, /stroke="currentColor"/);
+            assert.match(html, /viewBox="0 0 24 24"/);
+            assert.doesNotMatch(html, /<img|<image|stroke="#/);
+        }
+    } finally {
+        await server.close();
+    }
+});
+
+test('platform icons hide decorative duplicates and never misidentify an unknown network', async () => {
+    const server = await createComponentServer();
+    try {
+        const { default: PlatformIcon } = await server.ssrLoadModule(
+            '/resources/js/components/PlatformIcon.vue',
+        );
+        const decorative = await renderToString(createSSRApp(PlatformIcon, {
+            platform: 'instagram', decorative: true, class: 'size-8 text-background',
+        }));
+        assert.match(decorative, /aria-hidden="true"/);
+        assert.doesNotMatch(decorative, /aria-label=|role="img"/);
+        assert.match(decorative, /size-8/);
+        assert.doesNotMatch(decorative, /size-5/);
+        assert.match(decorative, /text-background/);
+        assert.doesNotMatch(decorative, /text-foreground/);
+        for (const platform of ['future-network', 'constructor', '']) {
+            const html = await renderToString(createSSRApp(PlatformIcon, {
+                platform, label: 'Network account',
+            }));
+            assert.match(html, /tabler-icon-world/);
+            assert.match(html, /aria-label="Network account"/);
+            assert.doesNotMatch(html, /tabler-icon-brand-/);
+        }
+    } finally {
+        await server.close();
+    }
+});
+
 test('the calendar empty state offers the selected-date creation link only to authors', async () => {
     const server = await createComponentServer();
     try {

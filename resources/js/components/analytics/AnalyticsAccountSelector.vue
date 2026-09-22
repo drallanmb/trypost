@@ -3,6 +3,7 @@ import { IconChevronDown } from '@tabler/icons-vue';
 import { trans } from 'laravel-vue-i18n';
 import { computed, ref } from 'vue';
 
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -19,10 +20,7 @@ import {
     PopoverTrigger,
 } from '@/components/ui/popover';
 import { getInitials } from '@/composables/useInitials';
-import {
-    getPlatformLabel,
-    getPlatformLogo,
-} from '@/composables/usePlatformLogo';
+import { getPlatformLabel } from '@/composables/usePlatformLogo';
 
 import type { AnalyticsAccount } from './types';
 
@@ -75,12 +73,11 @@ const select = (account: AnalyticsAccount) => {
                             </AvatarFallback>
                         </Avatar>
                         <span
-                            class="absolute -right-1 -bottom-1 inline-flex size-4 items-center justify-center overflow-hidden rounded-full border-2 border-foreground bg-card shadow-2xs"
+                            class="absolute -right-1 -bottom-1 inline-flex size-5 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
                         >
-                            <img
-                                :src="getPlatformLogo(selected.platform)"
-                                :alt="selected.platform"
-                                class="size-full object-cover"
+                            <PlatformIcon
+                                :platform="selected.platform"
+                                class="size-full p-0.5"
                             />
                         </span>
                     </div>
@@ -140,12 +137,12 @@ const select = (account: AnalyticsAccount) => {
                                     </AvatarFallback>
                                 </Avatar>
                                 <span
-                                    class="absolute -right-1 -bottom-1 inline-flex size-5 items-center justify-center overflow-hidden rounded-full border-2 border-foreground bg-card shadow-2xs"
+                                    class="absolute -right-1 -bottom-1 inline-flex size-5 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
                                 >
-                                    <img
-                                        :src="getPlatformLogo(account.platform)"
-                                        :alt="account.platform"
-                                        class="size-full object-cover"
+                                    <PlatformIcon
+                                        :platform="account.platform"
+                                        decorative
+                                        class="size-full p-0.5"
                                     />
                                 </span>
                             </div>

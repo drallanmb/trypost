@@ -4,9 +4,9 @@ import { computed } from 'vue';
 
 import ChannelConfigurator from '@/components/ChannelConfigurator.vue';
 import LabelBadge from '@/components/labels/LabelBadge.vue';
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Badge } from '@/components/ui/badge';
 import { usePageErrors } from '@/composables/usePageErrors';
-import { getPlatformLogo } from '@/composables/usePlatformLogo';
 import { isVideo } from '@/lib/mediaType';
 import type { PinterestBoard, PinterestBoardsPayload } from '@/types';
 import type { Channel } from '@/types/channel';
@@ -210,12 +210,11 @@ const channels = computed<Channel[]>(() =>
                         >
                             <div class="flex min-w-0 items-center gap-2">
                                 <span
-                                    class="inline-flex size-5 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-foreground bg-card"
+                                    class="inline-flex size-5 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
                                 >
-                                    <img
-                                        :src="getPlatformLogo(pp.platform)"
-                                        :alt="pp.platform"
-                                        class="size-full object-cover"
+                                    <PlatformIcon
+                                        :platform="pp.platform"
+                                        class="size-full p-0.5"
                                     />
                                 </span>
                                 <span

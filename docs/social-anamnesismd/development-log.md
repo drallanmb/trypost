@@ -218,3 +218,20 @@ docker compose -f compose.social-dev.yaml exec -T \
 - Visual QA identified the desktop's heavy native scrollbar; a final CSS-only refinement uses a thin, theme-aware scrollbar on sidebar content, including the portaled mobile sidebar. No scroll or keyboard behavior is removed.
 - Development app, database, and Redis were healthy and `/up` returned **HTTP 200**. Production containers remained healthy with uninterrupted **13-day** uptime. No production deployment, merge, dependency change, or release tag occurred.
 - Remaining legacy pages, toast presentation, populated calendar fixtures, approval/archive functionality, and release packaging remain separate increments. This pilot is not a completed all-pages migration.
+
+## 2026-09-22 — Unified social-platform iconography
+
+### Approved visual contract
+
+- The user approved a first GPT-led implementation of monochrome social-network glyphs, consistent size/weight/alignment, no rotated stickers or heavy frames, and unchanged native post-preview appearance. This supersedes retaining colored PNGs in application chrome; it does not replace native preview renderers or change network behavior.
+- The existing Orbit-led reference lock remains authoritative: quiet interface surfaces, controlled color accents, thin outlines. Refero's icon craft guidance supplies the single-family, optical sizing, `currentColor`, and named-versus-decorative accessibility rules. No new visual direction or bitmap generation is needed for editable SVG glyphs.
+- Use the already installed Tabler Vue icon family rather than adding another dependency. Official references: [Tabler Vue icons](https://docs.tabler.io/icons/libraries/vue) and [Vue components](https://vuejs.org/guide/essentials/component-basics.html). Laravel Boost documentation tools are unavailable in this session; official documentation and the installed package were inspected instead.
+
+### Implementation
+
+- Added `PlatformIcon.vue` as the UI entry point for all 14 platform values / 12 network symbols. Instagram/Facebook and LinkedIn Page aliases resolve to their network glyph; unknown keys use a generic globe, never another company's mark. The typed mapping covers the current platform enum, and own-property lookup rejects prototype keys.
+- Glyphs use the same 24-unit canvas and 1.65 stroke, inherit theme colors through `currentColor`, accept contextual size/color overrides, and expose either a platform name or decorative semantics. Native social preview canvases, user-uploaded avatars, provider-login buttons, and original assets remain untouched.
+- Migrated calendar, post list/detail, channel selection, editor settings, preview selectors, scheduling, analytics selection, connection screens/dialogs, and the login network strip. Connection cards now use neutral unrotated icon frames and paired semantic status colors. Their connection/reconnection/deletion handlers and account eligibility logic are unchanged.
+- Actual Vue SSR tests cover every network/alias, monochrome SVG output, accessible labels, decorative mode, contextual sizing/color, and unknown/prototype-key fallback. The initial test run failed because the component was absent; after implementation, a mistaken expected library class prefix was corrected to the installed Tabler output and the focused tests passed.
+- Independent review identified a tooltip contrast regression, fixed with `text-background` on the media-issue glyph, and duplicated platform announcements in analytics options, fixed with decorative semantics. The reviewer verified both fixes with no remaining blockers.
+- Full `npm run check` passed: Vue type checking, ESLint, Prettier, and **13/13 frontend tests**, with no skips. The installed Tabler prop contract requires a string stroke value; the component uses `stroke="1.65"`. `git diff --check` passed. Browser and isolated development build findings follow below when complete.

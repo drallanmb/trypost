@@ -5,6 +5,7 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 import CalendarEmptyState from '@/components/calendar/CalendarEmptyState.vue';
 import DatePicker from '@/components/DatePicker.vue';
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
@@ -13,10 +14,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import {
-    getPlatformLabel,
-    getPlatformLogo,
-} from '@/composables/usePlatformLogo';
+import { getPlatformLabel } from '@/composables/usePlatformLogo';
 import { useWorkspaceRole } from '@/composables/useWorkspaceRole';
 import date from '@/date';
 import dayjs from '@/dayjs';
@@ -469,18 +467,13 @@ const formatTime = (scheduledAt: string): string => {
                                                             as-child
                                                         >
                                                             <span
-                                                                class="inline-flex size-6 items-center justify-center overflow-hidden rounded-full border border-border bg-card shadow-2xs"
+                                                                class="inline-flex size-6 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
                                                             >
-                                                                <img
-                                                                    :src="
-                                                                        getPlatformLogo(
-                                                                            pp.platform,
-                                                                        )
-                                                                    "
-                                                                    :alt="
+                                                                <PlatformIcon
+                                                                    :platform="
                                                                         pp.platform
                                                                     "
-                                                                    class="size-full object-cover"
+                                                                    class="size-full p-0.5"
                                                                 />
                                                             </span>
                                                         </TooltipTrigger>
@@ -637,14 +630,11 @@ const formatTime = (scheduledAt: string): string => {
                                                     <span
                                                         class="inline-flex size-5 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
                                                     >
-                                                        <img
-                                                            :src="
-                                                                getPlatformLogo(
-                                                                    pp.platform,
-                                                                )
+                                                        <PlatformIcon
+                                                            :platform="
+                                                                pp.platform
                                                             "
-                                                            :alt="pp.platform"
-                                                            class="size-full object-cover"
+                                                            class="size-full p-0.5"
                                                         />
                                                     </span>
                                                 </TooltipTrigger>
@@ -829,18 +819,13 @@ const formatTime = (scheduledAt: string): string => {
                                                                 as-child
                                                             >
                                                                 <span
-                                                                    class="inline-flex size-4 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
+                                                                    class="inline-flex size-5 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
                                                                 >
-                                                                    <img
-                                                                        :src="
-                                                                            getPlatformLogo(
-                                                                                pp.platform,
-                                                                            )
-                                                                        "
-                                                                        :alt="
+                                                                    <PlatformIcon
+                                                                        :platform="
                                                                             pp.platform
                                                                         "
-                                                                        class="size-full object-cover"
+                                                                        class="size-full p-0.5"
                                                                     />
                                                                 </span>
                                                             </TooltipTrigger>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
-import { IconBrandInstagram, IconExternalLink } from '@tabler/icons-vue';
+import { IconExternalLink } from '@tabler/icons-vue';
 
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import PopupLayout from '@/layouts/PopupLayout.vue';
@@ -50,11 +51,7 @@ const igUrl = (username: string): string =>
     <PopupLayout :title="$t('accounts.instagram_facebook.title')">
         <div class="flex flex-col gap-6">
             <div class="flex items-center gap-3">
-                <img
-                    src="/images/accounts/instagram.png"
-                    alt="Instagram"
-                    class="h-10 w-10"
-                />
+                <PlatformIcon platform="instagram" class="h-10 w-10" />
                 <div>
                     <h1 class="text-xl font-bold tracking-tight">
                         {{ $t('accounts.instagram_facebook.title') }}
@@ -69,7 +66,11 @@ const igUrl = (username: string): string =>
                 <div
                     class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-muted"
                 >
-                    <IconBrandInstagram class="h-7 w-7 text-muted-foreground" />
+                    <PlatformIcon
+                        platform="instagram"
+                        decorative
+                        class="h-7 w-7 text-muted-foreground"
+                    />
                 </div>
                 <h3 class="mt-4 text-lg font-semibold">
                     {{ $t('accounts.instagram_facebook.no_pages') }}
@@ -91,11 +92,11 @@ const igUrl = (username: string): string =>
                             :src="page.ig_picture"
                             class="object-cover"
                         />
-                        <AvatarFallback
-                            class="rounded-lg bg-pink-100 dark:bg-pink-900"
-                        >
-                            <IconBrandInstagram
-                                class="h-6 w-6 text-pink-600 dark:text-pink-400"
+                        <AvatarFallback class="rounded-lg bg-secondary">
+                            <PlatformIcon
+                                platform="instagram"
+                                decorative
+                                class="h-6 w-6 text-foreground"
                             />
                         </AvatarFallback>
                     </Avatar>

@@ -3,6 +3,7 @@ import { IconDeviceMobile } from '@tabler/icons-vue';
 import { computed, ref, watch } from 'vue';
 
 import PhoneMockup from '@/components/PhoneMockup.vue';
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { PlatformPreview } from '@/components/posts/previews';
 import { Avatar } from '@/components/ui/avatar';
 import {
@@ -11,10 +12,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import {
-    getPlatformLabel,
-    getPlatformLogo,
-} from '@/composables/usePlatformLogo';
+import { getPlatformLabel } from '@/composables/usePlatformLogo';
 import type { MediaItem } from '@/types/media';
 
 interface SocialAccount {
@@ -109,12 +107,11 @@ const activeContentType = computed((): string | undefined => {
                                     "
                                 />
                                 <span
-                                    class="absolute -right-1 -bottom-1 inline-flex size-5 items-center justify-center overflow-hidden rounded-full border-2 border-foreground bg-card shadow-2xs lg:size-4"
+                                    class="absolute -right-1 -bottom-1 inline-flex size-5 items-center justify-center overflow-hidden rounded-full border border-border bg-card lg:size-5"
                                 >
-                                    <img
-                                        :src="getPlatformLogo(pp.platform)"
-                                        :alt="pp.platform"
-                                        class="size-full object-cover"
+                                    <PlatformIcon
+                                        :platform="pp.platform"
+                                        class="size-full p-0.5"
                                     />
                                 </span>
                             </button>

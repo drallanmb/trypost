@@ -12,6 +12,7 @@ import { computed, ref } from 'vue';
 
 import ImagePreviewDialog from '@/components/ImagePreviewDialog.vue';
 import LabelBadge from '@/components/labels/LabelBadge.vue';
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import PostPlatformMetrics from '@/components/posts/PostPlatformMetrics.vue';
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -24,10 +25,7 @@ import {
     TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { usePostEcho } from '@/composables/echo/usePostEcho';
-import {
-    getPlatformLabel,
-    getPlatformLogo,
-} from '@/composables/usePlatformLogo';
+import { getPlatformLabel } from '@/composables/usePlatformLogo';
 import {
     getPlatformStatusConfig,
     getPostStatusConfig,
@@ -309,14 +307,11 @@ usePostEcho(props.post.id, '.post.platform.status.updated', () => {
                                             class="size-11 rounded-full border-2 border-foreground shadow-2xs"
                                         />
                                         <span
-                                            class="absolute -right-1 -bottom-1 inline-flex size-5 items-center justify-center overflow-hidden rounded-full border-2 border-foreground bg-card shadow-2xs"
+                                            class="absolute -right-1 -bottom-1 inline-flex size-5 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
                                         >
-                                            <img
-                                                :src="
-                                                    getPlatformLogo(pp.platform)
-                                                "
-                                                :alt="pp.platform"
-                                                class="size-full object-cover"
+                                            <PlatformIcon
+                                                :platform="pp.platform"
+                                                class="size-full p-0.5"
                                             />
                                         </span>
                                     </div>

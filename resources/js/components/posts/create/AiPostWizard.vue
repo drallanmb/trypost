@@ -6,11 +6,11 @@ import { computed, ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 
 import ContentStylePicker from '@/components/ai/ContentStylePicker.vue';
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
-import { getPlatformLogo } from '@/composables/usePlatformLogo';
 import { loading as loadingRoute } from '@/routes/app/posts/ai';
 import type { AiTemplate } from '@/types';
 import { ContentType, type ContentTypeValue } from '@/types/content-type';
@@ -280,12 +280,11 @@ const startGeneration = () => {
                     @click="selectFormat(format.value)"
                 >
                     <span
-                        class="inline-flex size-7 items-center justify-center overflow-hidden rounded-full border-2 border-foreground bg-card shadow-2xs"
+                        class="inline-flex size-7 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
                     >
-                        <img
-                            :src="getPlatformLogo(format.platforms[0])"
-                            :alt="format.platforms[0]"
-                            class="size-full object-cover"
+                        <PlatformIcon
+                            :platform="format.platforms[0]"
+                            class="size-full p-0.5"
                         />
                     </span>
                     <span class="flex-1 font-semibold text-foreground">{{
@@ -348,10 +347,9 @@ const startGeneration = () => {
                             :alt="account.display_label"
                             class="size-full object-cover"
                         />
-                        <img
+                        <PlatformIcon
                             v-else
-                            :src="getPlatformLogo(account.platform)"
-                            :alt="account.platform"
+                            :platform="account.platform"
                             class="size-4"
                         />
                     </span>

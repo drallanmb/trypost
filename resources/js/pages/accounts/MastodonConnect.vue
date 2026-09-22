@@ -3,6 +3,7 @@ import { useForm } from '@inertiajs/vue3';
 import { IconInfoCircle } from '@tabler/icons-vue';
 import { trans } from 'laravel-vue-i18n';
 
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,11 +20,7 @@ const onSubmit = () => form.post(authorizeMastodon.url());
     <PopupLayout :title="$t('accounts.mastodon.title')">
         <div class="mx-auto max-w-md">
             <div class="mb-6 flex items-center gap-3">
-                <img
-                    src="/images/accounts/mastodon.png"
-                    alt="Mastodon"
-                    class="h-10 w-10"
-                />
+                <PlatformIcon platform="mastodon" class="h-10 w-10" />
                 <div>
                     <h1 class="text-xl font-bold tracking-tight">
                         {{ $t('accounts.mastodon.title') }}

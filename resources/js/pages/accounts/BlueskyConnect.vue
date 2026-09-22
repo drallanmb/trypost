@@ -3,6 +3,7 @@ import { useForm } from '@inertiajs/vue3';
 import { IconInfoCircle } from '@tabler/icons-vue';
 import { trans } from 'laravel-vue-i18n';
 
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,11 +20,7 @@ const onSubmit = () => form.post(storeBluesky.url());
     <PopupLayout :title="$t('accounts.bluesky.title')">
         <div class="mx-auto max-w-md">
             <div class="mb-6 flex items-center gap-3">
-                <img
-                    src="/images/accounts/bluesky.png"
-                    alt="Bluesky"
-                    class="h-10 w-10"
-                />
+                <PlatformIcon platform="bluesky" class="h-10 w-10" />
                 <div>
                     <h1 class="text-xl font-bold tracking-tight">
                         {{ $t('accounts.bluesky.title') }}

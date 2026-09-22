@@ -3,6 +3,7 @@ import { useForm } from '@inertiajs/vue3';
 import { IconBuilding, IconExternalLink, IconUser } from '@tabler/icons-vue';
 import { computed } from 'vue';
 
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import PopupLayout from '@/layouts/PopupLayout.vue';
@@ -62,11 +63,7 @@ const organizationUrl = (vanity: string | null): string | null =>
     <PopupLayout :title="$t('accounts.linkedin.select_title')">
         <div class="flex flex-col gap-6">
             <div class="flex items-center gap-3">
-                <img
-                    src="/images/accounts/linkedin.png"
-                    alt="LinkedIn"
-                    class="h-10 w-10"
-                />
+                <PlatformIcon platform="linkedin" class="h-10 w-10" />
                 <div>
                     <h1 class="text-xl font-bold tracking-tight">
                         {{ $t('accounts.linkedin.select_title') }}
@@ -102,12 +99,8 @@ const organizationUrl = (vanity: string | null): string | null =>
                             :src="person.avatar"
                             class="object-cover"
                         />
-                        <AvatarFallback
-                            class="rounded-lg bg-blue-100 dark:bg-blue-900"
-                        >
-                            <IconUser
-                                class="h-6 w-6 text-blue-600 dark:text-blue-400"
-                            />
+                        <AvatarFallback class="rounded-lg bg-secondary">
+                            <IconUser class="h-6 w-6 text-foreground" />
                         </AvatarFallback>
                     </Avatar>
                     <div class="min-w-0 flex-1">
@@ -162,12 +155,8 @@ const organizationUrl = (vanity: string | null): string | null =>
                             :src="org.logo"
                             class="object-cover"
                         />
-                        <AvatarFallback
-                            class="rounded-lg bg-blue-100 dark:bg-blue-900"
-                        >
-                            <IconBuilding
-                                class="h-6 w-6 text-blue-600 dark:text-blue-400"
-                            />
+                        <AvatarFallback class="rounded-lg bg-secondary">
+                            <IconBuilding class="h-6 w-6 text-foreground" />
                         </AvatarFallback>
                     </Avatar>
                     <div class="min-w-0 flex-1">

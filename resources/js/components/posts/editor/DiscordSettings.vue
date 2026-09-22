@@ -13,11 +13,11 @@ import {
     mentions as mentionsRoute,
 } from '@/actions/App/Http/Controllers/App/DiscordController';
 import InputError from '@/components/InputError.vue';
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import SearchableSelect from '@/components/SearchableSelect.vue';
 import { Avatar } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { usePageErrors } from '@/composables/usePageErrors';
-import { getPlatformLogo } from '@/composables/usePlatformLogo';
 
 interface SocialAccount {
     id: string;
@@ -243,12 +243,11 @@ const updateEmbed = (index: number, patch: Partial<EmbedDraft>) =>
         >
             <span class="flex min-w-0 items-center gap-2">
                 <span
-                    class="inline-flex size-6 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-foreground bg-card shadow-2xs"
+                    class="inline-flex size-6 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
                 >
-                    <img
-                        :src="getPlatformLogo('discord')"
-                        alt="Discord"
-                        class="size-full object-cover"
+                    <PlatformIcon
+                        :platform="'discord'"
+                        class="size-full p-0.5"
                     />
                 </span>
                 <span class="truncate font-bold text-foreground">{{

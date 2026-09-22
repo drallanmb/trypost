@@ -2,10 +2,10 @@
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-vue';
 import { computed, ref } from 'vue';
 
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Avatar } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { isDocumentMedia } from '@/composables/useMedia';
-import { getPlatformLogo } from '@/composables/usePlatformLogo';
 import type { MediaItem } from '@/types/media';
 import { Platform } from '@/types/platform';
 
@@ -69,12 +69,11 @@ const documentTitle = computed({
         >
             <span class="flex min-w-0 items-center gap-2">
                 <span
-                    class="inline-flex size-6 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-foreground bg-card shadow-2xs"
+                    class="inline-flex size-6 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
                 >
-                    <img
-                        :src="getPlatformLogo(platform)"
-                        alt="LinkedIn"
-                        class="size-full object-cover"
+                    <PlatformIcon
+                        :platform="platform"
+                        class="size-full p-0.5"
                     />
                 </span>
                 <span class="truncate font-bold text-foreground">{{

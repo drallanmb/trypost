@@ -5,6 +5,7 @@ import { trans } from 'laravel-vue-i18n';
 import { onUnmounted, ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -152,11 +153,7 @@ onUnmounted(clearExpiry);
         <DialogContent class="sm:max-w-lg">
             <DialogHeader>
                 <div class="flex items-start gap-3">
-                    <img
-                        src="/images/accounts/telegram.png"
-                        alt="Telegram"
-                        class="size-10 rounded-lg"
-                    />
+                    <PlatformIcon platform="telegram" class="size-10 p-1" />
                     <div class="text-left">
                         <DialogTitle>{{
                             $t('accounts.telegram.title')

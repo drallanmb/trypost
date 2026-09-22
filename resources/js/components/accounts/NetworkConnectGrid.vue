@@ -7,9 +7,9 @@ import { toast } from 'vue-sonner';
 import InstagramConnectDialog from '@/components/accounts/InstagramConnectDialog.vue';
 import TelegramConnectDialog from '@/components/accounts/TelegramConnectDialog.vue';
 import ConfirmDeleteModal from '@/components/ConfirmDeleteModal.vue';
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Button } from '@/components/ui/button';
 import { oauthConnectUrl, useOAuthPopup } from '@/composables/useOAuthPopup';
-import { getPlatformTheme } from '@/composables/usePlatformLogo';
 import { disconnect } from '@/routes/app/accounts';
 import { Platform } from '@/types/platform';
 import {
@@ -111,7 +111,6 @@ interface ConnectCard {
     key: string;
     platform: AvailablePlatform;
     account?: ConnectedAccount;
-    theme: ReturnType<typeof getPlatformTheme>;
     title: string;
     state: 'connected' | 'reconnect' | 'connect';
     extra: boolean;
@@ -126,7 +125,6 @@ const cards = computed<ConnectCard[]>(() => {
         const accounts = props.connectedAccounts.filter(
             (account) => account.network === platform.network,
         );
-        const theme = getPlatformTheme(platform.value);
         const title = platform.label.split('(')[0].trim();
 
         const connected: ConnectCard[] = accounts.map((account) => {
@@ -138,7 +136,6 @@ const cards = computed<ConnectCard[]>(() => {
                 key: account.id,
                 platform,
                 account,
-                theme,
                 title,
                 state: lost ? 'reconnect' : 'connected',
                 extra: false,
@@ -149,7 +146,6 @@ const cards = computed<ConnectCard[]>(() => {
             connected.push({
                 key: `${platform.value}-connect`,
                 platform,
-                theme,
                 title,
                 state: 'connect',
                 extra: accounts.length > 0,
@@ -168,48 +164,43 @@ const cards = computed<ConnectCard[]>(() => {
                 v-for="card in cards"
                 :key="card.key"
                 :class="[
-                    'group relative flex flex-col items-center gap-3 rounded-xl border-2 border-foreground p-4 text-center shadow-xs transition-shadow',
+                    'group relative flex flex-col items-center gap-3 rounded-2xl border border-border p-4 text-center shadow-2xs transition-shadow',
                     card.state === 'connected'
-                        ? 'bg-emerald-50'
+                        ? 'bg-success/5'
                         : card.state === 'reconnect'
-                          ? 'bg-amber-50'
+                          ? 'bg-warning/5'
                           : 'bg-card hover:shadow-md',
                 ]"
             >
                 <span
                     v-if="card.state !== 'connect'"
                     :class="[
-                        'absolute -top-2 -right-2 inline-flex size-6 items-center justify-center rounded-full border-2 border-foreground shadow-2xs',
+                        'absolute top-3 right-3 inline-flex size-6 items-center justify-center rounded-full',
                         card.state === 'connected'
-                            ? 'bg-emerald-200 text-emerald-700'
-                            : 'bg-amber-200 text-amber-700',
+                            ? 'bg-success text-success-foreground'
+                            : 'bg-warning text-warning-foreground',
                     ]"
                     aria-hidden="true"
                 >
                     <IconCheck
                         v-if="card.state === 'connected'"
                         class="size-3.5"
-                        stroke-width="3"
+                        stroke-width="1.65"
                     />
                     <IconAlertTriangle
                         v-else
                         class="size-3.5"
-                        stroke-width="2.5"
+                        stroke-width="1.65"
                     />
                 </span>
 
                 <div
-                    :class="[
-                        card.theme.bg,
-                        card.theme.rotate,
-                        'inline-flex size-16 items-center justify-center rounded-2xl border-2 border-foreground shadow-sm transition-transform group-hover:!rotate-0',
-                    ]"
+                    class="inline-flex size-14 items-center justify-center rounded-2xl border border-border bg-secondary/50"
                 >
-                    <img
-                        :src="card.theme.image"
-                        :alt="card.platform.label"
-                        class="size-9 rounded-lg"
-                        loading="lazy"
+                    <PlatformIcon
+                        :platform="card.platform.value"
+                        decorative
+                        class="size-7"
                     />
                 </div>
 
@@ -221,19 +212,19 @@ const cards = computed<ConnectCard[]>(() => {
                     </span>
                     <p
                         v-if="card.state === 'connect'"
-                        class="mt-0.5 line-clamp-2 text-xs leading-tight text-foreground/60"
+                        class="mt-0.5 line-clamp-2 text-xs leading-tight text-muted-foreground"
                     >
                         {{ $t(`accounts.descriptions.${card.platform.value}`) }}
                     </p>
                     <p
                         v-else-if="card.state === 'reconnect'"
-                        class="mt-0.5 truncate text-xs leading-tight font-medium text-amber-700"
+                        class="mt-0.5 truncate text-xs leading-tight font-medium text-foreground"
                     >
                         {{ $t('accounts.connection_lost') }}
                     </p>
                     <p
                         v-else
-                        class="mt-0.5 truncate text-xs leading-tight text-foreground/70"
+                        class="mt-0.5 truncate text-xs leading-tight text-muted-foreground"
                     >
                         {{ card.account?.display_label }}
                     </p>

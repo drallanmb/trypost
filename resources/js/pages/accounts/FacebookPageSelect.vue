@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
-import { IconBrandFacebook, IconExternalLink } from '@tabler/icons-vue';
+import { IconExternalLink } from '@tabler/icons-vue';
 
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import PopupLayout from '@/layouts/PopupLayout.vue';
@@ -47,11 +48,7 @@ const pageUrl = (username: string | null): string | null =>
     <PopupLayout :title="$t('accounts.facebook.title')">
         <div class="flex flex-col gap-6">
             <div class="flex items-center gap-3">
-                <img
-                    src="/images/accounts/facebook.png"
-                    alt="Facebook"
-                    class="h-10 w-10"
-                />
+                <PlatformIcon platform="facebook" class="h-10 w-10" />
                 <div>
                     <h1 class="text-xl font-bold tracking-tight">
                         {{ $t('accounts.facebook.title') }}
@@ -66,7 +63,11 @@ const pageUrl = (username: string | null): string | null =>
                 <div
                     class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-muted"
                 >
-                    <IconBrandFacebook class="h-7 w-7 text-muted-foreground" />
+                    <PlatformIcon
+                        platform="facebook"
+                        decorative
+                        class="h-7 w-7 text-muted-foreground"
+                    />
                 </div>
                 <h3 class="mt-4 text-lg font-semibold">
                     {{ $t('accounts.facebook.no_pages') }}
@@ -88,11 +89,11 @@ const pageUrl = (username: string | null): string | null =>
                             :src="page.picture"
                             class="object-cover"
                         />
-                        <AvatarFallback
-                            class="rounded-lg bg-blue-100 dark:bg-blue-900"
-                        >
-                            <IconBrandFacebook
-                                class="h-6 w-6 text-blue-600 dark:text-blue-400"
+                        <AvatarFallback class="rounded-lg bg-secondary">
+                            <PlatformIcon
+                                platform="facebook"
+                                decorative
+                                class="h-6 w-6 text-foreground"
                             />
                         </AvatarFallback>
                     </Avatar>

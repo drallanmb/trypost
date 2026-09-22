@@ -24,6 +24,7 @@ import EmptyState from '@/components/EmptyState.vue';
 import LabelBadge from '@/components/labels/LabelBadge.vue';
 import LabelFilter from '@/components/labels/LabelFilter.vue';
 import PageHeader from '@/components/PageHeader.vue';
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -50,10 +51,7 @@ import {
     TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { useWorkspaceEcho } from '@/composables/echo/useWorkspaceEcho';
-import {
-    getPlatformLabel,
-    getPlatformLogo,
-} from '@/composables/usePlatformLogo';
+import { getPlatformLabel } from '@/composables/usePlatformLogo';
 import { getPostStatusConfig } from '@/composables/usePostStatus';
 import { useWorkspaceRole } from '@/composables/useWorkspaceRole';
 import date from '@/date';
@@ -323,18 +321,13 @@ useWorkspaceEcho(
                                                             as-child
                                                         >
                                                             <span
-                                                                class="inline-flex size-6 items-center justify-center overflow-hidden rounded-full border-2 border-foreground bg-card shadow-2xs"
+                                                                class="inline-flex size-6 items-center justify-center overflow-hidden rounded-full border border-border bg-card"
                                                             >
-                                                                <img
-                                                                    :src="
-                                                                        getPlatformLogo(
-                                                                            pp.platform,
-                                                                        )
-                                                                    "
-                                                                    :alt="
+                                                                <PlatformIcon
+                                                                    :platform="
                                                                         pp.platform
                                                                     "
-                                                                    class="size-full object-cover"
+                                                                    class="size-full p-0.5"
                                                                 />
                                                             </span>
                                                         </TooltipTrigger>

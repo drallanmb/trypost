@@ -17,6 +17,7 @@ import { trans } from 'laravel-vue-i18n';
 import { computed, nextTick, ref } from 'vue';
 
 import ImagePreviewDialog from '@/components/ImagePreviewDialog.vue';
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import AltTextDialog from '@/components/posts/editor/AltTextDialog.vue';
 import EmojiPicker from '@/components/posts/EmojiPicker.vue';
 import MediaPickerDialog from '@/components/posts/MediaPickerDialog.vue';
@@ -32,10 +33,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import {
-    getPlatformLabel,
-    getPlatformLogo,
-} from '@/composables/usePlatformLogo';
+import { getPlatformLabel } from '@/composables/usePlatformLogo';
 import { useXLinkDefuser } from '@/composables/useXLinkDefuser';
 import date from '@/date';
 import {
@@ -378,14 +376,10 @@ const onAltTextSave = (alt: string): void => {
                                             :key="iss.platform"
                                             class="flex items-center gap-1.5"
                                         >
-                                            <img
-                                                :src="
-                                                    getPlatformLogo(
-                                                        iss.platform,
-                                                    )
-                                                "
-                                                :alt="iss.platform"
-                                                class="size-3 object-contain"
+                                            <PlatformIcon
+                                                :platform="iss.platform"
+                                                decorative
+                                                class="size-4 text-background"
                                             />
                                             <span class="font-medium"
                                                 >{{
@@ -556,12 +550,11 @@ const onAltTextSave = (alt: string): void => {
                                 :class="limitClass(limit.state)"
                             >
                                 <span
-                                    class="inline-flex size-3.5 shrink-0 items-center justify-center overflow-hidden rounded-full"
+                                    class="inline-flex size-4 shrink-0 items-center justify-center overflow-hidden rounded-full"
                                 >
-                                    <img
-                                        :src="getPlatformLogo(limit.platform)"
-                                        :alt="limit.platform"
-                                        class="size-full object-cover"
+                                    <PlatformIcon
+                                        :platform="limit.platform"
+                                        class="size-full p-0.5"
                                     />
                                 </span>
                                 <span

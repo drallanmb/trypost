@@ -34,7 +34,11 @@ defineProps<Props>();
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <component :is="item.icon" />
+                        <component
+                            :is="item.icon"
+                            stroke-width="1.65"
+                            aria-hidden="true"
+                        />
                         <span>{{ item.title }}</span>
                     </a>
                 </SidebarMenuButton>

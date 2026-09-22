@@ -12,6 +12,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { PRODUCT_NAME } from '@/brand';
 import ProductBrand from '@/components/brand/ProductBrand.vue';
+import PlatformIcon from '@/components/PlatformIcon.vue';
 import ThemeToggle from '@/components/ThemeToggle.vue';
 
 defineProps<{
@@ -91,16 +92,16 @@ onBeforeUnmount(() => {
 });
 
 const platforms = [
-    { name: 'LinkedIn', icon: '/images/accounts/linkedin.png' },
-    { name: 'X', icon: '/images/accounts/x.png' },
-    { name: 'Instagram', icon: '/images/accounts/instagram.png' },
-    { name: 'Facebook', icon: '/images/accounts/facebook.png' },
-    { name: 'TikTok', icon: '/images/accounts/tiktok.png' },
-    { name: 'YouTube', icon: '/images/accounts/youtube.png' },
-    { name: 'Threads', icon: '/images/accounts/threads.png' },
-    { name: 'Pinterest', icon: '/images/accounts/pinterest.png' },
-    { name: 'Bluesky', icon: '/images/accounts/bluesky.png' },
-    { name: 'Mastodon', icon: '/images/accounts/mastodon.png' },
+    { name: 'LinkedIn', value: 'linkedin' },
+    { name: 'X', value: 'x' },
+    { name: 'Instagram', value: 'instagram' },
+    { name: 'Facebook', value: 'facebook' },
+    { name: 'TikTok', value: 'tiktok' },
+    { name: 'YouTube', value: 'youtube' },
+    { name: 'Threads', value: 'threads' },
+    { name: 'Pinterest', value: 'pinterest' },
+    { name: 'Bluesky', value: 'bluesky' },
+    { name: 'Mastodon', value: 'mastodon' },
 ];
 </script>
 
@@ -244,12 +245,12 @@ const platforms = [
                                     <div
                                         class="flex flex-wrap justify-center gap-2 border-t border-border bg-card px-4 py-3"
                                     >
-                                        <img
+                                        <PlatformIcon
                                             v-for="platform in platforms"
                                             :key="platform.name"
-                                            :src="platform.icon"
-                                            :alt="platform.name"
-                                            class="size-7 rounded-full border border-border bg-white p-0.5"
+                                            :platform="platform.value"
+                                            :label="platform.name"
+                                            class="size-7 rounded-full border border-border bg-secondary/50 p-1.5"
                                         />
                                     </div>
                                 </div>
