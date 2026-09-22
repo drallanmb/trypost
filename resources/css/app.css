@@ -28,6 +28,13 @@
     --accent-foreground: #68479b;
     --brand-plum: #68479b;
     --brand-yellow: #f5c84c;
+    /* Brand-derived integration accents, independent of status semantics. */
+    --integration-plum: #68479b;
+    --integration-plum-tint: #eee6f7;
+    --integration-rose: #b73560;
+    --integration-rose-tint: #fce6ee;
+    --integration-amber: #94600e;
+    --integration-amber-tint: #fff0cb;
     --destructive: #c64a5a;
     --destructive-foreground: #ffffff;
     --success: #2f7d65;
@@ -96,6 +103,12 @@
     --accent-foreground: #c5aaff;
     --brand-plum: #9a6cff;
     --brand-yellow: #f7b64d;
+    --integration-plum: #c5aaff;
+    --integration-plum-tint: #39294e;
+    --integration-rose: #f78bb6;
+    --integration-rose-tint: #472638;
+    --integration-amber: #f7c568;
+    --integration-amber-tint: #443420;
     --destructive: #ff7d8f;
     --destructive-foreground: #17121d;
     --success: #68c9a1;
@@ -121,6 +134,31 @@
     --sidebar-border: rgba(255, 255, 255, 0.11);
     --sidebar-ring: #b795ff;
     --elevation-color: 0 0 0;
+}
+
+@layer components {
+    [data-integration-tone] {
+        --integration-ink: var(--foreground);
+        --integration-tint: var(--secondary);
+    }
+    [data-integration-tone='plum'] {
+        --integration-ink: var(--integration-plum);
+        --integration-tint: var(--integration-plum-tint);
+    }
+    [data-integration-tone='rose'] {
+        --integration-ink: var(--integration-rose);
+        --integration-tint: var(--integration-rose-tint);
+    }
+    [data-integration-tone='amber'] {
+        --integration-ink: var(--integration-amber);
+        --integration-tint: var(--integration-amber-tint);
+    }
+    .integration-mask {
+        mask-size: contain;
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-mode: alpha;
+    }
 }
 
 @theme inline {

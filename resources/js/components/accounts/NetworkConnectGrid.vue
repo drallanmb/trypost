@@ -194,15 +194,12 @@ const cards = computed<ConnectCard[]>(() => {
                     />
                 </span>
 
-                <div
-                    class="inline-flex size-14 items-center justify-center rounded-2xl border border-border bg-secondary/50"
-                >
-                    <PlatformIcon
-                        :platform="card.platform.value"
-                        decorative
-                        class="size-7"
-                    />
-                </div>
+                <PlatformIcon
+                    :platform="card.platform.value"
+                    decorative
+                    tile
+                    class="size-14 p-3.5"
+                />
 
                 <div class="w-full min-w-0 flex-1">
                     <span

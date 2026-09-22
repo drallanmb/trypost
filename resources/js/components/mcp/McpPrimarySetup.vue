@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { IconCopy, IconLink } from '@tabler/icons-vue';
 
+import McpClientIcon from '@/components/mcp/McpClientIcon.vue';
 import { Button } from '@/components/ui/button';
 import { mcpClients } from '@/lib/mcpClients';
 import { copyToClipboard } from '@/lib/utils';
@@ -59,19 +60,7 @@ const copyMcpUrl = (): void => {
                     class="flex flex-col gap-4 rounded-xl border-2 border-foreground bg-card p-4 shadow-2xs"
                 >
                     <div class="flex items-start gap-4">
-                        <span
-                            :class="[
-                                client.theme.bg,
-                                client.theme.rotate,
-                                'inline-flex size-12 shrink-0 items-center justify-center rounded-xl border-2 border-foreground shadow-sm',
-                            ]"
-                        >
-                            <img
-                                :src="client.logo"
-                                :alt="client.label"
-                                class="size-7 object-contain"
-                            />
-                        </span>
+                        <McpClientIcon :client="client.id" />
                         <div class="min-w-0 flex-1">
                             <h3 class="font-bold">
                                 {{ client.label }}

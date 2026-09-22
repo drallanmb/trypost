@@ -153,6 +153,22 @@ test('both themes expose the approved semantic colors and accessible action fore
     }
 });
 
+test('integration palette glyphs remain readable on their tiles and both theme surfaces', async () => {
+    const css = await readFile(new URL('../../resources/css/app.css', import.meta.url), 'utf8');
+    for (const selector of [':root', "[data-theme='afterglow']"]) {
+        const block = css.slice(css.indexOf(`${selector} {`)).split('}')[0];
+        const values = Object.fromEntries([...block.matchAll(/--([\w-]+):\s*([^;]+);/g)].map(m => [m[1], m[2].trim()]));
+        for (const tone of ['plum', 'rose', 'amber']) {
+            const ink = values[`integration-${tone}`];
+            const tint = values[`integration-${tone}-tint`];
+            assert.ok(ink && tint, `${selector} ${tone} requires an ink/tint pair`);
+            for (const surface of [tint, values.card, values.background, values.secondary]) {
+                assert.ok(contrast(ink, surface) >= 3, `${selector} ${tone} must reach 3:1 on ${surface}`);
+            }
+        }
+    }
+});
+
 function contrast(first, second) {
     const luminance = (color) =>
         color

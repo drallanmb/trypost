@@ -87,6 +87,49 @@ test('platform icons hide decorative duplicates and never misidentify an unknown
     }
 });
 
+test('integration icons keep account aliases in the same palette family and allow contrast overrides', async () => {
+    const server = await createComponentServer();
+    try {
+        const { default: PlatformIcon } = await server.ssrLoadModule('/resources/js/components/PlatformIcon.vue');
+        for (const [platform, tone] of [
+            ['instagram', 'rose'], ['instagram-facebook', 'rose'],
+            ['linkedin', 'plum'], ['linkedin-page', 'plum'],
+            ['youtube', 'amber'], ['constructor', 'neutral'],
+        ]) {
+            const html = await renderToString(createSSRApp(PlatformIcon, { platform, tile: true }));
+            assert.ok(html.includes(`data-integration-tone="${tone}"`), platform);
+            assert.match(html, /bg-\[var\(--integration-tint\)\]/);
+        }
+        const inline = await renderToString(createSSRApp(PlatformIcon, { platform: 'instagram', class: 'text-background' }));
+        assert.match(inline, /text-background/);
+        assert.doesNotMatch(inline, /text-\[var\(--integration-ink\)\]|bg-\[var\(--integration-tint\)\]/);
+    } finally { await server.close(); }
+});
+
+test('MCP icons retain each local silhouette with palette colors and safe unknown-client fallback', async () => {
+    const server = await createComponentServer();
+    try {
+        const { default: McpClientIcon } = await server.ssrLoadModule('/resources/js/components/mcp/McpClientIcon.vue');
+        for (const [client, asset, tone] of [
+            ['claude', 'claude.svg', 'amber'], ['chatgpt', 'chatgpt-white.svg', 'plum'],
+            ['cursor', 'cursor.svg', 'rose'], ['vscode', 'vscode.svg', 'plum'],
+            ['claude_code', 'claude.svg', 'amber'], ['other', 'other-clients.svg', 'rose'],
+        ]) {
+            const html = await renderToString(createSSRApp(McpClientIcon, { client }));
+            assert.ok(html.includes(`/images/ai/${asset}`), client);
+            assert.ok(html.includes(`data-integration-tone="${tone}"`), client);
+            assert.match(html, /aria-hidden="true"/);
+            assert.doesNotMatch(html, /<img|rotate-|aria-label=/);
+        }
+        for (const client of ['unknown', 'constructor', '']) {
+            const html = await renderToString(createSSRApp(McpClientIcon, { client }));
+            assert.match(html, /tabler-icon-plug-connected/);
+            assert.match(html, /data-integration-tone="neutral"/);
+            assert.doesNotMatch(html, /mask-image/);
+        }
+    } finally { await server.close(); }
+});
+
 test('the calendar empty state offers the selected-date creation link only to authors', async () => {
     const server = await createComponentServer();
     try {

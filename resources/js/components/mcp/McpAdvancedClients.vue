@@ -4,6 +4,7 @@ import { trans } from 'laravel-vue-i18n';
 import { computed, ref } from 'vue';
 
 import HeadingSmall from '@/components/HeadingSmall.vue';
+import McpClientIcon from '@/components/mcp/McpClientIcon.vue';
 import { Button } from '@/components/ui/button';
 import {
     Collapsible,
@@ -23,8 +24,6 @@ interface AdvancedMcpClient {
     key: AdvancedMcpClientKey;
     name: string;
     description: string;
-    logo: string;
-    tileClass: string;
     httpType: boolean;
     configRoot: McpConfigRoot;
 }
@@ -34,8 +33,6 @@ const advancedClients: AdvancedMcpClient[] = [
         key: 'cursor',
         name: 'mcp.clients.cursor_name',
         description: 'mcp.clients.cursor',
-        logo: '/images/ai/cursor.svg',
-        tileClass: 'bg-white -rotate-1',
         httpType: false,
         configRoot: 'mcpServers',
     },
@@ -43,8 +40,6 @@ const advancedClients: AdvancedMcpClient[] = [
         key: 'vscode',
         name: 'mcp.clients.vscode_name',
         description: 'mcp.clients.vscode',
-        logo: '/images/ai/vscode.svg',
-        tileClass: 'bg-sky-100 rotate-2',
         httpType: true,
         configRoot: 'servers',
     },
@@ -52,8 +47,6 @@ const advancedClients: AdvancedMcpClient[] = [
         key: 'claude_code',
         name: 'mcp.clients.claude_code_name',
         description: 'mcp.clients.claude_code',
-        logo: '/images/ai/claude.svg',
-        tileClass: 'bg-orange-100 rotate-1',
         httpType: true,
         configRoot: 'mcpServers',
     },
@@ -61,8 +54,6 @@ const advancedClients: AdvancedMcpClient[] = [
         key: 'other',
         name: 'mcp.clients.other_name',
         description: 'mcp.clients.other',
-        logo: '/images/ai/other-clients.svg',
-        tileClass: 'bg-amber-100 -rotate-2',
         httpType: false,
         configRoot: 'mcpServers',
     },
@@ -113,16 +104,7 @@ const copy = (value: string): void => {
                     :data-testid="`mcp-advanced-client-${client.key}`"
                 >
                     <span class="flex items-center gap-4 text-start">
-                        <span
-                            class="inline-flex size-12 shrink-0 items-center justify-center rounded-xl border-2 border-foreground shadow-sm"
-                            :class="client.tileClass"
-                        >
-                            <img
-                                :src="client.logo"
-                                :alt="$t(client.name)"
-                                class="size-6 object-contain"
-                            />
-                        </span>
+                        <McpClientIcon :client="client.key" />
                         <span class="min-w-0">
                             <span class="block font-bold">
                                 {{ $t(client.name) }}

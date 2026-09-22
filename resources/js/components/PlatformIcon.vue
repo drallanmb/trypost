@@ -16,8 +16,8 @@ import {
 } from '@tabler/icons-vue';
 import { computed, type Component, type HTMLAttributes } from 'vue';
 
+import IntegrationIcon from '@/components/IntegrationIcon.vue';
 import { getPlatformLabel } from '@/composables/usePlatformLogo';
-import { cn } from '@/lib/utils';
 import { Platform, type PlatformValue } from '@/types/platform';
 
 const props = withDefaults(
@@ -25,9 +25,10 @@ const props = withDefaults(
         platform: string;
         label?: string;
         decorative?: boolean;
+        tile?: boolean;
         class?: HTMLAttributes['class'];
     }>(),
-    { decorative: false },
+    { decorative: false, tile: false },
 );
 
 // UI glyphs are separate from the native assets used inside social previews.
@@ -53,16 +54,36 @@ const icon = computed(() =>
         ? icons[props.platform as PlatformValue]
         : IconWorld,
 );
+
+const tones = {
+    [Platform.LinkedIn]: 'plum',
+    [Platform.LinkedInPage]: 'plum',
+    [Platform.X]: 'amber',
+    [Platform.TikTok]: 'rose',
+    [Platform.YouTube]: 'amber',
+    [Platform.Facebook]: 'plum',
+    [Platform.Instagram]: 'rose',
+    [Platform.InstagramFacebook]: 'rose',
+    [Platform.Threads]: 'rose',
+    [Platform.Pinterest]: 'amber',
+    [Platform.Bluesky]: 'plum',
+    [Platform.Mastodon]: 'rose',
+    [Platform.Telegram]: 'amber',
+    [Platform.Discord]: 'plum',
+} as const satisfies Record<PlatformValue, 'plum' | 'rose' | 'amber'>;
+
+const tone = computed(() =>
+    Object.hasOwn(tones, props.platform)
+        ? tones[props.platform as PlatformValue]
+        : 'neutral',
+);
 </script>
 
 <template>
-    <span
-        :class="
-            cn(
-                'inline-flex size-5 shrink-0 items-center justify-center align-middle text-foreground',
-                props.class,
-            )
-        "
+    <IntegrationIcon
+        :tone="tone"
+        :tile="tile"
+        :class="props.class"
         :role="decorative ? undefined : 'img'"
         :aria-label="
             decorative ? undefined : (label ?? getPlatformLabel(platform))
@@ -77,5 +98,5 @@ const icon = computed(() =>
             aria-hidden="true"
             focusable="false"
         />
-    </span>
+    </IntegrationIcon>
 </template>

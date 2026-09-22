@@ -5,6 +5,7 @@ import { ref } from 'vue';
 
 import ConfirmDeleteModal from '@/components/ConfirmDeleteModal.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
+import IntegrationIcon from '@/components/IntegrationIcon.vue';
 import McpAdvancedClients from '@/components/mcp/McpAdvancedClients.vue';
 import McpPrimarySetup from '@/components/mcp/McpPrimarySetup.vue';
 import PageHeader from '@/components/PageHeader.vue';
@@ -90,14 +91,17 @@ const confirmDisconnect = (client: ConnectedClient): void => {
                             class="flex items-center gap-4 rounded-xl border-2 border-foreground bg-card p-4 shadow-2xs"
                             :data-testid="`mcp-connected-client-${client.client_id}`"
                         >
-                            <div
-                                class="inline-flex size-10 flex-shrink-0 -rotate-2 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-100 shadow-2xs"
+                            <IntegrationIcon
+                                tone="plum"
+                                tile
+                                class="size-10 p-2.5"
+                                aria-hidden="true"
                             >
                                 <IconPlugConnected
-                                    class="size-5 text-foreground"
-                                    stroke-width="2"
+                                    class="size-full"
+                                    stroke="1.65"
                                 />
-                            </div>
+                            </IntegrationIcon>
                             <div class="min-w-0 flex-1 space-y-0.5">
                                 <div
                                     class="truncate text-sm font-bold text-foreground"
