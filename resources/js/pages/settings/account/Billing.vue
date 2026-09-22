@@ -353,7 +353,7 @@ const upgradeToAnnual = (): void => {
                             class="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-2xs"
                         >
                             <span
-                                class="inline-flex size-10 items-center justify-center rounded-2xl border border-ring bg-accent shadow-2xs ring-1 ring-ring"
+                                class="inline-flex size-10 items-center justify-center rounded-2xl border border-border bg-accent shadow-2xs"
                             >
                                 <IconFileText
                                     class="size-5 text-foreground"

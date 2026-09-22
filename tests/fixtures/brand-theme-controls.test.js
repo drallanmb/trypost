@@ -102,6 +102,95 @@ test('shared controls preserve disabled, selected and invalid states with theme-
     }
 });
 
+for (const [pagePath, extraProps, message] of [
+    [
+        'workspace/ApiKeys',
+        { apiTokens: [], flash: { plainToken: 'test-token' } },
+        'settings.api_keys.new_token_message',
+    ],
+    [
+        'profile/Authentication',
+        {
+            sessions: [
+                {
+                    id: 'current',
+                    ip_address: '127.0.0.1',
+                    user_agent: 'Test Browser',
+                    last_active: 'Now',
+                    is_current: true,
+                },
+            ],
+            hasPassword: true,
+            connectedAccounts: [],
+        },
+        'settings.authentication.sessions.active_now',
+    ],
+]) {
+    test(`${pagePath} renders success messages with a theme-aware foreground`, async () => {
+        const server = await createComponentServer();
+        try {
+            const { default: Page } = await server.ssrLoadModule(
+                `/resources/js/pages/settings/${pagePath}.vue`,
+            );
+            const { createInertiaApp } = await import('@inertiajs/vue3');
+            const { configureEcho } = await import('@laravel/echo-vue');
+            configureEcho({ broadcaster: 'null' });
+            globalThis.window = undefined;
+            const { body } = await createInertiaApp({
+                page: {
+                    component: 'SettingsTest',
+                    url: 'https://social.example.invalid/settings',
+                    version: null,
+                    props: {
+                        errors: {},
+                        onboardingProgress: false,
+                        auth: {
+                            user: {
+                                id: 'test-user',
+                                name: 'Test Operator',
+                                email: 'operator@example.invalid',
+                            },
+                            currentWorkspace: {
+                                id: 'test-workspace',
+                                name: 'Test Clinic',
+                                logo_url: null,
+                                role: 'owner',
+                            },
+                            workspaces: [],
+                            subscriptionPastDue: false,
+                        },
+                        ...extraProps,
+                    },
+                },
+                resolve: () => Page,
+                render: renderToString,
+                setup({ App, props, plugin }) {
+                    const app = createSSRApp({
+                        render: () => h(App, props),
+                    }).use(plugin);
+                    app.config.globalProperties.$t = (key) => key;
+                    return app;
+                },
+            });
+            assert.match(body, /bg-success\/10/);
+            const element = [
+                ...body.matchAll(
+                    /<(?:p|span)\b[^>]*class="([^"]*)"[^>]*>([^<]*)<\/(?:p|span)>/g,
+                ),
+            ].find((match) => match[2].trim() === message);
+            assert.ok(
+                element,
+                'The real settings page must display its success message',
+            );
+            assert.match(element[1], /text-success/);
+            assert.doesNotMatch(element[1], /text-emerald-/);
+        } finally {
+            delete globalThis.window;
+            await server.close();
+        }
+    });
+}
+
 test('the company sidebar keeps upstream documentation without referral or community promotions', async () => {
     const server = await createComponentServer();
     try {

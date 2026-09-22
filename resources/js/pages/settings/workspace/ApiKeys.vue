@@ -91,7 +91,7 @@ const tabs = useWorkspaceSettingsTabs();
                 v-if="newToken"
                 class="rounded-2xl border border-border bg-success/10 p-4 shadow-2xs"
             >
-                <p class="mb-2 text-sm font-bold text-emerald-800">
+                <p class="mb-2 text-sm font-bold text-success">
                     {{ $t('settings.api_keys.new_token_message') }}
                 </p>
                 <div class="flex items-stretch gap-2">

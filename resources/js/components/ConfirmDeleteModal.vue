@@ -126,7 +126,7 @@ defineExpose({
                         class="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl border border-border bg-destructive/10 shadow-2xs"
                     >
                         <IconAlertTriangle
-                            class="size-6 text-rose-700"
+                            class="size-6 text-destructive"
                             stroke-width="2.25"
                         />
                     </div>
@@ -134,7 +134,7 @@ defineExpose({
                         <DialogTitle>{{ title }}</DialogTitle>
                         <DialogDescription class="space-y-1">
                             <span class="block">{{ description }}</span>
-                            <span class="block font-semibold text-rose-700">
+                            <span class="block font-semibold text-destructive">
                                 {{
                                     trans(
                                         'common.confirm_modal.cannot_be_undone',

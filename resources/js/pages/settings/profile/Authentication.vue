@@ -182,9 +182,7 @@ const providerEnabled = (provider: SocialProvider): boolean =>
                                                 class="relative inline-flex size-2 rounded-full bg-success/100"
                                             />
                                         </span>
-                                        <span
-                                            class="font-bold text-emerald-700"
-                                        >
+                                        <span class="font-bold text-success">
                                             {{
                                                 $t(
                                                     'settings.authentication.sessions.active_now',
