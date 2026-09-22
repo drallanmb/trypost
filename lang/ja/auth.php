@@ -24,6 +24,11 @@ return [
 
     'legal' => '続行すると、<a href=":terms_url" target="_blank">利用規約</a>および<a href=":privacy_url" target="_blank">プライバシーポリシー</a>に同意したものとみなされます。',
 
+    'story' => [
+        'pause' => '機能紹介を一時停止',
+        'resume' => '機能紹介を再開',
+    ],
+
     'slides' => [
         'calendar' => [
             'title' => 'ビジュアルカレンダー',

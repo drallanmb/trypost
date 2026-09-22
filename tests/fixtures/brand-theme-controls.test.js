@@ -23,6 +23,78 @@ function createComponentServer() {
     });
 }
 
+test('feature story clock keeps progress and scene changes synchronized while paused or selected', async () => {
+    const server = await createComponentServer();
+    try {
+        const { createStoryPlayback } = await server.ssrLoadModule(
+            '/resources/js/lib/authStory.ts',
+        );
+        const playback = createStoryPlayback(6, 6500);
+        playback.advance(3250, false);
+        assert.equal(playback.state.index, 0);
+        assert.equal(playback.state.elapsed, 3250);
+        playback.advance(9000, true);
+        assert.equal(playback.state.elapsed, 3250);
+        playback.advance(3250, false);
+        assert.equal(playback.state.index, 1);
+        assert.equal(playback.state.elapsed, 0);
+        playback.select(5);
+        assert.equal(playback.state.elapsed, 0);
+        playback.advance(6500, false);
+        assert.equal(playback.state.index, 0);
+        playback.select(-1);
+        assert.equal(playback.state.index, 0);
+    } finally {
+        await server.close();
+    }
+});
+
+test('login story renders six labeled selectors and a non-submitting pause control', async () => {
+    const server = await createComponentServer();
+    try {
+        const { default: Story } = await server.ssrLoadModule(
+            '/resources/js/components/auth/AuthFeatureStory.vue',
+        );
+        const html = await renderToString(createSSRApp(Story));
+        assert.equal((html.match(/data-story-select=/g) ?? []).length, 6);
+        assert.match(html, /type="button"[^>]*data-testid="story-pause"/);
+        assert.match(html, /aria-label="auth.story.pause"/);
+        assert.match(html, /aria-current="true"/);
+        assert.match(html, /data-feature="calendar"/);
+        assert.doesNotMatch(html, /animate-ping|>Live</);
+    } finally {
+        await server.close();
+    }
+});
+
+test('every feature has its own decorative product scene without fake interactive controls', async () => {
+    const server = await createComponentServer();
+    try {
+        const { default: Scene } = await server.ssrLoadModule(
+            '/resources/js/components/auth/AuthFeatureScene.vue',
+        );
+        const scenes = new Set();
+        for (const feature of [
+            'calendar',
+            'scheduling',
+            'media',
+            'video',
+            'team',
+            'signatures',
+        ]) {
+            const html = await renderToString(createSSRApp(Scene, { feature }));
+            assert.match(html, /aria-hidden="true"/);
+            assert.ok(html.includes(`data-feature="${feature}"`));
+            assert.ok(html.includes(`scene-${feature}`));
+            assert.doesNotMatch(html, /<(button|input|a)\b/);
+            scenes.add(html);
+        }
+        assert.equal(scenes.size, 6);
+    } finally {
+        await server.close();
+    }
+});
+
 test('MCP setup keeps its copy control and client links inside soft theme surfaces', async () => {
     const server = await createComponentServer();
     try {

@@ -24,6 +24,11 @@ return [
 
     'legal' => 'Kontynuując, akceptujesz nasze <a href=":terms_url" target="_blank">Warunki korzystania z usługi</a> oraz <a href=":privacy_url" target="_blank">Politykę prywatności</a>.',
 
+    'story' => [
+        'pause' => 'Wstrzymaj prezentację funkcji',
+        'resume' => 'Wznów prezentację funkcji',
+    ],
+
     'slides' => [
         'calendar' => [
             'title' => 'Wizualny kalendarz',

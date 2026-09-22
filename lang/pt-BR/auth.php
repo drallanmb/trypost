@@ -24,6 +24,11 @@ return [
 
     'legal' => 'Ao continuar, você concorda com nossos <a href=":terms_url" target="_blank">Termos de Serviço</a> e <a href=":privacy_url" target="_blank">Política de Privacidade</a>.',
 
+    'story' => [
+        'pause' => 'Pausar apresentação de recursos',
+        'resume' => 'Retomar apresentação de recursos',
+    ],
+
     'slides' => [
         'calendar' => [
             'title' => 'Calendário Visual',

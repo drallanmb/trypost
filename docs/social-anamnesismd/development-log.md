@@ -1,5 +1,12 @@
 # Development Log
 
+## 2026-09-22 — Login product scenes
+
+- Replaced the isolated feature glyph in the authentication side panel with six decorative product scenes: calendar, scheduling queue, media library, video publishing, team workspaces and reusable signatures. Existing feature descriptions, form markup, authentication behavior, social glyphs, licenses and attribution remain unchanged.
+- User-approved reference: [Orbit scene transitions](https://orbit-studio.humanagentlab3.chatgpt.site/catalogo), specifically the iris reveal, masked sequential typography and segmented story progress. Existing Social Solar/Afterglow tokens remain authoritative. Refero Dimension informed only restrained miniature product surfaces; the 21st search did not justify a new component or dependency.
+- The Vue/CSS implementation uses a 700ms iris and staggered text entrance. A single 6.5-second scene clock drives advancement and progress. Hover, keyboard focus, explicit pause, hidden documents, mobile and reduced-motion preferences suspend playback; reduced motion also removes transitions. Illustrations contain no real customer data or interactive mock controls.
+- Added localized pause/resume labels in all 16 UI catalogs. Added RED-first clock and SSR tests, then verified GREEN: `npm run check` passed all 25 frontend tests, type checking, ESLint and formatting. Independent review found no critical/important issues; signature spacing was tightened to keep its library row inside the scene stage. Browser and isolated-development build verification follow below.
+
 ## 2026-09-21 — Step 01: Fork and source baseline
 
 - Created and verified the public fork `drallanmb/trypost`.

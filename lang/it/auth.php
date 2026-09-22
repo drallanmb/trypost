@@ -24,6 +24,11 @@ return [
 
     'legal' => 'Continuando, accetti i nostri <a href=":terms_url" target="_blank">Termini di servizio</a> e la nostra <a href=":privacy_url" target="_blank">Informativa sulla privacy</a>.',
 
+    'story' => [
+        'pause' => 'Metti in pausa la presentazione delle funzionalità',
+        'resume' => 'Riprendi la presentazione delle funzionalità',
+    ],
+
     'slides' => [
         'calendar' => [
             'title' => 'Calendario visivo',

@@ -24,6 +24,11 @@ return [
 
     'legal' => 'Door door te gaan ga je akkoord met onze <a href=":terms_url" target="_blank">Servicevoorwaarden</a> en <a href=":privacy_url" target="_blank">Privacybeleid</a>.',
 
+    'story' => [
+        'pause' => 'Functiepresentatie pauzeren',
+        'resume' => 'Functiepresentatie hervatten',
+    ],
+
     'slides' => [
         'calendar' => [
             'title' => 'Visuele kalender',

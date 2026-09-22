@@ -24,6 +24,11 @@ return [
 
     'legal' => '继续即表示你同意我们的<a href=":terms_url" target="_blank">服务条款</a>和<a href=":privacy_url" target="_blank">隐私政策</a>。',
 
+    'story' => [
+        'pause' => '暂停功能介绍',
+        'resume' => '继续功能介绍',
+    ],
+
     'slides' => [
         'calendar' => [
             'title' => '可视化日历',

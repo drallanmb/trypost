@@ -24,6 +24,11 @@ return [
 
     'legal' => '계속 진행하면 <a href=":terms_url" target="_blank">서비스 약관</a> 및 <a href=":privacy_url" target="_blank">개인정보 처리방침</a>에 동의하는 것입니다.',
 
+    'story' => [
+        'pause' => '기능 소개 일시 정지',
+        'resume' => '기능 소개 다시 시작',
+    ],
+
     'slides' => [
         'calendar' => [
             'title' => '비주얼 캘린더',

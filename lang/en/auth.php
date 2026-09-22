@@ -24,6 +24,11 @@ return [
 
     'legal' => 'By continuing, you agree to our <a href=":terms_url" target="_blank">Terms of Service</a> and <a href=":privacy_url" target="_blank">Privacy Policy</a>.',
 
+    'story' => [
+        'pause' => 'Pause feature presentation',
+        'resume' => 'Resume feature presentation',
+    ],
+
     'slides' => [
         'calendar' => [
             'title' => 'Visual Calendar',

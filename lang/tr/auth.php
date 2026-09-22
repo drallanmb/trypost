@@ -26,6 +26,11 @@ return [
 
     'legal' => 'Devam ederek <a href=":terms_url" target="_blank">Hizmet Şartları</a> ve <a href=":privacy_url" target="_blank">Gizlilik Politikası</a>\'nı kabul etmiş olursunuz.',
 
+    'story' => [
+        'pause' => 'Özellik sunumunu duraklat',
+        'resume' => 'Özellik sunumuna devam et',
+    ],
+
     'slides' => [
         'calendar' => [
             'title' => 'Görsel Takvim',

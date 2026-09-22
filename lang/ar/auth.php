@@ -24,6 +24,11 @@ return [
 
     'legal' => 'بمتابعتك، فإنك توافق على <a href=":terms_url" target="_blank">شروط الخدمة</a> و<a href=":privacy_url" target="_blank">سياسة الخصوصية</a>.',
 
+    'story' => [
+        'pause' => 'إيقاف عرض الميزات مؤقتًا',
+        'resume' => 'استئناف عرض الميزات',
+    ],
+
     'slides' => [
         'calendar' => [
             'title' => 'تقويم مرئي',

@@ -26,6 +26,11 @@ return [
 
     'legal' => 'Indem du fortfährst, stimmst du unseren <a href=":terms_url" target="_blank">Nutzungsbedingungen</a> und unserer <a href=":privacy_url" target="_blank">Datenschutzerklärung</a> zu.',
 
+    'story' => [
+        'pause' => 'Funktionspräsentation pausieren',
+        'resume' => 'Funktionspräsentation fortsetzen',
+    ],
+
     'slides' => [
         'calendar' => [
             'title' => 'Visueller Kalender',
