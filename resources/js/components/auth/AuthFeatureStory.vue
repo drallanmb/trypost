@@ -81,7 +81,7 @@ onBeforeUnmount(() => {
 
 <template>
     <aside
-        class="auth-story relative hidden overflow-hidden rounded-[30px] border border-border bg-secondary lg:sticky lg:top-5 lg:flex lg:h-[calc(100svh-2.5rem)] lg:self-start"
+        class="auth-story relative hidden overflow-clip rounded-[30px] border border-border bg-secondary lg:sticky lg:top-5 lg:flex lg:h-[calc(100svh-2.5rem)] lg:self-start"
         @mouseenter="hovered = true"
         @mouseleave="hovered = false"
         @focusin="focused = true"

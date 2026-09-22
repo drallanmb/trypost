@@ -61,6 +61,7 @@ test('login story renders six labeled selectors and a non-submitting pause contr
         assert.match(html, /aria-label="auth.story.pause"/);
         assert.match(html, /aria-current="true"/);
         assert.match(html, /data-feature="calendar"/);
+        assert.match(html, /auth-story relative hidden overflow-clip/);
         assert.doesNotMatch(html, /animate-ping|>Live</);
     } finally {
         await server.close();
