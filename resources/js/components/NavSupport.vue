@@ -29,7 +29,11 @@ defineProps<Props>();
         <SidebarGroupLabel v-if="label">{{ label }}</SidebarGroupLabel>
         <SidebarMenu>
             <SidebarMenuItem v-for="item in items" :key="item.title">
-                <SidebarMenuButton as-child :tooltip="item.title">
+                <SidebarMenuButton
+                    as-child
+                    :tooltip="item.title"
+                    class="h-auto min-h-8 [&>span:last-child]:whitespace-normal"
+                >
                     <a
                         :href="item.href"
                         target="_blank"
