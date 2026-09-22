@@ -93,8 +93,11 @@ test('integration icons keep account aliases in the same palette family and allo
         const { default: PlatformIcon } = await server.ssrLoadModule('/resources/js/components/PlatformIcon.vue');
         for (const [platform, tone] of [
             ['instagram', 'rose'], ['instagram-facebook', 'rose'],
-            ['linkedin', 'plum'], ['linkedin-page', 'plum'],
-            ['youtube', 'amber'], ['constructor', 'neutral'],
+            ['linkedin', 'blue'], ['linkedin-page', 'blue'],
+            ['facebook', 'blue'], ['bluesky', 'blue'], ['telegram', 'cyan'],
+            ['youtube', 'red'], ['pinterest', 'red'], ['discord', 'indigo'],
+            ['mastodon', 'plum'], ['tiktok', 'rose'],
+            ['x', 'graphite'], ['threads', 'graphite'], ['constructor', 'neutral'],
         ]) {
             const html = await renderToString(createSSRApp(PlatformIcon, { platform, tile: true }));
             assert.ok(html.includes(`data-integration-tone="${tone}"`), platform);
@@ -111,9 +114,9 @@ test('MCP icons retain each local silhouette with palette colors and safe unknow
     try {
         const { default: McpClientIcon } = await server.ssrLoadModule('/resources/js/components/mcp/McpClientIcon.vue');
         for (const [client, asset, tone] of [
-            ['claude', 'claude.svg', 'amber'], ['chatgpt', 'chatgpt-white.svg', 'plum'],
-            ['cursor', 'cursor.svg', 'rose'], ['vscode', 'vscode.svg', 'plum'],
-            ['claude_code', 'claude.svg', 'amber'], ['other', 'other-clients.svg', 'rose'],
+            ['claude', 'claude.svg', 'coral'], ['chatgpt', 'chatgpt-white.svg', 'graphite'],
+            ['cursor', 'cursor.svg', 'graphite'], ['vscode', 'vscode.svg', 'blue'],
+            ['claude_code', 'claude.svg', 'coral'], ['other', 'other-clients.svg', 'plum'],
         ]) {
             const html = await renderToString(createSSRApp(McpClientIcon, { client }));
             assert.ok(html.includes(`/images/ai/${asset}`), client);
@@ -126,6 +129,27 @@ test('MCP icons retain each local silhouette with palette colors and safe unknow
             assert.match(html, /tabler-icon-plug-connected/);
             assert.match(html, /data-integration-tone="neutral"/);
             assert.doesNotMatch(html, /mask-image/);
+        }
+    } finally { await server.close(); }
+});
+
+test('functional icons keep the same pastel identity in compact navigation and large empty states', async () => {
+    const server = await createComponentServer();
+    try {
+        const { default: AppIcon } = await server.ssrLoadModule('/resources/js/components/AppIcon.vue');
+        const { default: EmptyState } = await server.ssrLoadModule('/resources/js/components/EmptyState.vue');
+        const { IconCloudUpload, IconPhoto, IconTag, IconBrandDiscord } = await import('@tabler/icons-vue');
+        for (const [icon, tone, glyph] of [[IconCloudUpload, 'blue', 'cloud-upload'], [IconPhoto, 'rose', 'photo'], [IconTag, 'amber', 'tag'], [IconBrandDiscord, 'indigo', 'brand-discord']]) {
+            const compact = await renderToString(createSSRApp(AppIcon, { icon, class: 'size-6 p-1' }));
+            const large = await renderToString(createSSRApp(EmptyState, { icon, title: 'Empty', description: 'Nothing here' }));
+            for (const html of [compact, large]) {
+                assert.ok(html.includes(`data-integration-tone="${tone}"`), glyph);
+                assert.ok(html.includes(`tabler-icon-${glyph}`), glyph);
+                assert.match(html, /aria-hidden="true"/);
+                assert.doesNotMatch(html, /-rotate-/);
+            }
+            assert.match(compact, /size-6/);
+            assert.match(large, /Empty/);
         }
     } finally { await server.close(); }
 });

@@ -18,6 +18,7 @@ import { computed, type Component, type HTMLAttributes } from 'vue';
 
 import IntegrationIcon from '@/components/IntegrationIcon.vue';
 import { getPlatformLabel } from '@/composables/usePlatformLogo';
+import type { IconTone } from '@/lib/iconTones';
 import { Platform, type PlatformValue } from '@/types/platform';
 
 const props = withDefaults(
@@ -56,21 +57,21 @@ const icon = computed(() =>
 );
 
 const tones = {
-    [Platform.LinkedIn]: 'plum',
-    [Platform.LinkedInPage]: 'plum',
-    [Platform.X]: 'amber',
+    [Platform.LinkedIn]: 'blue',
+    [Platform.LinkedInPage]: 'blue',
+    [Platform.X]: 'graphite',
     [Platform.TikTok]: 'rose',
-    [Platform.YouTube]: 'amber',
-    [Platform.Facebook]: 'plum',
+    [Platform.YouTube]: 'red',
+    [Platform.Facebook]: 'blue',
     [Platform.Instagram]: 'rose',
     [Platform.InstagramFacebook]: 'rose',
-    [Platform.Threads]: 'rose',
-    [Platform.Pinterest]: 'amber',
-    [Platform.Bluesky]: 'plum',
-    [Platform.Mastodon]: 'rose',
-    [Platform.Telegram]: 'amber',
-    [Platform.Discord]: 'plum',
-} as const satisfies Record<PlatformValue, 'plum' | 'rose' | 'amber'>;
+    [Platform.Threads]: 'graphite',
+    [Platform.Pinterest]: 'red',
+    [Platform.Bluesky]: 'blue',
+    [Platform.Mastodon]: 'plum',
+    [Platform.Telegram]: 'cyan',
+    [Platform.Discord]: 'indigo',
+} as const satisfies Record<PlatformValue, IconTone>;
 
 const tone = computed(() =>
     Object.hasOwn(tones, props.platform)

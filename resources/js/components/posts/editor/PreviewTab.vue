@@ -2,6 +2,7 @@
 import { IconDeviceMobile } from '@tabler/icons-vue';
 import { computed, ref, watch } from 'vue';
 
+import AppIcon from '@/components/AppIcon.vue';
 import PhoneMockup from '@/components/PhoneMockup.vue';
 import PlatformIcon from '@/components/PlatformIcon.vue';
 import { PlatformPreview } from '@/components/posts/previews';
@@ -153,14 +154,7 @@ const activeContentType = computed((): string | undefined => {
                 />
             </PhoneMockup>
             <div v-else class="flex flex-col items-center gap-3 text-center">
-                <div
-                    class="inline-flex size-12 -rotate-3 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-200 shadow-2xs"
-                >
-                    <IconDeviceMobile
-                        class="size-6 text-foreground"
-                        stroke-width="2"
-                    />
-                </div>
+                <AppIcon :icon="IconDeviceMobile" />
                 <p
                     class="text-base font-bold text-foreground"
                     style="font-family: var(--font-display)"

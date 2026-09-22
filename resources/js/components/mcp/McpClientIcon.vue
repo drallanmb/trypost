@@ -9,14 +9,14 @@ const props = defineProps<{
     class?: HTMLAttributes['class'];
 }>();
 
-// Reuse local silhouettes; color belongs to the product theme, not the provider.
+// Preserve provider color families with theme-aware ink and pastel surfaces.
 const clients = {
-    claude: { asset: 'claude.svg', tone: 'amber' },
-    chatgpt: { asset: 'chatgpt-white.svg', tone: 'plum' },
-    cursor: { asset: 'cursor.svg', tone: 'rose' },
-    vscode: { asset: 'vscode.svg', tone: 'plum' },
-    claude_code: { asset: 'claude.svg', tone: 'amber' },
-    other: { asset: 'other-clients.svg', tone: 'rose' },
+    claude: { asset: 'claude.svg', tone: 'coral' },
+    chatgpt: { asset: 'chatgpt-white.svg', tone: 'graphite' },
+    cursor: { asset: 'cursor.svg', tone: 'graphite' },
+    vscode: { asset: 'vscode.svg', tone: 'blue' },
+    claude_code: { asset: 'claude.svg', tone: 'coral' },
+    other: { asset: 'other-clients.svg', tone: 'plum' },
 } as const;
 
 const appearance = computed(() =>

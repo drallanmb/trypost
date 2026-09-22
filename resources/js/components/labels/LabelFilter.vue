@@ -3,6 +3,7 @@ import { IconCheck, IconChevronDown, IconTag, IconX } from '@tabler/icons-vue';
 import { trans } from 'laravel-vue-i18n';
 import { computed, ref } from 'vue';
 
+import AppIcon from '@/components/AppIcon.vue';
 import LabelBadge from '@/components/labels/LabelBadge.vue';
 import { Button } from '@/components/ui/button';
 import {
@@ -70,7 +71,7 @@ const clear = () => {
                 class="w-full justify-between gap-2 font-normal sm:w-auto"
             >
                 <div class="flex min-w-0 items-center gap-2">
-                    <IconTag class="size-4 shrink-0 opacity-60" />
+                    <AppIcon :icon="IconTag" class="size-6 rounded-lg p-1" />
 
                     <template v-if="selectedLabels.length === 0">
                         <span class="text-foreground/70">{{

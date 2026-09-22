@@ -158,7 +158,7 @@ test('integration palette glyphs remain readable on their tiles and both theme s
     for (const selector of [':root', "[data-theme='afterglow']"]) {
         const block = css.slice(css.indexOf(`${selector} {`)).split('}')[0];
         const values = Object.fromEntries([...block.matchAll(/--([\w-]+):\s*([^;]+);/g)].map(m => [m[1], m[2].trim()]));
-        for (const tone of ['plum', 'rose', 'amber']) {
+        for (const tone of ['plum', 'rose', 'amber', 'blue', 'cyan', 'red', 'indigo', 'coral', 'graphite', 'green']) {
             const ink = values[`integration-${tone}`];
             const tint = values[`integration-${tone}-tint`];
             assert.ok(ink && tint, `${selector} ${tone} requires an ink/tint pair`);

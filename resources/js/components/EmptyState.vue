@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Component } from 'vue';
 
+import AppIcon from '@/components/AppIcon.vue';
 defineProps<{
     icon: Component;
     title: string;
@@ -12,15 +13,7 @@ defineProps<{
     <div
         class="flex flex-1 flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-foreground/25 bg-card p-12 text-center"
     >
-        <div
-            class="inline-flex size-16 -rotate-2 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-200 shadow-2xs"
-        >
-            <component
-                :is="icon"
-                class="size-8 text-foreground"
-                stroke-width="1.75"
-            />
-        </div>
+        <AppIcon :icon="icon" class="size-16 p-4" />
         <div class="space-y-1">
             <h3
                 class="text-xl text-foreground"

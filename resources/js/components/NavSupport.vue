@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Component } from 'vue';
 
+import AppIcon from '@/components/AppIcon.vue';
 import {
     SidebarGroup,
     SidebarGroupLabel,
@@ -34,10 +35,9 @@ defineProps<Props>();
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <component
-                            :is="item.icon"
-                            stroke-width="1.65"
-                            aria-hidden="true"
+                        <AppIcon
+                            :icon="item.icon"
+                            class="size-6 rounded-lg p-1"
                         />
                         <span>{{ item.title }}</span>
                     </a>

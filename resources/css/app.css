@@ -35,6 +35,20 @@
     --integration-rose-tint: #fce6ee;
     --integration-amber: #94600e;
     --integration-amber-tint: #fff0cb;
+    --integration-blue: #2761b0;
+    --integration-blue-tint: #e5eefb;
+    --integration-cyan: #17708c;
+    --integration-cyan-tint: #def2f6;
+    --integration-red: #bc3246;
+    --integration-red-tint: #fde7eb;
+    --integration-indigo: #535ac4;
+    --integration-indigo-tint: #ecebff;
+    --integration-coral: #a94e32;
+    --integration-coral-tint: #fbe9df;
+    --integration-graphite: #34343a;
+    --integration-graphite-tint: #ededf0;
+    --integration-green: #287a62;
+    --integration-green-tint: #e1f2ea;
     --destructive: #c64a5a;
     --destructive-foreground: #ffffff;
     --success: #2f7d65;
@@ -109,6 +123,20 @@
     --integration-rose-tint: #472638;
     --integration-amber: #f7c568;
     --integration-amber-tint: #443420;
+    --integration-blue: #96c4ff;
+    --integration-blue-tint: #223854;
+    --integration-cyan: #81d7ee;
+    --integration-cyan-tint: #183b47;
+    --integration-red: #ff9ba5;
+    --integration-red-tint: #4a2632;
+    --integration-indigo: #b7baff;
+    --integration-indigo-tint: #303255;
+    --integration-coral: #f4b197;
+    --integration-coral-tint: #4a3029;
+    --integration-graphite: #eeeef2;
+    --integration-graphite-tint: #303037;
+    --integration-green: #8bd8b8;
+    --integration-green-tint: #213c32;
     --destructive: #ff7d8f;
     --destructive-foreground: #17121d;
     --success: #68c9a1;
@@ -152,6 +180,34 @@
     [data-integration-tone='amber'] {
         --integration-ink: var(--integration-amber);
         --integration-tint: var(--integration-amber-tint);
+    }
+    [data-integration-tone='blue'] {
+        --integration-ink: var(--integration-blue);
+        --integration-tint: var(--integration-blue-tint);
+    }
+    [data-integration-tone='cyan'] {
+        --integration-ink: var(--integration-cyan);
+        --integration-tint: var(--integration-cyan-tint);
+    }
+    [data-integration-tone='red'] {
+        --integration-ink: var(--integration-red);
+        --integration-tint: var(--integration-red-tint);
+    }
+    [data-integration-tone='indigo'] {
+        --integration-ink: var(--integration-indigo);
+        --integration-tint: var(--integration-indigo-tint);
+    }
+    [data-integration-tone='coral'] {
+        --integration-ink: var(--integration-coral);
+        --integration-tint: var(--integration-coral-tint);
+    }
+    [data-integration-tone='graphite'] {
+        --integration-ink: var(--integration-graphite);
+        --integration-tint: var(--integration-graphite-tint);
+    }
+    [data-integration-tone='green'] {
+        --integration-ink: var(--integration-green);
+        --integration-tint: var(--integration-green-tint);
     }
     .integration-mask {
         mask-size: contain;

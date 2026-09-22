@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 
+import AppIcon from '@/components/AppIcon.vue';
 import { Badge } from '@/components/ui/badge';
 import {
     SidebarGroup,
@@ -38,7 +39,11 @@ const { urlIsActive } = useActiveUrl();
                     :tooltip="item.title"
                 >
                     <Link :href="item.href">
-                        <component :is="item.icon" stroke-width="1.65" />
+                        <AppIcon
+                            v-if="item.icon"
+                            :icon="item.icon"
+                            class="size-6 rounded-lg p-1"
+                        />
                         <span>{{ item.title }}</span>
                     </Link>
                 </SidebarMenuButton>

@@ -11,6 +11,7 @@ import { trans } from 'laravel-vue-i18n';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { PRODUCT_NAME } from '@/brand';
+import AppIcon from '@/components/AppIcon.vue';
 import ProductBrand from '@/components/brand/ProductBrand.vue';
 import PlatformIcon from '@/components/PlatformIcon.vue';
 import ThemeToggle from '@/components/ThemeToggle.vue';
@@ -231,14 +232,10 @@ const platforms = [
                                     <div
                                         class="flex items-center justify-center bg-card py-8"
                                     >
-                                        <div
-                                            class="flex size-20 items-center justify-center rounded-[22px] border border-border bg-secondary text-accent-foreground shadow-sm"
-                                        >
-                                            <component
-                                                :is="slide.icon"
-                                                class="size-10"
-                                            />
-                                        </div>
+                                        <AppIcon
+                                            :icon="slide.icon"
+                                            class="size-20 rounded-[22px] p-5"
+                                        />
                                     </div>
 
                                     <!-- Platform strip -->

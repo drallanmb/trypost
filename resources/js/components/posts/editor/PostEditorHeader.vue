@@ -2,6 +2,7 @@
 import { IconCalendar, IconCircleCheck, IconLoader2 } from '@tabler/icons-vue';
 import { computed } from 'vue';
 
+import AppIcon from '@/components/AppIcon.vue';
 import PostEditorActions from '@/components/posts/editor/PostEditorActions.vue';
 import { PostStatus } from '@/types/post';
 
@@ -55,7 +56,7 @@ const isPublished = computed(() =>
     <header
         :class="[
             'flex shrink-0 items-center gap-3 border-b-2 border-foreground px-4 py-3 md:px-6',
-            isScheduled ? 'bg-violet-100' : 'bg-card',
+            isScheduled ? 'bg-accent' : 'bg-card',
         ]"
     >
         <!-- Left: the scheduled banner, or the editable-state status.
@@ -64,14 +65,10 @@ const isPublished = computed(() =>
             <div
                 class="flex min-w-0 flex-1 items-start gap-3 pl-12 md:items-center md:pl-0"
             >
-                <div
-                    class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg border-2 border-foreground bg-violet-200 md:size-9"
-                >
-                    <IconCalendar
-                        class="size-4 text-foreground"
-                        stroke-width="2"
-                    />
-                </div>
+                <AppIcon
+                    :icon="IconCalendar"
+                    class="size-10 rounded-lg p-3 md:size-9 md:p-2.5"
+                />
                 <div class="min-w-0 flex-1 leading-tight">
                     <p class="text-sm font-semibold text-foreground">
                         {{ $t('posts.edit.scheduled_overlay_title') }}

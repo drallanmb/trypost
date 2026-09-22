@@ -22,6 +22,7 @@ import {
 } from 'vue';
 import { toast } from 'vue-sonner';
 
+import AppIcon from '@/components/AppIcon.vue';
 import ConfirmDeleteModal from '@/components/ConfirmDeleteModal.vue';
 import EmptyState from '@/components/EmptyState.vue';
 import ImagePreviewDialog from '@/components/ImagePreviewDialog.vue';
@@ -761,7 +762,7 @@ onUnmounted(() => {
                     class="relative mb-4 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed p-8 text-center transition-colors"
                     :class="[
                         isDragging
-                            ? 'border-foreground bg-violet-100'
+                            ? 'border-ring bg-accent'
                             : 'border-foreground/25 bg-card hover:bg-foreground/5',
                         uploading ? 'pointer-events-none' : '',
                     ]"
@@ -770,14 +771,7 @@ onUnmounted(() => {
                     @dragleave.prevent="isDragging = false"
                     @drop.prevent="handleDrop"
                 >
-                    <div
-                        class="inline-flex size-12 -rotate-3 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-200 shadow-2xs"
-                    >
-                        <IconCloudUpload
-                            class="size-6 text-foreground"
-                            stroke-width="2"
-                        />
-                    </div>
+                    <AppIcon :icon="IconCloudUpload" />
                     <p class="text-sm font-semibold text-foreground">
                         {{ trans('assets.upload.drag_drop') }}
                     </p>

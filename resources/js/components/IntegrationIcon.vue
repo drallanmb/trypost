@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 
+import type { IconTone } from '@/lib/iconTones';
 import { cn } from '@/lib/utils';
 
 const props = withDefaults(
     defineProps<{
-        tone?: 'plum' | 'rose' | 'amber' | 'neutral';
+        tone?: IconTone;
         tile?: boolean;
         class?: HTMLAttributes['class'];
     }>(),

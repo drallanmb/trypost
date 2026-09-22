@@ -11,6 +11,7 @@ import {
 } from '@tabler/icons-vue';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
+import AppIcon from '@/components/AppIcon.vue';
 import { Button } from '@/components/ui/button';
 import { useSidebar } from '@/components/ui/sidebar';
 import {
@@ -390,14 +391,7 @@ onBeforeUnmount(() => {
                         v-else-if="!loading"
                         class="flex flex-col items-center justify-center gap-3 px-6 py-12 text-center"
                     >
-                        <div
-                            class="inline-flex size-12 -rotate-3 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-200 shadow-2xs"
-                        >
-                            <IconInbox
-                                class="size-6 text-foreground"
-                                stroke-width="2"
-                            />
-                        </div>
+                        <AppIcon :icon="IconInbox" />
                         <p
                             class="text-base font-bold text-foreground"
                             style="font-family: var(--font-display)"
