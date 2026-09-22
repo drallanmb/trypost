@@ -87,7 +87,7 @@ const replayLog = () => {
 
             <div class="grid gap-4 sm:grid-cols-3">
                 <div
-                    class="rounded-xl border-2 border-foreground bg-background p-3 shadow-2xs"
+                    class="rounded-2xl border border-border bg-background p-3 shadow-2xs"
                 >
                     <p class="text-sm font-bold text-foreground">
                         {{ $t('webhooks.show.http_status') }}
@@ -97,7 +97,7 @@ const replayLog = () => {
                     </p>
                 </div>
                 <div
-                    class="rounded-xl border-2 border-foreground bg-background p-3 shadow-2xs"
+                    class="rounded-2xl border border-border bg-background p-3 shadow-2xs"
                 >
                     <p class="text-sm font-bold text-foreground">
                         {{ $t('webhooks.show.attempts') }}
@@ -107,7 +107,7 @@ const replayLog = () => {
                     </p>
                 </div>
                 <div
-                    class="rounded-xl border-2 border-foreground bg-background p-3 shadow-2xs"
+                    class="rounded-2xl border border-border bg-background p-3 shadow-2xs"
                 >
                     <p class="text-sm font-bold text-foreground">
                         {{ $t('webhooks.show.delivered_at') }}

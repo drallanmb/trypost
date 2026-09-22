@@ -540,7 +540,7 @@ watch(
                             class="group relative rounded-lg px-2 py-1.5 transition-colors"
                             :class="
                                 highlightedId === comment.id
-                                    ? 'bg-violet-100 ring-2 ring-foreground'
+                                    ? 'bg-accent ring-2 ring-foreground'
                                     : 'hover:bg-foreground/5'
                             "
                             @mouseleave="emojiPickerCommentId = null"
@@ -577,14 +577,14 @@ watch(
                             <template v-else>
                                 <div class="flex items-start gap-3">
                                     <Avatar
-                                        class="size-8 shrink-0 rounded-full border-2 border-foreground shadow-2xs"
+                                        class="size-8 shrink-0 rounded-full border border-border shadow-2xs"
                                     >
                                         <AvatarImage
                                             v-if="getAvatarUrl(comment.user)"
                                             :src="getAvatarUrl(comment.user)!"
                                         />
                                         <AvatarFallback
-                                            class="rounded-full bg-violet-100 text-[10px] font-bold text-violet-700"
+                                            class="rounded-full bg-accent text-[10px] font-bold text-accent-foreground"
                                             >{{
                                                 getInitials(comment.user.name)
                                             }}</AvatarFallback
@@ -653,11 +653,11 @@ watch(
                                                     comment.reactions,
                                                 )"
                                                 :key="r.emoji"
-                                                class="inline-flex cursor-pointer items-center gap-1 rounded-full border-2 px-2 py-0.5 text-xs font-bold transition-colors"
+                                                class="inline-flex cursor-pointer items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-bold transition-colors"
                                                 :class="
                                                     r.hasReacted
-                                                        ? 'border-foreground bg-violet-100'
-                                                        : 'border-foreground/30 hover:border-foreground'
+                                                        ? 'border-ring bg-accent ring-1 ring-ring'
+                                                        : 'border-border hover:border-ring'
                                                 "
                                                 @click="
                                                     toggleReaction(
@@ -678,7 +678,7 @@ watch(
                                     <!-- Floating toolbar -->
                                     <div
                                         v-if="editingComment?.id !== comment.id"
-                                        class="absolute -top-3 right-2 z-50 flex items-center gap-0.5 rounded-md border-2 border-foreground bg-card px-1 py-0.5 opacity-100 shadow-2xs transition-opacity lg:opacity-0 lg:group-focus-within:opacity-100 lg:group-hover:opacity-100"
+                                        class="absolute -top-3 right-2 z-50 flex items-center gap-0.5 rounded-md border border-border bg-card px-1 py-0.5 opacity-100 shadow-2xs transition-opacity lg:opacity-0 lg:group-focus-within:opacity-100 lg:group-hover:opacity-100"
                                     >
                                         <TooltipProvider :delay-duration="200">
                                             <Tooltip>
@@ -787,7 +787,7 @@ watch(
                                         v-if="
                                             emojiPickerCommentId === comment.id
                                         "
-                                        class="absolute -top-10 right-2 z-50 flex items-center gap-0.5 rounded-lg border-2 border-foreground bg-card p-1.5 shadow-md"
+                                        class="absolute -top-10 right-2 z-50 flex items-center gap-0.5 rounded-lg border border-border bg-card p-1.5 shadow-md"
                                     >
                                         <button
                                             v-for="emoji in EMOJIS"
@@ -815,7 +815,7 @@ watch(
                                 class="group relative ml-8 rounded-lg px-2 py-1.5 transition-colors"
                                 :class="
                                     highlightedId === reply.id
-                                        ? 'bg-violet-100 ring-2 ring-foreground'
+                                        ? 'bg-accent ring-2 ring-foreground'
                                         : 'hover:bg-foreground/5'
                                 "
                                 @mouseleave="emojiPickerCommentId = null"
@@ -852,14 +852,14 @@ watch(
                                 <template v-else>
                                     <div class="flex items-start gap-2.5">
                                         <Avatar
-                                            class="size-7 shrink-0 rounded-full border-2 border-foreground shadow-2xs"
+                                            class="size-7 shrink-0 rounded-full border border-border shadow-2xs"
                                         >
                                             <AvatarImage
                                                 v-if="getAvatarUrl(reply.user)"
                                                 :src="getAvatarUrl(reply.user)!"
                                             />
                                             <AvatarFallback
-                                                class="rounded-full bg-violet-100 text-[10px] font-bold text-violet-700"
+                                                class="rounded-full bg-accent text-[10px] font-bold text-accent-foreground"
                                                 >{{
                                                     getInitials(reply.user.name)
                                                 }}</AvatarFallback
@@ -935,11 +935,11 @@ watch(
                                                         reply.reactions,
                                                     )"
                                                     :key="r.emoji"
-                                                    class="inline-flex cursor-pointer items-center gap-1 rounded-full border-2 px-2 py-0.5 text-xs font-bold transition-colors"
+                                                    class="inline-flex cursor-pointer items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-bold transition-colors"
                                                     :class="
                                                         r.hasReacted
-                                                            ? 'border-foreground bg-violet-100'
-                                                            : 'border-foreground/30 hover:border-foreground'
+                                                            ? 'border-ring bg-accent ring-1 ring-ring'
+                                                            : 'border-border hover:border-ring'
                                                     "
                                                     @click="
                                                         toggleReaction(
@@ -962,7 +962,7 @@ watch(
                                             v-if="
                                                 editingComment?.id !== reply.id
                                             "
-                                            class="absolute -top-3 right-2 z-50 flex items-center gap-0.5 rounded-md border-2 border-foreground bg-card px-1 py-0.5 opacity-100 shadow-2xs transition-opacity lg:opacity-0 lg:group-focus-within:opacity-100 lg:group-hover:opacity-100"
+                                            class="absolute -top-3 right-2 z-50 flex items-center gap-0.5 rounded-md border border-border bg-card px-1 py-0.5 opacity-100 shadow-2xs transition-opacity lg:opacity-0 lg:group-focus-within:opacity-100 lg:group-hover:opacity-100"
                                         >
                                             <TooltipProvider
                                                 :delay-duration="200"
@@ -1058,7 +1058,7 @@ watch(
                                                 emojiPickerCommentId ===
                                                 reply.id
                                             "
-                                            class="absolute -top-10 right-2 z-50 flex items-center gap-0.5 rounded-lg border-2 border-foreground bg-card p-1.5 shadow-md"
+                                            class="absolute -top-10 right-2 z-50 flex items-center gap-0.5 rounded-lg border border-border bg-card p-1.5 shadow-md"
                                         >
                                             <button
                                                 v-for="emoji in EMOJIS"
@@ -1091,7 +1091,7 @@ watch(
         </div>
 
         <!-- Input area -->
-        <div class="shrink-0 border-t-2 border-foreground/10 p-2">
+        <div class="shrink-0 border-t border-border p-2">
             <!-- Replying to indicator -->
             <div
                 v-if="replyingTo"

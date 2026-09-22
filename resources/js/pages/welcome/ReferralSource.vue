@@ -106,8 +106,8 @@ const sourceMeta: Record<string, SourceMeta> = {
     },
     ai_assistant: {
         icon: IconSparkles,
-        iconClass: 'text-violet-700',
-        badge: 'bg-violet-100',
+        iconClass: 'text-accent-foreground',
+        badge: 'bg-accent',
     },
     friend: {
         icon: IconUsers,
@@ -173,14 +173,16 @@ const submit = (): void => {
                 :aria-pressed="isSelected(source)"
                 :data-testid="`welcome-source-${source}`"
                 :class="[
-                    'inline-flex cursor-pointer items-center gap-3 rounded-full border-2 border-foreground py-2.5 ps-2.5 pe-5 text-start shadow-2xs transition-shadow hover:shadow-md',
-                    isSelected(source) ? 'bg-violet-100' : 'bg-card',
+                    'inline-flex cursor-pointer items-center gap-3 rounded-full border border-border py-2.5 ps-2.5 pe-5 text-start shadow-2xs transition-shadow hover:shadow-sm',
+                    isSelected(source)
+                        ? 'bg-accent ring-1 ring-ring'
+                        : 'bg-card',
                 ]"
                 @click="select(source)"
             >
                 <span
                     :class="[
-                        'inline-flex size-11 shrink-0 items-center justify-center rounded-full border-2 border-foreground shadow-2xs',
+                        'inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-border shadow-2xs',
                         metaFor(source).badge,
                     ]"
                 >
@@ -204,7 +206,7 @@ const submit = (): void => {
                 </span>
                 <span
                     v-if="isSelected(source)"
-                    class="inline-flex size-5 shrink-0 items-center justify-center rounded-full border-2 border-foreground bg-foreground"
+                    class="inline-flex size-5 shrink-0 items-center justify-center rounded-full border border-border bg-foreground"
                 >
                     <IconCheck
                         class="size-3 text-background"

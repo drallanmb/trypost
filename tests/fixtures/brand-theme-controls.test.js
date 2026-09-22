@@ -23,11 +23,94 @@ function createComponentServer() {
     });
 }
 
+test('MCP setup keeps its copy control and client links inside soft theme surfaces', async () => {
+    const server = await createComponentServer();
+    try {
+        const { default: McpPrimarySetup } = await server.ssrLoadModule(
+            '/resources/js/components/mcp/McpPrimarySetup.vue',
+        );
+        const app = createSSRApp(McpPrimarySetup, {
+            mcpUrl: 'https://example.invalid/mcp',
+            copiedMessage: 'Copied',
+        });
+        app.config.globalProperties.$t = (key) => key;
+        const html = await renderToString(app);
+        assert.match(html, /https:\/\/example.invalid\/mcp/);
+        assert.match(
+            html,
+            /<button[^>]*type="button"[^>]*data-testid="copy-mcp-url"/,
+        );
+        for (const href of [
+            'https://claude.ai/customize/connectors',
+            'https://chatgpt.com/plugins#settings/Connectors?create-connector=true&amp;redirectAfter=%2Fplugins',
+        ]) {
+            assert.ok(html.includes(`href="${href}"`));
+        }
+        assert.match(html, /target="_blank" rel="noopener noreferrer"/);
+        assert.doesNotMatch(html, /border-2|border-foreground/);
+        assert.match(html, /rounded-2xl border border-border bg-card/);
+    } finally {
+        await server.close();
+    }
+});
+
+test('shared controls preserve disabled, selected and invalid states with theme-aware surfaces', async () => {
+    const server = await createComponentServer();
+    try {
+        const { default: LabelBadge } = await server.ssrLoadModule(
+            '/resources/js/components/labels/LabelBadge.vue',
+        );
+        const { default: Textarea } = await server.ssrLoadModule(
+            '/resources/js/components/ui/textarea/Textarea.vue',
+        );
+        const label = { id: 'priority', name: 'Priority', color: '#abcdef' };
+        const selected = await renderToString(
+            createSSRApp(LabelBadge, {
+                label,
+                interactive: true,
+                selected: true,
+                disabled: true,
+            }),
+        );
+        assert.match(selected, /<button[^>]*type="button"[^>]*disabled/);
+        assert.match(selected, /Priority/);
+        assert.match(selected, /background-color:#abcdef/);
+        assert.match(selected, /bg-accent/);
+        assert.match(selected, /ring-1 ring-ring/);
+        assert.doesNotMatch(
+            selected,
+            /bg-violet-100|border-2|border-foreground/,
+        );
+        const plain = await renderToString(createSSRApp(LabelBadge, { label }));
+        assert.match(plain, /^<span/);
+        assert.doesNotMatch(plain, /ring-ring/);
+        const invalid = await renderToString(
+            createSSRApp(Textarea, {
+                'aria-invalid': true,
+                disabled: true,
+                name: 'caption',
+            }),
+        );
+        assert.match(invalid, /<textarea/);
+        assert.match(invalid, /aria-invalid="true"/);
+        assert.match(invalid, /aria-invalid:border-destructive/);
+        assert.match(invalid, /focus-visible:ring-/);
+        assert.match(invalid, /border-input/);
+        assert.doesNotMatch(invalid, /border-2|border-foreground/);
+    } finally {
+        await server.close();
+    }
+});
+
 test('the company sidebar keeps upstream documentation without referral or community promotions', async () => {
     const server = await createComponentServer();
     try {
-        const { default: AppSidebar } = await server.ssrLoadModule('/resources/js/components/AppSidebar.vue');
-        const { default: SidebarProvider } = await server.ssrLoadModule('/resources/js/components/ui/sidebar/SidebarProvider.vue');
+        const { default: AppSidebar } = await server.ssrLoadModule(
+            '/resources/js/components/AppSidebar.vue',
+        );
+        const { default: SidebarProvider } = await server.ssrLoadModule(
+            '/resources/js/components/ui/sidebar/SidebarProvider.vue',
+        );
         const { createInertiaApp } = await import('@inertiajs/vue3');
         const { configureEcho } = await import('@laravel/echo-vue');
         configureEcho({ broadcaster: 'null' });
@@ -35,32 +118,71 @@ test('the company sidebar keeps upstream documentation without referral or commu
         globalThis.window = undefined;
         const { body } = await createInertiaApp({
             page: {
-                component: 'SidebarTest', url: 'https://social.example.invalid/calendar', version: null,
+                component: 'SidebarTest',
+                url: 'https://social.example.invalid/calendar',
+                version: null,
                 props: {
-                    errors: {}, onboardingProgress: false,
+                    errors: {},
+                    onboardingProgress: false,
                     auth: {
-                        user: { id: 'test-user', name: 'Test Operator', email: 'operator@example.invalid' },
-                        currentWorkspace: { id: 'test-workspace', name: 'Test Clinic', logo_url: null, role: 'owner' },
-                        workspaces: [], subscriptionPastDue: false,
+                        user: {
+                            id: 'test-user',
+                            name: 'Test Operator',
+                            email: 'operator@example.invalid',
+                        },
+                        currentWorkspace: {
+                            id: 'test-workspace',
+                            name: 'Test Clinic',
+                            logo_url: null,
+                            role: 'owner',
+                        },
+                        workspaces: [],
+                        subscriptionPastDue: false,
                     },
                 },
             },
-            resolve: () => defineComponent({ render: () => h(SidebarProvider, null, { default: () => h(AppSidebar) }) }),
+            resolve: () =>
+                defineComponent({
+                    render: () =>
+                        h(SidebarProvider, null, {
+                            default: () => h(AppSidebar),
+                        }),
+                }),
             render: renderToString,
             setup({ App, props, plugin }) {
-                const app = createSSRApp({ render: () => h(App, props) }).use(plugin);
+                const app = createSSRApp({ render: () => h(App, props) }).use(
+                    plugin,
+                );
                 app.config.globalProperties.$t = (key) => key;
                 return app;
             },
         });
-        const links = [...body.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
-        const docs = links.find(([, href]) => href === 'https://docs.trypost.it');
+        const links = [
+            ...body.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g),
+        ];
+        const docs = links.find(
+            ([, href]) => href === 'https://docs.trypost.it',
+        );
         assert.ok(docs, 'Keep access to upstream documentation');
-        assert.match(docs[2], /TryPost/, 'Clearly identify the upstream documentation');
+        assert.match(
+            docs[2],
+            /TryPost/,
+            'Clearly identify the upstream documentation',
+        );
         assert.match(docs[0], /target="_blank"/);
         assert.match(docs[0], /rel="noopener noreferrer"/);
-        assert.ok(!links.some(([, href]) => href.includes('affiliates.trypost.it') || href.includes('trypost.it/discord')), 'Do not promote unrelated upstream services');
-        assert.ok(links.some(([, href]) => href === '/calendar'), 'Keep the company calendar accessible');
+        assert.ok(
+            !links.some(
+                ([, href]) =>
+                    href.includes('affiliates.trypost.it') ||
+                    href.includes('trypost.it/discord'),
+            ),
+            'Do not promote unrelated upstream services',
+        );
+        assert.ok(
+            links.some(([, href]) => href === '/calendar'),
+            'Keep the company calendar accessible',
+        );
         assert.match(body, /Social AnamnesisMD/);
     } finally {
         delete globalThis.window;
@@ -91,7 +213,9 @@ test('platform icons resolve every network and account alias to its own monochro
             ['discord', 'discord', 'Discord'],
         ];
         for (const [platform, glyph, label] of cases) {
-            const html = await renderToString(createSSRApp(PlatformIcon, { platform }));
+            const html = await renderToString(
+                createSSRApp(PlatformIcon, { platform }),
+            );
             assert.ok(html.includes(`tabler-icon-brand-${glyph}`), platform);
             assert.ok(html.includes(`aria-label="${label}"`), platform);
             assert.match(html, /role="img"/);
@@ -110,9 +234,13 @@ test('platform icons hide decorative duplicates and never misidentify an unknown
         const { default: PlatformIcon } = await server.ssrLoadModule(
             '/resources/js/components/PlatformIcon.vue',
         );
-        const decorative = await renderToString(createSSRApp(PlatformIcon, {
-            platform: 'instagram', decorative: true, class: 'size-8 text-background',
-        }));
+        const decorative = await renderToString(
+            createSSRApp(PlatformIcon, {
+                platform: 'instagram',
+                decorative: true,
+                class: 'size-8 text-background',
+            }),
+        );
         assert.match(decorative, /aria-hidden="true"/);
         assert.doesNotMatch(decorative, /aria-label=|role="img"/);
         assert.match(decorative, /size-8/);
@@ -120,9 +248,12 @@ test('platform icons hide decorative duplicates and never misidentify an unknown
         assert.match(decorative, /text-background/);
         assert.doesNotMatch(decorative, /text-foreground/);
         for (const platform of ['future-network', 'constructor', '']) {
-            const html = await renderToString(createSSRApp(PlatformIcon, {
-                platform, label: 'Network account',
-            }));
+            const html = await renderToString(
+                createSSRApp(PlatformIcon, {
+                    platform,
+                    label: 'Network account',
+                }),
+            );
             assert.match(html, /tabler-icon-world/);
             assert.match(html, /aria-label="Network account"/);
             assert.doesNotMatch(html, /tabler-icon-brand-/);
@@ -135,60 +266,118 @@ test('platform icons hide decorative duplicates and never misidentify an unknown
 test('integration icons keep account aliases in the same palette family and allow contrast overrides', async () => {
     const server = await createComponentServer();
     try {
-        const { default: PlatformIcon } = await server.ssrLoadModule('/resources/js/components/PlatformIcon.vue');
+        const { default: PlatformIcon } = await server.ssrLoadModule(
+            '/resources/js/components/PlatformIcon.vue',
+        );
         for (const [platform, tone] of [
-            ['instagram', 'rose'], ['instagram-facebook', 'rose'],
-            ['linkedin', 'blue'], ['linkedin-page', 'blue'],
-            ['facebook', 'blue'], ['bluesky', 'blue'], ['telegram', 'cyan'],
-            ['youtube', 'red'], ['pinterest', 'red'], ['discord', 'indigo'],
-            ['mastodon', 'plum'], ['tiktok', 'rose'],
-            ['x', 'graphite'], ['threads', 'graphite'], ['constructor', 'neutral'],
+            ['instagram', 'rose'],
+            ['instagram-facebook', 'rose'],
+            ['linkedin', 'blue'],
+            ['linkedin-page', 'blue'],
+            ['facebook', 'blue'],
+            ['bluesky', 'blue'],
+            ['telegram', 'cyan'],
+            ['youtube', 'red'],
+            ['pinterest', 'red'],
+            ['discord', 'indigo'],
+            ['mastodon', 'plum'],
+            ['tiktok', 'rose'],
+            ['x', 'graphite'],
+            ['threads', 'graphite'],
+            ['constructor', 'neutral'],
         ]) {
-            const html = await renderToString(createSSRApp(PlatformIcon, { platform, tile: true }));
-            assert.ok(html.includes(`data-integration-tone="${tone}"`), platform);
+            const html = await renderToString(
+                createSSRApp(PlatformIcon, { platform, tile: true }),
+            );
+            assert.ok(
+                html.includes(`data-integration-tone="${tone}"`),
+                platform,
+            );
             assert.match(html, /bg-\[var\(--integration-tint\)\]/);
         }
-        const inline = await renderToString(createSSRApp(PlatformIcon, { platform: 'instagram', class: 'text-background' }));
+        const inline = await renderToString(
+            createSSRApp(PlatformIcon, {
+                platform: 'instagram',
+                class: 'text-background',
+            }),
+        );
         assert.match(inline, /text-background/);
-        assert.doesNotMatch(inline, /text-\[var\(--integration-ink\)\]|bg-\[var\(--integration-tint\)\]/);
-    } finally { await server.close(); }
+        assert.doesNotMatch(
+            inline,
+            /text-\[var\(--integration-ink\)\]|bg-\[var\(--integration-tint\)\]/,
+        );
+    } finally {
+        await server.close();
+    }
 });
 
 test('MCP icons retain each local silhouette with palette colors and safe unknown-client fallback', async () => {
     const server = await createComponentServer();
     try {
-        const { default: McpClientIcon } = await server.ssrLoadModule('/resources/js/components/mcp/McpClientIcon.vue');
+        const { default: McpClientIcon } = await server.ssrLoadModule(
+            '/resources/js/components/mcp/McpClientIcon.vue',
+        );
         for (const [client, asset, tone] of [
-            ['claude', 'claude.svg', 'coral'], ['chatgpt', 'chatgpt-white.svg', 'graphite'],
-            ['cursor', 'cursor.svg', 'graphite'], ['vscode', 'vscode.svg', 'blue'],
-            ['claude_code', 'claude.svg', 'coral'], ['other', 'other-clients.svg', 'plum'],
+            ['claude', 'claude.svg', 'coral'],
+            ['chatgpt', 'chatgpt-white.svg', 'graphite'],
+            ['cursor', 'cursor.svg', 'graphite'],
+            ['vscode', 'vscode.svg', 'blue'],
+            ['claude_code', 'claude.svg', 'coral'],
+            ['other', 'other-clients.svg', 'plum'],
         ]) {
-            const html = await renderToString(createSSRApp(McpClientIcon, { client }));
+            const html = await renderToString(
+                createSSRApp(McpClientIcon, { client }),
+            );
             assert.ok(html.includes(`/images/ai/${asset}`), client);
             assert.ok(html.includes(`data-integration-tone="${tone}"`), client);
             assert.match(html, /aria-hidden="true"/);
             assert.doesNotMatch(html, /<img|rotate-|aria-label=/);
         }
         for (const client of ['unknown', 'constructor', '']) {
-            const html = await renderToString(createSSRApp(McpClientIcon, { client }));
+            const html = await renderToString(
+                createSSRApp(McpClientIcon, { client }),
+            );
             assert.match(html, /tabler-icon-plug-connected/);
             assert.match(html, /data-integration-tone="neutral"/);
             assert.doesNotMatch(html, /mask-image/);
         }
-    } finally { await server.close(); }
+    } finally {
+        await server.close();
+    }
 });
 
 test('functional icons keep the same pastel identity in compact navigation and large empty states', async () => {
     const server = await createComponentServer();
     try {
-        const { default: AppIcon } = await server.ssrLoadModule('/resources/js/components/AppIcon.vue');
-        const { default: EmptyState } = await server.ssrLoadModule('/resources/js/components/EmptyState.vue');
-        const { IconCloudUpload, IconPhoto, IconTag, IconBrandDiscord } = await import('@tabler/icons-vue');
-        for (const [icon, tone, glyph] of [[IconCloudUpload, 'blue', 'cloud-upload'], [IconPhoto, 'rose', 'photo'], [IconTag, 'amber', 'tag'], [IconBrandDiscord, 'indigo', 'brand-discord']]) {
-            const compact = await renderToString(createSSRApp(AppIcon, { icon, class: 'size-6 p-1' }));
-            const large = await renderToString(createSSRApp(EmptyState, { icon, title: 'Empty', description: 'Nothing here' }));
+        const { default: AppIcon } = await server.ssrLoadModule(
+            '/resources/js/components/AppIcon.vue',
+        );
+        const { default: EmptyState } = await server.ssrLoadModule(
+            '/resources/js/components/EmptyState.vue',
+        );
+        const { IconCloudUpload, IconPhoto, IconTag, IconBrandDiscord } =
+            await import('@tabler/icons-vue');
+        for (const [icon, tone, glyph] of [
+            [IconCloudUpload, 'blue', 'cloud-upload'],
+            [IconPhoto, 'rose', 'photo'],
+            [IconTag, 'amber', 'tag'],
+            [IconBrandDiscord, 'indigo', 'brand-discord'],
+        ]) {
+            const compact = await renderToString(
+                createSSRApp(AppIcon, { icon, class: 'size-6 p-1' }),
+            );
+            const large = await renderToString(
+                createSSRApp(EmptyState, {
+                    icon,
+                    title: 'Empty',
+                    description: 'Nothing here',
+                }),
+            );
             for (const html of [compact, large]) {
-                assert.ok(html.includes(`data-integration-tone="${tone}"`), glyph);
+                assert.ok(
+                    html.includes(`data-integration-tone="${tone}"`),
+                    glyph,
+                );
                 assert.ok(html.includes(`tabler-icon-${glyph}`), glyph);
                 assert.match(html, /aria-hidden="true"/);
                 assert.doesNotMatch(html, /-rotate-/);
@@ -196,7 +385,9 @@ test('functional icons keep the same pastel identity in compact navigation and l
             assert.match(compact, /size-6/);
             assert.match(large, /Empty/);
         }
-    } finally { await server.close(); }
+    } finally {
+        await server.close();
+    }
 });
 
 test('the calendar empty state offers the selected-date creation link only to authors', async () => {

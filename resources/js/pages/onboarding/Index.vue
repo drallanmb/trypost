@@ -119,7 +119,7 @@ const isStepSkipped = (step: string): boolean =>
                     :step="1"
                     :title="$t('onboarding.mcp.title')"
                     :description="$t('onboarding.mcp.description')"
-                    accent-class="bg-violet-100"
+                    accent-class="bg-accent"
                     data-testid="onboarding-mcp"
                 >
                     <div class="space-y-6">
@@ -178,11 +178,11 @@ const isStepSkipped = (step: string): boolean =>
                     :step="3"
                     :title="$t('onboarding.first_post.title')"
                     :description="$t('onboarding.first_post.description')"
-                    accent-class="bg-amber-100"
+                    accent-class="bg-warning/10"
                     data-testid="onboarding-first-post"
                 >
                     <div
-                        class="rounded-xl border-2 border-foreground bg-amber-50 p-5 shadow-2xs"
+                        class="rounded-2xl border border-border bg-warning/10 p-5 shadow-2xs"
                     >
                         <p
                             class="text-xs font-black tracking-widest text-muted-foreground uppercase"

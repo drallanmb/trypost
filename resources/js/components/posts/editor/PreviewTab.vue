@@ -77,7 +77,7 @@ const activeContentType = computed((): string | undefined => {
     <div class="flex h-full flex-col">
         <div
             v-if="platforms.length > 1"
-            class="border-b-2 border-foreground/10 px-4 py-3"
+            class="border-b border-border px-4 py-3"
         >
             <div class="flex flex-wrap gap-3">
                 <TooltipProvider
@@ -100,11 +100,11 @@ const activeContentType = computed((): string | undefined => {
                                 <Avatar
                                     :src="getPlatformAvatar(pp)"
                                     :name="getPlatformDisplayName(pp)"
-                                    class="size-9 shrink-0 rounded-full border-2"
+                                    class="size-9 shrink-0 rounded-full border"
                                     :class="
                                         activeId === pp.id
-                                            ? 'border-foreground shadow-2xs'
-                                            : 'border-foreground/20'
+                                            ? 'border-ring ring-2 ring-ring'
+                                            : 'border-border'
                                     "
                                 />
                                 <span

@@ -153,7 +153,7 @@ const hasActiveSearch = computed(() => Boolean(searchQuery.value?.trim()));
                             >
                                 <TableCell>
                                     <div
-                                        class="size-6 rounded-md border-2 border-foreground shadow-2xs"
+                                        class="size-6 rounded-md border border-border shadow-2xs"
                                         :style="{
                                             backgroundColor: label.color,
                                         }"

@@ -96,7 +96,7 @@ const copy = (value: string): void => {
                 v-for="client in advancedClients"
                 :key="client.key"
                 :open="openClient === client.key"
-                class="overflow-hidden rounded-xl border-2 border-foreground bg-card shadow-2xs"
+                class="overflow-hidden rounded-2xl border border-border bg-card shadow-2xs"
                 @update:open="(open) => setClientOpen(client.key, open)"
             >
                 <CollapsibleTrigger
@@ -135,7 +135,7 @@ const copy = (value: string): void => {
                                 {{ $t('mcp.name_label') }}
                             </p>
                             <div
-                                class="flex items-center gap-2 rounded-xl border-2 border-foreground bg-background p-2 shadow-2xs"
+                                class="flex items-center gap-2 rounded-2xl border border-border bg-background p-2 shadow-2xs"
                             >
                                 <code
                                     dir="ltr"
@@ -161,7 +161,7 @@ const copy = (value: string): void => {
                                 {{ $t('mcp.url_label') }}
                             </p>
                             <div
-                                class="flex items-center gap-2 rounded-xl border-2 border-foreground bg-background p-2 shadow-2xs"
+                                class="flex items-center gap-2 rounded-2xl border border-border bg-background p-2 shadow-2xs"
                             >
                                 <code
                                     dir="ltr"
@@ -189,7 +189,7 @@ const copy = (value: string): void => {
                             <div class="relative">
                                 <pre
                                     dir="ltr"
-                                    class="overflow-x-auto rounded-xl border-2 border-foreground bg-background p-3 pe-14 text-left font-mono text-xs shadow-2xs"
+                                    class="overflow-x-auto rounded-2xl border border-border bg-background p-3 pe-14 text-left font-mono text-xs shadow-2xs"
                                     :data-testid="`mcp-config-${client.key}`"
                                 ><code>{{ configSnippet(client) }}</code></pre>
                                 <Button

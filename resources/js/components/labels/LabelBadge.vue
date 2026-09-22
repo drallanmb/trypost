@@ -27,9 +27,9 @@ defineEmits<{ click: [] }>();
         :is="interactive ? 'button' : 'span'"
         :type="interactive ? 'button' : undefined"
         :disabled="interactive && disabled"
-        class="inline-flex items-center gap-1.5 rounded-full border-2 border-foreground px-2 py-0.5 text-[10px] font-bold tracking-widest text-foreground uppercase shadow-2xs"
+        class="inline-flex items-center gap-1.5 rounded-full border border-border px-2 py-0.5 text-[10px] font-bold tracking-widest text-foreground uppercase shadow-2xs"
         :class="[
-            selected ? 'bg-violet-100 shadow-md' : 'bg-card',
+            selected ? 'bg-accent ring-1 ring-ring' : 'bg-card',
             interactive
                 ? 'cursor-pointer transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed'
                 : '',

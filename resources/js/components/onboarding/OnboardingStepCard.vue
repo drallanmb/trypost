@@ -15,18 +15,18 @@ defineProps<{
 
 <template>
     <section
-        class="overflow-hidden rounded-2xl border-2 border-foreground bg-card shadow-2xs"
+        class="overflow-hidden rounded-2xl border border-border bg-card shadow-2xs"
     >
         <header
             :class="[
-                'flex items-center justify-between gap-4 border-b-2 border-foreground px-5 py-4 sm:px-6',
-                skipped ? 'bg-muted' : done ? 'bg-emerald-100' : accentClass,
+                'flex items-center justify-between gap-4 border-b border-border px-5 py-4 sm:px-6',
+                skipped ? 'bg-muted' : done ? 'bg-success/10' : accentClass,
             ]"
         >
             <div class="flex min-w-0 items-center gap-3">
                 <span
                     :class="[
-                        'inline-flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-foreground text-sm font-bold shadow-2xs',
+                        'inline-flex size-8 shrink-0 items-center justify-center rounded-full border border-border text-sm font-bold shadow-2xs',
                         done ? 'bg-emerald-300' : 'bg-card',
                     ]"
                 >

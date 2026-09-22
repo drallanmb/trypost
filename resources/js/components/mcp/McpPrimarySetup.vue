@@ -23,7 +23,7 @@ const copyMcpUrl = (): void => {
                 {{ $t('mcp.copy_step') }}
             </p>
             <div
-                class="flex flex-col gap-2 rounded-xl border-2 border-foreground bg-background p-2 shadow-2xs sm:flex-row sm:items-center"
+                class="flex flex-col gap-2 rounded-2xl border border-border bg-background p-2 shadow-2xs sm:flex-row sm:items-center"
             >
                 <div class="flex min-w-0 flex-1 items-center gap-2 px-2">
                     <IconLink class="size-4 shrink-0 text-muted-foreground" />
@@ -57,7 +57,7 @@ const copyMcpUrl = (): void => {
                 <article
                     v-for="client in mcpClients"
                     :key="client.id"
-                    class="flex flex-col gap-4 rounded-xl border-2 border-foreground bg-card p-4 shadow-2xs"
+                    class="flex flex-col gap-4 rounded-2xl border border-border bg-card p-4 shadow-2xs"
                 >
                     <div class="flex items-start gap-4">
                         <McpClientIcon :client="client.id" />

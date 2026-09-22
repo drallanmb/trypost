@@ -23,18 +23,14 @@ const isFailed = (log: WebhookLog): boolean => Boolean(log.failed_at);
 
 <template>
     <div
-        class="overflow-y-auto border-b-2 border-foreground lg:border-r-2 lg:border-b-0"
+        class="overflow-y-auto border-b border-border lg:border-r lg:border-b-0"
     >
         <InfiniteScroll data="logs" preserve-scroll>
             <button
                 v-for="log in logs"
                 :key="log.id"
-                class="relative flex w-full items-center gap-3 border-b-2 border-foreground/10 px-4 py-3 text-left transition-colors hover:bg-violet-50 dark:hover:bg-violet-950/30"
-                :class="
-                    selectedId === log.id
-                        ? 'bg-violet-100 dark:bg-violet-950/40'
-                        : ''
-                "
+                class="relative flex w-full items-center gap-3 border-b border-border px-4 py-3 text-left transition-colors hover:bg-violet-50 dark:hover:bg-violet-950/30"
+                :class="selectedId === log.id ? 'bg-accent' : ''"
                 type="button"
                 @click="$emit('select', log)"
             >
@@ -43,12 +39,12 @@ const isFailed = (log: WebhookLog): boolean => Boolean(log.failed_at);
                     class="absolute top-1/2 left-1.5 size-1.5 -translate-y-1/2 animate-pulse rounded-full bg-violet-500"
                 />
                 <div
-                    class="flex size-8 shrink-0 items-center justify-center rounded-xl border-2 border-foreground shadow-2xs"
+                    class="flex size-8 shrink-0 items-center justify-center rounded-2xl border border-border shadow-2xs"
                     :class="
                         isSuccess(log)
-                            ? 'bg-emerald-200 text-foreground'
+                            ? 'bg-success/10 text-foreground'
                             : isFailed(log)
-                              ? 'bg-rose-200 text-foreground'
+                              ? 'bg-destructive/10 text-foreground'
                               : 'bg-muted text-foreground/60'
                     "
                 >

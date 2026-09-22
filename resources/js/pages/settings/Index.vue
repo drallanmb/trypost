@@ -38,11 +38,11 @@ defineProps<{
                 <Link
                     v-if="permissions.canManageProfile"
                     :href="profileEdit().url"
-                    class="group flex flex-col gap-4 rounded-2xl border-2 border-foreground bg-card p-5 shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-md"
+                    class="group flex flex-col gap-4 rounded-2xl border border-border bg-card p-5 shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-sm"
                 >
                     <div class="flex items-start justify-between">
                         <div
-                            class="inline-flex size-12 -rotate-2 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-200 shadow-2xs transition-transform group-hover:rotate-0"
+                            class="inline-flex size-12 items-center justify-center rounded-2xl border border-border bg-secondary shadow-2xs transition-transform"
                         >
                             <IconUser
                                 class="size-6 text-foreground"
@@ -66,11 +66,11 @@ defineProps<{
                 <Link
                     v-if="permissions.canManageWorkspace"
                     :href="workspaceSettings().url"
-                    class="group flex flex-col gap-4 rounded-2xl border-2 border-foreground bg-card p-5 shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-md"
+                    class="group flex flex-col gap-4 rounded-2xl border border-border bg-card p-5 shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-md"
                 >
                     <div class="flex items-start justify-between">
                         <div
-                            class="inline-flex size-12 rotate-1 items-center justify-center rounded-2xl border-2 border-foreground bg-amber-200 shadow-2xs transition-transform group-hover:rotate-0"
+                            class="inline-flex size-12 items-center justify-center rounded-2xl border border-border bg-warning/10 shadow-2xs transition-transform"
                         >
                             <IconBuildingCommunity
                                 class="size-6 text-foreground"
@@ -94,11 +94,11 @@ defineProps<{
                 <Link
                     v-if="permissions.canManageAccount"
                     :href="accountEdit().url"
-                    class="group flex flex-col gap-4 rounded-2xl border-2 border-foreground bg-card p-5 shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-md"
+                    class="group flex flex-col gap-4 rounded-2xl border border-border bg-card p-5 shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-md"
                 >
                     <div class="flex items-start justify-between">
                         <div
-                            class="inline-flex size-12 -rotate-1 items-center justify-center rounded-2xl border-2 border-foreground bg-emerald-200 shadow-2xs transition-transform group-hover:rotate-0"
+                            class="inline-flex size-12 items-center justify-center rounded-2xl border border-border bg-success/10 shadow-2xs transition-transform"
                         >
                             <IconCreditCard
                                 class="size-6 text-foreground"

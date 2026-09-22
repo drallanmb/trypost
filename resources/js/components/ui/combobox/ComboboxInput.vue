@@ -31,7 +31,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
 <template>
   <div
     data-slot="command-input-wrapper"
-    class="flex h-10 items-center gap-2 border-b-2 border-foreground/10 px-3"
+    class="flex h-10 items-center gap-2 border-b border-border px-3"
   >
     <IconSearch class="size-4 shrink-0 text-foreground/60" />
     <ComboboxInput

@@ -55,7 +55,7 @@ const isPublished = computed(() =>
 <template>
     <header
         :class="[
-            'flex shrink-0 items-center gap-3 border-b-2 border-foreground px-4 py-3 md:px-6',
+            'flex shrink-0 items-center gap-3 border-b border-border px-4 py-3 md:px-6',
             isScheduled ? 'bg-accent' : 'bg-card',
         ]"
     >

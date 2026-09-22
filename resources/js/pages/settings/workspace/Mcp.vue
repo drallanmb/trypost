@@ -78,7 +78,7 @@ const confirmDisconnect = (client: ConnectedClient): void => {
 
                     <div
                         v-if="connectedClients.length === 0"
-                        class="rounded-xl border-2 border-dashed border-foreground/25 bg-card/40 px-4 py-6 text-center text-sm font-medium text-foreground/60"
+                        class="rounded-2xl border border-dashed border-border bg-card/40 px-4 py-6 text-center text-sm font-medium text-foreground/60"
                         data-testid="mcp-connected-empty"
                     >
                         {{ $t('mcp.connected_empty') }}
@@ -88,7 +88,7 @@ const confirmDisconnect = (client: ConnectedClient): void => {
                         <div
                             v-for="client in connectedClients"
                             :key="client.client_id"
-                            class="flex items-center gap-4 rounded-xl border-2 border-foreground bg-card p-4 shadow-2xs"
+                            class="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-2xs"
                             :data-testid="`mcp-connected-client-${client.client_id}`"
                         >
                             <IntegrationIcon

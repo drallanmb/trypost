@@ -260,7 +260,7 @@ watch(
 </script>
 
 <template>
-    <div class="rounded-xl border-2 border-foreground bg-card shadow-2xs">
+    <div class="rounded-2xl border border-border bg-card shadow-2xs">
         <button
             type="button"
             class="flex w-full cursor-pointer items-center justify-between gap-3 p-4 text-sm"
@@ -296,7 +296,7 @@ watch(
 
         <div
             v-if="open"
-            class="space-y-5 border-t-2 border-foreground/10 px-4 pt-4 pb-4"
+            class="space-y-5 border-t border-border px-4 pt-4 pb-4"
         >
             <!-- Variant: Video / Photo carousel -->
             <div class="space-y-2">
@@ -310,11 +310,11 @@ watch(
                         v-for="variant in variants"
                         :key="variant.value"
                         type="button"
-                        class="cursor-pointer rounded-full border-2 px-3 py-1 text-xs font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                        class="cursor-pointer rounded-full border px-3 py-1 text-xs font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                         :class="
                             contentType === variant.value
-                                ? 'border-foreground bg-violet-100 text-foreground shadow-2xs'
-                                : 'border-foreground/30 text-foreground/70 hover:border-foreground hover:text-foreground'
+                                ? 'border-ring bg-accent text-foreground shadow-2xs ring-1 ring-ring'
+                                : 'border-border text-foreground/70 hover:border-ring hover:text-foreground'
                         "
                         :disabled="props.disabled"
                         @click="pickVariant(variant.value)"
@@ -333,7 +333,7 @@ watch(
                 <Avatar
                     :src="socialAccount.avatar_url"
                     :name="socialAccount.display_label"
-                    class="size-9 shrink-0 rounded-full border-2 border-foreground shadow-2xs"
+                    class="size-9 shrink-0 rounded-full border border-border shadow-2xs"
                 />
                 <div class="min-w-0 flex-1">
                     <p
@@ -391,7 +391,7 @@ watch(
                 </p>
                 <p
                     v-if="brandContentToggle"
-                    class="flex items-start gap-1.5 rounded-md border-2 border-foreground bg-amber-50 p-2 text-xs font-semibold text-amber-800"
+                    class="flex items-start gap-1.5 rounded-md border border-border bg-amber-50 p-2 text-xs font-semibold text-amber-800"
                 >
                     <IconAlertTriangle class="mt-0.5 size-3.5 shrink-0" />
                     {{
@@ -403,7 +403,7 @@ watch(
             <!-- Max duration warning -->
             <p
                 v-if="isVideoPost && exceedsMaxDuration && !previewOnly"
-                class="flex items-start gap-2 rounded-lg border-2 border-foreground bg-rose-50 p-2 text-xs font-semibold text-rose-700"
+                class="flex items-start gap-2 rounded-lg border border-border bg-rose-50 p-2 text-xs font-semibold text-rose-700"
             >
                 <IconAlertTriangle class="mt-0.5 size-3.5 shrink-0" />
                 {{
@@ -501,7 +501,7 @@ watch(
                 </div>
             </div>
 
-            <div class="border-t-2 border-foreground/10" />
+            <div class="border-t border-border" />
 
             <!-- Video made with AI (independent) -->
             <label v-if="!isPhotoPost" class="flex items-center gap-2 text-sm">
@@ -525,7 +525,7 @@ watch(
                 <!-- Promotional Content warning (shown once a sub-toggle is picked) -->
                 <div
                     v-if="hasAnyBrandToggle"
-                    class="ml-6 flex items-start gap-3 rounded-lg border-2 border-foreground bg-amber-100 p-3 shadow-2xs"
+                    class="ml-6 flex items-start gap-3 rounded-lg border border-border bg-amber-100 p-3 shadow-2xs"
                 >
                     <IconAlertTriangle
                         class="mt-0.5 size-4 shrink-0 text-amber-700"

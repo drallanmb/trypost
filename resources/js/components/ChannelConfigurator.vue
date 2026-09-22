@@ -87,16 +87,16 @@ const selectedChannels = computed(() =>
                                 <Avatar
                                     :src="channel.avatarUrl"
                                     :name="channel.displayName"
-                                    class="size-10 shrink-0 rounded-full border-2"
+                                    class="size-10 shrink-0 rounded-full border"
                                     :class="[
                                         channel.issue && isSelected(channel.id)
-                                            ? 'border-rose-500 shadow-2xs'
+                                            ? 'border-destructive ring-2 ring-destructive'
                                             : '',
                                         !channel.issue && isSelected(channel.id)
-                                            ? 'border-foreground shadow-2xs'
+                                            ? 'border-ring ring-2 ring-ring'
                                             : '',
                                         !isSelected(channel.id)
-                                            ? 'border-foreground/20'
+                                            ? 'border-border'
                                             : '',
                                     ]"
                                 />

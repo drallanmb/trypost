@@ -33,7 +33,7 @@ const highlighted = computed(() => {
 
 <template>
     <div
-        class="json-viewer group relative overflow-hidden rounded-lg border-2 border-foreground"
+        class="json-viewer group relative overflow-hidden rounded-lg border border-border"
     >
         <TooltipProvider v-if="serialized" :delay-duration="200">
             <div
@@ -43,7 +43,7 @@ const highlighted = computed(() => {
                     <TooltipTrigger as-child>
                         <button
                             type="button"
-                            class="inline-flex size-7 items-center justify-center rounded-md border-2 border-foreground bg-card shadow-[1px_1px_0_var(--foreground)] transition hover:-translate-x-px hover:-translate-y-px hover:shadow-[2px_2px_0_var(--foreground)] active:translate-x-0 active:translate-y-0 active:shadow-[0_0_0_var(--foreground)]"
+                            class="inline-flex size-7 items-center justify-center rounded-md border border-border bg-card shadow-2xs transition-colors hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring"
                             :aria-label="$t('common.actions.copy')"
                             @click="copyToClipboard(serialized)"
                         >

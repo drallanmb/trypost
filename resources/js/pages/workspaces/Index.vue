@@ -51,16 +51,18 @@ const switchToWorkspace = (workspace: Workspace) => {
             <div
                 v-for="workspace in workspaces"
                 :key="workspace.id"
-                class="flex cursor-pointer items-center gap-3 rounded-xl border-2 border-foreground bg-card p-4 shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-md"
+                class="flex cursor-pointer items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-sm"
                 :class="
-                    workspace.id === currentWorkspaceId ? 'bg-violet-100' : ''
+                    workspace.id === currentWorkspaceId
+                        ? '!bg-accent ring-1 ring-ring'
+                        : ''
                 "
                 @click="switchToWorkspace(workspace)"
             >
                 <Avatar
                     :src="workspace.logo_url"
                     :name="workspace.name"
-                    class="size-10 shrink-0 rounded-lg border-2 border-foreground"
+                    class="size-10 shrink-0 rounded-lg border border-border"
                     fallback-class="bg-muted text-muted-foreground"
                 />
                 <div class="min-w-0 flex-1">

@@ -48,8 +48,8 @@ const personaMeta: Record<
     },
     startup: {
         icon: IconRocket,
-        iconClass: 'text-violet-700',
-        badge: 'bg-violet-100',
+        iconClass: 'text-accent-foreground',
+        badge: 'bg-accent',
     },
     agency: {
         icon: IconBuildingSkyscraper,
@@ -118,14 +118,16 @@ const submit = (): void => {
                 :aria-pressed="form.persona === persona"
                 :data-testid="`welcome-persona-${persona}`"
                 :class="[
-                    'inline-flex cursor-pointer items-center gap-3 rounded-full border-2 border-foreground py-2.5 ps-2.5 pe-5 text-start shadow-2xs transition-shadow hover:shadow-md',
-                    form.persona === persona ? 'bg-violet-100' : 'bg-card',
+                    'inline-flex cursor-pointer items-center gap-3 rounded-full border border-border py-2.5 ps-2.5 pe-5 text-start shadow-2xs transition-shadow hover:shadow-sm',
+                    form.persona === persona
+                        ? 'bg-accent ring-1 ring-ring'
+                        : 'bg-card',
                 ]"
                 @click="select(persona)"
             >
                 <span
                     :class="[
-                        'inline-flex size-11 shrink-0 items-center justify-center rounded-full border-2 border-foreground shadow-2xs',
+                        'inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-border shadow-2xs',
                         metaFor(persona).badge,
                     ]"
                 >
@@ -142,7 +144,7 @@ const submit = (): void => {
                 </span>
                 <span
                     v-if="form.persona === persona"
-                    class="inline-flex size-5 shrink-0 items-center justify-center rounded-full border-2 border-foreground bg-foreground"
+                    class="inline-flex size-5 shrink-0 items-center justify-center rounded-full border border-border bg-foreground"
                 >
                     <IconCheck
                         class="size-3 text-background"

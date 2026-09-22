@@ -246,7 +246,7 @@ const startGeneration = () => {
             @click="goBack"
         >
             <span
-                class="inline-flex size-7 items-center justify-center rounded-md border-2 border-foreground bg-card shadow-2xs transition-transform group-hover:-translate-x-0.5"
+                class="inline-flex size-7 items-center justify-center rounded-md border border-border bg-card shadow-2xs transition-transform group-hover:-translate-x-0.5"
             >
                 <IconArrowLeft
                     class="size-3.5 text-foreground"
@@ -266,9 +266,9 @@ const startGeneration = () => {
                     v-for="format in availableFormats"
                     :key="format.value"
                     type="button"
-                    class="flex cursor-pointer items-center gap-3 rounded-xl border-2 border-foreground bg-card p-3.5 text-left text-sm shadow-2xs transition-all hover:bg-foreground/5 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
+                    class="flex cursor-pointer items-center gap-3 rounded-2xl border border-border bg-card p-3.5 text-left text-sm shadow-2xs transition-all hover:bg-foreground/5 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-card"
                     :class="{
-                        '!bg-violet-100 shadow-md':
+                        '!bg-accent ring-1 ring-ring':
                             selectedFormat === format.value,
                     }"
                     :disabled="!isFormatConnected(format)"
@@ -331,15 +331,15 @@ const startGeneration = () => {
                     v-for="account in accountsForFormat"
                     :key="account.id"
                     type="button"
-                    class="relative flex cursor-pointer items-center gap-2 rounded-xl border-2 border-foreground bg-card p-2.5 text-left text-sm shadow-2xs transition-all hover:bg-foreground/5"
+                    class="relative flex cursor-pointer items-center gap-2 rounded-2xl border border-border bg-card p-2.5 text-left text-sm shadow-2xs transition-all hover:bg-foreground/5"
                     :class="{
-                        '!bg-violet-100 shadow-md':
+                        '!bg-accent ring-1 ring-ring':
                             selectedAccountId === account.id,
                     }"
                     @click="selectedAccountId = account.id"
                 >
                     <span
-                        class="inline-flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-foreground bg-card shadow-2xs"
+                        class="inline-flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-card shadow-2xs"
                     >
                         <img
                             v-if="account.avatar_url"
@@ -434,7 +434,7 @@ const startGeneration = () => {
                 submittedImageCount > 0 &&
                 resolvedTemplateRecord?.applies_brand_visuals
             "
-            class="flex items-center justify-between gap-4 rounded-xl border-2 border-foreground bg-card p-4 shadow-2xs"
+            class="flex items-center justify-between gap-4 rounded-2xl border border-border bg-card p-4 shadow-2xs"
         >
             <div class="space-y-0.5">
                 <Label for="apply-brand-visuals" class="text-sm font-bold">{{

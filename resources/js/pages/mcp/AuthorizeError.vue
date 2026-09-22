@@ -18,7 +18,7 @@ defineProps<{
         </p>
 
         <p
-            class="rounded-lg border-2 border-foreground bg-muted px-3 py-2 font-mono text-xs text-foreground"
+            class="rounded-lg border border-border bg-muted px-3 py-2 font-mono text-xs text-foreground"
         >
             {{ $t('mcp.authorize.error_code', { error }) }}
         </p>

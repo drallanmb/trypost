@@ -235,7 +235,7 @@ const updateEmbed = (index: number, patch: Partial<EmbedDraft>) =>
 </script>
 
 <template>
-    <div class="rounded-xl border-2 border-foreground bg-card shadow-2xs">
+    <div class="rounded-2xl border border-border bg-card shadow-2xs">
         <button
             type="button"
             class="flex w-full cursor-pointer items-center justify-between gap-3 p-4 text-sm"
@@ -271,7 +271,7 @@ const updateEmbed = (index: number, patch: Partial<EmbedDraft>) =>
 
         <div
             v-if="open"
-            class="space-y-5 border-t-2 border-foreground/10 px-4 pt-4 pb-4"
+            class="space-y-5 border-t border-border px-4 pt-4 pb-4"
         >
             <div
                 v-if="socialAccount"
@@ -280,7 +280,7 @@ const updateEmbed = (index: number, patch: Partial<EmbedDraft>) =>
                 <Avatar
                     :src="socialAccount.avatar_url"
                     :name="socialAccount.display_label"
-                    class="size-9 shrink-0 rounded-full border-2 border-foreground shadow-2xs"
+                    class="size-9 shrink-0 rounded-full border border-border shadow-2xs"
                 />
                 <div class="min-w-0 flex-1">
                     <p
@@ -330,7 +330,7 @@ const updateEmbed = (index: number, patch: Partial<EmbedDraft>) =>
                     <span
                         v-for="mention in mentions"
                         :key="mention.token"
-                        class="inline-flex items-center gap-1 rounded-full border-2 border-foreground/30 bg-indigo-50 px-2 py-0.5 text-xs font-semibold text-foreground"
+                        class="inline-flex items-center gap-1 rounded-full border border-border bg-accent px-2 py-0.5 text-xs font-semibold text-accent-foreground"
                     >
                         {{ mention.label }}
                         <button
@@ -351,7 +351,7 @@ const updateEmbed = (index: number, patch: Partial<EmbedDraft>) =>
                     />
                     <ul
                         v-if="mentionResults.length"
-                        class="absolute z-10 mt-1 max-h-48 w-full overflow-y-auto rounded-lg border-2 border-foreground bg-card shadow-2xs"
+                        class="absolute z-10 mt-1 max-h-48 w-full overflow-y-auto rounded-lg border border-border bg-card shadow-2xs"
                     >
                         <li
                             v-for="target in mentionResults"
@@ -390,7 +390,7 @@ const updateEmbed = (index: number, patch: Partial<EmbedDraft>) =>
                 <div
                     v-for="(embed, index) in embeds"
                     :key="index"
-                    class="space-y-2 rounded-lg border-2 border-foreground/20 p-3"
+                    class="space-y-2 rounded-lg border border-border p-3"
                 >
                     <div class="flex items-center justify-between">
                         <span
@@ -422,7 +422,7 @@ const updateEmbed = (index: number, patch: Partial<EmbedDraft>) =>
                             $t('posts.form.discord.embed_description')
                         "
                         rows="2"
-                        class="w-full rounded-lg border-2 border-foreground/30 bg-card px-3 py-2 text-sm transition-colors hover:border-foreground focus:border-foreground focus:outline-none disabled:opacity-50"
+                        class="w-full rounded-lg border border-input bg-card px-3 py-2 text-sm transition-colors hover:border-ring focus:border-ring focus:ring-1 focus:ring-ring focus:outline-none disabled:opacity-50"
                         @input="
                             updateEmbed(index, {
                                 description: (
@@ -452,7 +452,7 @@ const updateEmbed = (index: number, patch: Partial<EmbedDraft>) =>
                             type="color"
                             :value="embed.color || '#5865F2'"
                             :disabled="disabled"
-                            class="h-8 w-12 cursor-pointer rounded border-2 border-foreground/30 disabled:opacity-50"
+                            class="h-8 w-12 cursor-pointer rounded border border-border disabled:opacity-50"
                             @input="
                                 updateEmbed(index, {
                                     color: ($event.target as HTMLInputElement)

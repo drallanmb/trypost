@@ -169,7 +169,7 @@ const linkError = computed<string | undefined>(() => {
 </script>
 
 <template>
-    <div class="rounded-xl border-2 border-foreground bg-card shadow-2xs">
+    <div class="rounded-2xl border border-border bg-card shadow-2xs">
         <button
             type="button"
             class="flex w-full cursor-pointer items-center justify-between gap-3 p-4 text-sm"
@@ -205,7 +205,7 @@ const linkError = computed<string | undefined>(() => {
 
         <div
             v-if="open"
-            class="space-y-5 border-t-2 border-foreground/10 px-4 pt-4 pb-4"
+            class="space-y-5 border-t border-border px-4 pt-4 pb-4"
         >
             <div
                 v-if="socialAccount"
@@ -214,7 +214,7 @@ const linkError = computed<string | undefined>(() => {
                 <Avatar
                     :src="socialAccount.avatar_url"
                     :name="socialAccount.display_label"
-                    class="size-9 shrink-0 rounded-full border-2 border-foreground shadow-2xs"
+                    class="size-9 shrink-0 rounded-full border border-border shadow-2xs"
                 />
                 <div class="min-w-0 flex-1">
                     <p
@@ -246,11 +246,11 @@ const linkError = computed<string | undefined>(() => {
                         v-for="variant in variants"
                         :key="variant.value"
                         type="button"
-                        class="cursor-pointer rounded-full border-2 px-3 py-1 text-xs font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                        class="cursor-pointer rounded-full border px-3 py-1 text-xs font-bold tracking-widest uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                         :class="
                             contentType === variant.value
-                                ? 'border-foreground bg-violet-100 text-foreground shadow-2xs'
-                                : 'border-foreground/30 text-foreground/70 hover:border-foreground hover:text-foreground'
+                                ? 'border-ring bg-accent text-foreground shadow-2xs ring-1 ring-ring'
+                                : 'border-border text-foreground/70 hover:border-ring hover:text-foreground'
                         "
                         :disabled="disabled"
                         @click="pickVariant(variant.value)"
@@ -268,7 +268,7 @@ const linkError = computed<string | undefined>(() => {
                 </p>
                 <p
                     v-if="boards.length === 0"
-                    class="flex items-start gap-2 rounded-lg border-2 border-foreground/30 bg-foreground/5 p-2 text-xs font-semibold text-foreground/60"
+                    class="flex items-start gap-2 rounded-lg border border-border bg-foreground/5 p-2 text-xs font-semibold text-foreground/60"
                 >
                     <IconAlertTriangle class="mt-0.5 size-3.5 shrink-0" />
                     {{ $t('posts.form.pinterest.no_boards') }}
@@ -285,11 +285,11 @@ const linkError = computed<string | undefined>(() => {
                             <ComboboxTrigger as-child>
                                 <button
                                     type="button"
-                                    class="flex w-full items-center justify-between rounded-lg border-2 bg-card px-3 py-2 text-sm font-medium text-foreground transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                                    class="flex w-full items-center justify-between rounded-lg border bg-card px-3 py-2 text-sm font-medium text-foreground transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                                     :class="
                                         boardError
                                             ? 'border-rose-500'
-                                            : 'border-foreground/30 hover:border-foreground'
+                                            : 'border-border hover:border-ring'
                                     "
                                     :disabled="disabled"
                                 >
@@ -337,7 +337,7 @@ const linkError = computed<string | undefined>(() => {
                     <InputError :message="boardError" />
                     <p
                         v-if="boardsTruncated"
-                        class="flex items-start gap-2 rounded-lg border-2 border-foreground/30 bg-foreground/5 p-2 text-xs font-semibold text-foreground/60"
+                        class="flex items-start gap-2 rounded-lg border border-border bg-foreground/5 p-2 text-xs font-semibold text-foreground/60"
                     >
                         <IconAlertTriangle class="mt-0.5 size-3.5 shrink-0" />
                         {{ $t('posts.form.pinterest.boards_truncated') }}
@@ -379,7 +379,7 @@ const linkError = computed<string | undefined>(() => {
 
             <p
                 v-if="warning && !previewOnly"
-                class="flex items-start gap-2 rounded-lg border-2 border-foreground bg-rose-50 p-2 text-xs font-semibold text-rose-700"
+                class="flex items-start gap-2 rounded-lg border border-border bg-rose-50 p-2 text-xs font-semibold text-rose-700"
             >
                 <IconAlertTriangle class="mt-0.5 size-3.5 shrink-0" />
                 {{ $t(`posts.form.warnings.${warning.key}`, warning.params) }}

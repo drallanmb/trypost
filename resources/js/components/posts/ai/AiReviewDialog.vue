@@ -138,7 +138,7 @@ watch(open, (isOpen) => {
                 <article
                     v-for="(s, idx) in suggestions"
                     :key="idx"
-                    class="rounded-xl border-2 border-foreground bg-card px-4 py-3 shadow-2xs transition-opacity"
+                    class="rounded-2xl border border-border bg-card px-4 py-3 shadow-2xs transition-opacity"
                     :class="appliedSet.has(idx) ? 'opacity-50' : ''"
                 >
                     <div class="flex items-start justify-between gap-3">
@@ -147,7 +147,7 @@ watch(open, (isOpen) => {
                                 class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm leading-relaxed"
                             >
                                 <span
-                                    class="rounded-md border-2 border-foreground bg-rose-100 px-1.5 py-0.5 font-bold break-words text-rose-700 line-through decoration-rose-700/60 shadow-2xs"
+                                    class="rounded-md border border-border bg-rose-100 px-1.5 py-0.5 font-bold break-words text-rose-700 line-through decoration-rose-700/60 shadow-2xs"
                                 >
                                     {{ s.original }}
                                 </span>
@@ -155,7 +155,7 @@ watch(open, (isOpen) => {
                                     >→</span
                                 >
                                 <span
-                                    class="rounded-md border-2 border-foreground bg-emerald-100 px-1.5 py-0.5 font-bold break-words text-emerald-700 shadow-2xs"
+                                    class="rounded-md border border-border bg-emerald-100 px-1.5 py-0.5 font-bold break-words text-emerald-700 shadow-2xs"
                                 >
                                     {{ s.suggestion }}
                                 </span>

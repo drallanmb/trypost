@@ -60,7 +60,7 @@ const documentTitle = computed({
 <template>
     <div
         v-if="hasPdf"
-        class="rounded-xl border-2 border-foreground bg-card shadow-2xs"
+        class="rounded-2xl border border-border bg-card shadow-2xs"
     >
         <button
             type="button"
@@ -99,7 +99,7 @@ const documentTitle = computed({
 
         <div
             v-if="open"
-            class="space-y-5 border-t-2 border-foreground/10 px-4 pt-4 pb-4"
+            class="space-y-5 border-t border-border px-4 pt-4 pb-4"
         >
             <div
                 v-if="socialAccount"
@@ -108,7 +108,7 @@ const documentTitle = computed({
                 <Avatar
                     :src="socialAccount.avatar_url"
                     :name="socialAccount.display_label"
-                    class="size-9 shrink-0 rounded-full border-2 border-foreground shadow-2xs"
+                    class="size-9 shrink-0 rounded-full border border-border shadow-2xs"
                 />
                 <div class="min-w-0 flex-1">
                     <p

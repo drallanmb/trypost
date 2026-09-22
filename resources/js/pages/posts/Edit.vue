@@ -467,7 +467,7 @@ usePostEcho(post.value.id, '.post.comment.created', (e: any) => {
                     class="absolute inset-0 z-40 flex flex-col items-center justify-center gap-4 bg-background/80 backdrop-blur-sm"
                 >
                     <div
-                        class="inline-flex size-14 -rotate-3 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-200 shadow-2xs"
+                        class="inline-flex size-14 items-center justify-center rounded-2xl border border-border bg-secondary shadow-2xs"
                     >
                         <IconLoader2
                             class="size-7 animate-spin text-foreground"
@@ -494,7 +494,7 @@ usePostEcho(post.value.id, '.post.comment.created', (e: any) => {
                     }"
                 >
                     <div
-                        class="w-full overflow-y-auto lg:w-2/3 lg:border-r-2 lg:border-foreground"
+                        class="w-full overflow-y-auto lg:w-2/3 lg:border-r lg:border-border"
                         :class="{ 'hidden lg:block': mobileView !== 'compose' }"
                     >
                         <PostEditorComposer

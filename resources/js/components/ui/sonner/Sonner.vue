@@ -12,29 +12,29 @@ const props = defineProps<ToasterProps>()
     :style="{
       '--normal-bg': 'var(--card)',
       '--normal-text': 'var(--foreground)',
-      '--normal-border': 'var(--foreground)',
-      '--success-bg': '#d1fae5',
+      '--normal-border': 'var(--border)',
+      '--success-bg': 'var(--card)',
       '--success-text': 'var(--foreground)',
-      '--success-border': 'var(--foreground)',
-      '--error-bg': '#fee2e2',
+      '--success-border': 'var(--border)',
+      '--error-bg': 'var(--card)',
       '--error-text': 'var(--foreground)',
-      '--error-border': 'var(--foreground)',
-      '--warning-bg': '#fef3c7',
+      '--error-border': 'var(--border)',
+      '--warning-bg': 'var(--card)',
       '--warning-text': 'var(--foreground)',
-      '--warning-border': 'var(--foreground)',
-      '--info-bg': '#ede9fe',
+      '--warning-border': 'var(--border)',
+      '--info-bg': 'var(--card)',
       '--info-text': 'var(--foreground)',
-      '--info-border': 'var(--foreground)',
+      '--info-border': 'var(--border)',
     }"
   />
 </template>
 
 <style>
-/* Indies sticker toast — ink 2px border + solid offset ink shadow, no blur. */
+/* Toast surfaces share the application's theme-aware elevation. */
 [data-sonner-toast] {
-  border-width: 2px !important;
+  border-width: 1px !important;
   border-radius: var(--radius-lg) !important;
-  box-shadow: 4px 4px 0 0 #0a0a0a !important;
+  box-shadow: var(--shadow-sm) !important;
   font-weight: 500;
 }
 
@@ -43,25 +43,25 @@ const props = defineProps<ToasterProps>()
 }
 
 [data-sonner-toast][data-type="success"] [data-icon] {
-  color: #047857 !important;
+  color: var(--success) !important;
 }
 
 [data-sonner-toast][data-type="error"] [data-icon] {
-  color: #b91c1c !important;
+  color: var(--destructive) !important;
 }
 
 [data-sonner-toast][data-type="warning"] [data-icon] {
-  color: #b45309 !important;
+  color: var(--warning) !important;
 }
 
 [data-sonner-toast][data-type="info"] [data-icon] {
-  color: #5b21b6 !important;
+  color: var(--info) !important;
 }
 
-/* Action / cancel buttons inside a toast pick up the indies button look. */
+/* Keep toast actions legible on either theme. */
 [data-sonner-toast] [data-button] {
-  border: 2px solid #0a0a0a !important;
-  box-shadow: 1px 1px 0 0 #0a0a0a !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-2xs) !important;
   font-weight: 600;
 }
 </style>

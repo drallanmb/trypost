@@ -72,7 +72,7 @@ const openDeleteModal = () => {
         />
 
         <div
-            class="space-y-4 rounded-xl border-2 border-foreground bg-rose-50 p-4 shadow-2xs"
+            class="space-y-4 rounded-2xl border border-border bg-rose-50 p-4 shadow-2xs"
         >
             <div class="relative space-y-0.5 text-rose-700">
                 <p class="font-bold">

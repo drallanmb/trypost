@@ -123,19 +123,19 @@ const providerEnabled = (provider: SocialProvider): boolean =>
                             v-for="session in sessions"
                             :key="session.id"
                             :class="[
-                                'flex items-center gap-4 rounded-xl border-2 border-foreground p-4 shadow-2xs',
+                                'flex items-center gap-4 rounded-2xl border border-border p-4 shadow-2xs',
                                 session.is_current
-                                    ? 'bg-emerald-50'
+                                    ? 'bg-success/10'
                                     : 'bg-card',
                             ]"
                             data-test="session-row"
                         >
                             <div
                                 :class="[
-                                    'inline-flex size-10 flex-shrink-0 -rotate-2 items-center justify-center rounded-2xl border-2 border-foreground shadow-2xs',
+                                    'inline-flex size-10 flex-shrink-0 items-center justify-center rounded-2xl border border-border shadow-2xs',
                                     session.is_current
-                                        ? 'bg-emerald-200'
-                                        : 'bg-violet-100',
+                                        ? 'bg-success/10'
+                                        : 'bg-accent',
                                 ]"
                             >
                                 <component
@@ -179,7 +179,7 @@ const providerEnabled = (provider: SocialProvider): boolean =>
                                                 class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60"
                                             />
                                             <span
-                                                class="relative inline-flex size-2 rounded-full bg-emerald-500"
+                                                class="relative inline-flex size-2 rounded-full bg-success/100"
                                             />
                                         </span>
                                         <span
@@ -413,11 +413,11 @@ const providerEnabled = (provider: SocialProvider): boolean =>
                         <div
                             v-for="account in connectedAccounts"
                             :key="account.provider"
-                            class="flex items-center gap-4 rounded-xl border-2 border-foreground bg-card p-4 shadow-2xs"
+                            class="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-2xs"
                             :data-test="`connected-account-${account.provider}`"
                         >
                             <div
-                                class="inline-flex size-10 flex-shrink-0 rotate-1 items-center justify-center overflow-hidden rounded-2xl border-2 border-foreground bg-card shadow-2xs"
+                                class="inline-flex size-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-border bg-card shadow-2xs"
                             >
                                 <img
                                     :src="`/images/social/${account.provider}.svg`"
@@ -434,7 +434,7 @@ const providerEnabled = (provider: SocialProvider): boolean =>
                                     class="flex items-center gap-1.5 text-xs font-bold text-emerald-700"
                                 >
                                     <span
-                                        class="size-1.5 rounded-full bg-emerald-500"
+                                        class="size-1.5 rounded-full bg-success/100"
                                     />
                                     <span>{{
                                         $t(

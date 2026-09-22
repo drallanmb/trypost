@@ -161,7 +161,7 @@ const lightTheme = EditorView.theme({
         fontSize: '13px',
         color: 'var(--foreground)',
         backgroundColor: 'var(--card)',
-        border: '2px solid var(--foreground)',
+        border: '1px solid var(--input)',
         borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
     },
@@ -182,8 +182,7 @@ const lightTheme = EditorView.theme({
         backgroundColor: 'var(--muted)',
         color: 'var(--muted-foreground)',
         border: 'none',
-        borderRight:
-            '2px solid color-mix(in srgb, var(--foreground) 15%, transparent)',
+        borderRight: '1px solid var(--border)',
     },
     '.cm-activeLine': {
         backgroundColor:
@@ -296,7 +295,7 @@ onBeforeUnmount(() => {
         <TooltipProvider :delay-duration="200">
             <div
                 v-if="!isExpanded && (canExpand || modelValue)"
-                class="absolute top-2 right-2 z-10 flex gap-0.5 rounded-lg border-2 border-foreground bg-card p-0.5 opacity-0 shadow-[1px_1px_0_var(--foreground)] transition-opacity duration-150 group-hover:opacity-100 focus-within:opacity-100"
+                class="absolute top-2 right-2 z-10 flex gap-0.5 rounded-lg border border-border bg-card p-0.5 opacity-0 shadow-2xs transition-opacity duration-150 group-hover:opacity-100 focus-within:opacity-100"
             >
                 <Tooltip v-if="canExpand">
                     <TooltipTrigger as-child>
@@ -340,7 +339,7 @@ onBeforeUnmount(() => {
             to="#automation-expanded-editor"
         >
             <div
-                class="flex shrink-0 items-center justify-between gap-2 border-b-2 border-foreground/10 px-3 py-3"
+                class="flex shrink-0 items-center justify-between gap-2 border-b border-border px-3 py-3"
             >
                 <span class="truncate text-sm font-bold">{{
                     label || $t('automations.config.expand_editor')

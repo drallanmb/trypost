@@ -311,15 +311,15 @@ const runAutofill = async () => {
                     type="button"
                     :aria-pressed="fields.image_style === style"
                     :class="[
-                        'group relative flex flex-col overflow-hidden rounded-xl border-2 border-foreground bg-card text-left shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                        'group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card text-left shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                         fields.image_style === style
-                            ? '-translate-y-0.5 shadow-md'
-                            : 'hover:-translate-y-0.5 hover:shadow-md',
+                            ? 'ring-1 ring-ring'
+                            : 'hover:shadow-sm',
                     ]"
                     @click="fields.image_style = style"
                 >
                     <div
-                        class="relative aspect-square w-full overflow-hidden border-b-2 border-foreground bg-muted"
+                        class="relative aspect-square w-full overflow-hidden border-b border-border bg-muted"
                     >
                         <img
                             :src="`/images/branding/image-styles/${style}.webp`"
@@ -329,7 +329,7 @@ const runAutofill = async () => {
                         />
                         <div
                             v-if="fields.image_style === style"
-                            class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full border-2 border-foreground bg-primary text-primary-foreground shadow"
+                            class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full border border-border bg-primary text-primary-foreground shadow"
                         >
                             <IconCheck class="size-4" stroke-width="3" />
                         </div>

@@ -18,9 +18,9 @@ withDefaults(defineProps<Props>(), {
     <Avatar
         :src="user.photo_url"
         :name="user.name"
-        :class="['h-8 w-8 rounded-md border-2 border-foreground', avatarClass]"
+        :class="['h-8 w-8 rounded-md border border-border', avatarClass]"
         :fallback-class="
-            fallbackClass ?? 'bg-violet-100 text-violet-700 font-bold'
+            fallbackClass ?? 'bg-accent text-accent-foreground font-bold'
         "
     />
 

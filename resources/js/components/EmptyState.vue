@@ -11,7 +11,7 @@ defineProps<{
 
 <template>
     <div
-        class="flex flex-1 flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-foreground/25 bg-card p-12 text-center"
+        class="flex flex-1 flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-border bg-card p-12 text-center"
     >
         <AppIcon :icon="icon" class="size-16 p-4" />
         <div class="space-y-1">

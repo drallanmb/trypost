@@ -85,21 +85,21 @@ onMounted(() => {
 
         <!-- Mockup window -->
         <div
-            class="relative w-full max-w-md -rotate-1 overflow-hidden rounded-xl border-2 border-foreground bg-card shadow-xl"
+            class="relative w-full max-w-md overflow-hidden rounded-2xl border border-border bg-card shadow-2xs"
         >
             <!-- Title bar -->
             <div
-                class="flex items-center gap-3 border-b-2 border-foreground bg-muted px-4 py-2.5"
+                class="flex items-center gap-3 border-b border-border bg-muted px-4 py-2.5"
             >
                 <div class="flex gap-1.5">
                     <span
-                        class="size-3 rounded-full border border-foreground bg-rose-300"
+                        class="size-3 rounded-full border border-border bg-rose-300"
                     />
                     <span
-                        class="size-3 rounded-full border border-foreground bg-amber-300"
+                        class="size-3 rounded-full border border-border bg-amber-300"
                     />
                     <span
-                        class="size-3 rounded-full border border-foreground bg-emerald-300"
+                        class="size-3 rounded-full border border-border bg-emerald-300"
                     />
                 </div>
                 <div
@@ -108,7 +108,7 @@ onMounted(() => {
                     trypost.it · checkout
                 </div>
                 <span
-                    class="ml-auto inline-flex items-center gap-1.5 rounded-md border-2 border-foreground bg-foreground px-2 py-0.5 text-[10px] font-black tracking-widest text-background uppercase shadow-2xs"
+                    class="ml-auto inline-flex items-center gap-1.5 rounded-md border border-border bg-foreground px-2 py-0.5 text-[10px] font-black tracking-widest text-background uppercase shadow-2xs"
                 >
                     <span class="relative flex size-1.5">
                         <span
@@ -127,7 +127,7 @@ onMounted(() => {
                 class="flex flex-col items-center gap-5 px-8 py-12 text-center"
             >
                 <div
-                    class="flex size-16 -rotate-2 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-200 shadow-sm"
+                    class="flex size-16 items-center justify-center rounded-2xl border border-border bg-secondary shadow-sm"
                 >
                     <IconLoader2 class="size-8 animate-spin text-foreground" />
                 </div>

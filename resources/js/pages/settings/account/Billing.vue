@@ -135,10 +135,10 @@ const upgradeToAnnual = (): void => {
                 <!-- ───── Annual upgrade banner ───── -->
                 <div
                     v-if="showAnnualBanner"
-                    class="flex flex-wrap items-center gap-4 rounded-2xl border-2 border-foreground bg-emerald-100 p-5 shadow-2xs"
+                    class="flex flex-wrap items-center gap-4 rounded-2xl border border-border bg-success/10 p-5 shadow-2xs"
                 >
                     <span
-                        class="inline-flex size-12 -rotate-3 items-center justify-center rounded-2xl border-2 border-foreground bg-card shadow-2xs"
+                        class="inline-flex size-12 items-center justify-center rounded-2xl border border-border bg-card shadow-2xs"
                     >
                         <IconRosetteDiscountCheck
                             class="size-6 text-emerald-600"
@@ -185,7 +185,7 @@ const upgradeToAnnual = (): void => {
                     />
 
                     <div
-                        class="rounded-2xl border-2 border-foreground bg-card p-6 shadow-2xs"
+                        class="rounded-2xl border border-border bg-card p-6 shadow-2xs"
                     >
                         <div class="flex items-start justify-between gap-6">
                             <div class="space-y-2">
@@ -268,7 +268,7 @@ const upgradeToAnnual = (): void => {
                             </div>
                             <div class="flex shrink-0 flex-col items-end gap-4">
                                 <span
-                                    class="inline-flex size-14 -rotate-3 items-center justify-center rounded-2xl border-2 border-foreground bg-amber-200 shadow-2xs"
+                                    class="inline-flex size-14 items-center justify-center rounded-2xl border border-border bg-warning/10 shadow-2xs"
                                 >
                                     <IconSparkles
                                         class="size-7 text-foreground"
@@ -288,10 +288,10 @@ const upgradeToAnnual = (): void => {
                     />
 
                     <div
-                        class="flex flex-wrap items-center gap-4 rounded-2xl border-2 border-foreground bg-card p-4 shadow-2xs"
+                        class="flex flex-wrap items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-2xs"
                     >
                         <span
-                            class="inline-flex size-12 rotate-2 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-200 shadow-2xs"
+                            class="inline-flex size-12 items-center justify-center rounded-2xl border border-border bg-secondary shadow-2xs"
                         >
                             <IconCreditCard
                                 class="size-6 text-foreground"
@@ -350,10 +350,10 @@ const upgradeToAnnual = (): void => {
                         <div
                             v-for="invoice in invoices"
                             :key="invoice.id"
-                            class="flex items-center gap-4 rounded-xl border-2 border-foreground bg-card p-4 shadow-2xs"
+                            class="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-2xs"
                         >
                             <span
-                                class="inline-flex size-10 -rotate-2 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-100 shadow-2xs"
+                                class="inline-flex size-10 items-center justify-center rounded-2xl border border-ring bg-accent shadow-2xs ring-1 ring-ring"
                             >
                                 <IconFileText
                                     class="size-5 text-foreground"

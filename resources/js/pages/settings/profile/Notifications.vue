@@ -90,7 +90,7 @@ const submit = () => {
 
                     <div class="space-y-3">
                         <div
-                            class="flex items-center justify-between gap-4 rounded-xl border-2 border-foreground bg-card p-4 shadow-2xs"
+                            class="flex items-center justify-between gap-4 rounded-2xl border border-border bg-card p-4 shadow-2xs"
                         >
                             <div class="space-y-0.5">
                                 <Label
@@ -117,7 +117,7 @@ const submit = () => {
                         </div>
 
                         <div
-                            class="flex items-center justify-between gap-4 rounded-xl border-2 border-foreground bg-card p-4 shadow-2xs"
+                            class="flex items-center justify-between gap-4 rounded-2xl border border-border bg-card p-4 shadow-2xs"
                         >
                             <div class="space-y-0.5">
                                 <Label
@@ -139,7 +139,7 @@ const submit = () => {
                         </div>
 
                         <div
-                            class="flex items-center justify-between gap-4 rounded-xl border-2 border-foreground bg-card p-4 shadow-2xs"
+                            class="flex items-center justify-between gap-4 rounded-2xl border border-border bg-card p-4 shadow-2xs"
                         >
                             <div class="space-y-0.5">
                                 <Label

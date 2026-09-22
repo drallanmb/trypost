@@ -759,11 +759,11 @@ onUnmounted(() => {
             <!-- ───── My Uploads ───── -->
             <TabsContent value="uploads" class="mt-6">
                 <div
-                    class="relative mb-4 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed p-8 text-center transition-colors"
+                    class="relative mb-4 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed p-8 text-center transition-colors"
                     :class="[
                         isDragging
                             ? 'border-ring bg-accent'
-                            : 'border-foreground/25 bg-card hover:bg-foreground/5',
+                            : 'border-border bg-card hover:bg-foreground/5',
                         uploading ? 'pointer-events-none' : '',
                     ]"
                     @click="triggerFileInput"
@@ -836,7 +836,7 @@ onUnmounted(() => {
                     <div
                         v-for="asset in uploads"
                         :key="asset.id"
-                        class="group relative overflow-hidden rounded-xl border-2 border-foreground bg-muted shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-md"
+                        class="group relative overflow-hidden rounded-2xl border border-border bg-muted shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-sm"
                         :class="[
                             'cursor-pointer',
                             isPicker && isSelected(asset.id)
@@ -874,7 +874,7 @@ onUnmounted(() => {
 
                         <div
                             v-if="isPicker && isSelected(asset.id)"
-                            class="absolute top-2 right-2 inline-flex size-6 items-center justify-center rounded-full border-2 border-foreground bg-primary text-xs font-bold text-primary-foreground shadow-2xs"
+                            class="absolute top-2 right-2 inline-flex size-6 items-center justify-center rounded-full border border-border bg-primary text-xs font-bold text-primary-foreground shadow-2xs"
                         >
                             {{ selectionIndex(asset.id) }}
                         </div>
@@ -975,7 +975,7 @@ onUnmounted(() => {
                         <div
                             v-for="photo in displayedPhotos"
                             :key="photo.id"
-                            class="group relative cursor-pointer overflow-hidden rounded-xl border-2 border-foreground bg-muted shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-md"
+                            class="group relative cursor-pointer overflow-hidden rounded-2xl border border-border bg-muted shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-sm"
                             @click="previewUnsplashPhoto(photo)"
                         >
                             <div class="aspect-[4/3]">
@@ -1024,7 +1024,7 @@ onUnmounted(() => {
                                                 <Button
                                                     variant="outline"
                                                     size="icon"
-                                                    class="size-8 bg-violet-100 hover:bg-violet-200"
+                                                    class="size-8 bg-accent hover:bg-accent/80"
                                                     :disabled="
                                                         savingPhotoId ===
                                                         photo.id
@@ -1146,7 +1146,7 @@ onUnmounted(() => {
                         <div
                             v-for="gif in displayedGifs"
                             :key="gif.id"
-                            class="group relative cursor-pointer overflow-hidden rounded-xl border-2 border-foreground bg-muted shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-md"
+                            class="group relative cursor-pointer overflow-hidden rounded-2xl border border-border bg-muted shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-md"
                             @click="previewGiphyGif(gif)"
                         >
                             <div class="aspect-[4/3]">
@@ -1192,7 +1192,7 @@ onUnmounted(() => {
                                                 <Button
                                                     variant="outline"
                                                     size="icon"
-                                                    class="size-8 bg-violet-100 hover:bg-violet-200"
+                                                    class="size-8 bg-accent hover:bg-accent/80"
                                                     :disabled="
                                                         savingGifId === gif.id
                                                     "

@@ -33,7 +33,7 @@ const displaySecret = computed(() => {
 
 <template>
     <div
-        class="grid gap-6 rounded-xl border-2 border-foreground bg-card p-4 shadow-2xs sm:p-5 lg:grid-cols-2"
+        class="grid gap-6 rounded-2xl border border-border bg-card p-4 shadow-2xs sm:p-5 lg:grid-cols-2"
     >
         <div class="space-y-2">
             <p class="text-sm font-bold text-foreground">
@@ -41,7 +41,7 @@ const displaySecret = computed(() => {
             </p>
             <div class="flex items-stretch gap-2">
                 <code
-                    class="flex h-10 min-w-0 flex-1 items-center rounded-md border-2 border-foreground bg-background px-3 font-mono text-sm font-bold text-foreground shadow-2xs"
+                    class="flex h-10 min-w-0 flex-1 items-center rounded-md border border-border bg-background px-3 font-mono text-sm font-bold text-foreground shadow-2xs"
                 >
                     <span class="block truncate">{{ displaySecret }}</span>
                 </code>

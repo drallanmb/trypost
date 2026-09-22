@@ -207,7 +207,7 @@ onBeforeUnmount(() => {
             class="mx-auto flex w-full max-w-2xl flex-col items-center gap-6 px-4 py-12"
         >
             <div
-                class="inline-flex size-14 -rotate-2 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-200 shadow-2xs"
+                class="inline-flex size-14 items-center justify-center rounded-2xl border border-border bg-secondary shadow-2xs"
             >
                 <IconLoader2
                     v-if="status === 'loading'"
@@ -235,7 +235,7 @@ onBeforeUnmount(() => {
 
                 <div class="w-full max-w-md">
                     <div
-                        class="h-2 w-full overflow-hidden rounded-full border-2 border-foreground bg-card"
+                        class="h-2 w-full overflow-hidden rounded-full border border-border bg-card"
                     >
                         <div
                             class="h-full bg-foreground transition-[width] duration-700 ease-out"
@@ -251,7 +251,7 @@ onBeforeUnmount(() => {
                 </div>
 
                 <div
-                    class="mt-4 flex min-h-[3rem] w-full max-w-lg items-center justify-center rounded-xl border-2 border-foreground bg-card px-5 py-3 shadow-2xs"
+                    class="mt-4 flex min-h-[3rem] w-full max-w-lg items-center justify-center rounded-2xl border border-border bg-card px-5 py-3 shadow-2xs"
                 >
                     <p
                         class="text-center text-sm text-foreground/80 transition-opacity"
@@ -261,7 +261,7 @@ onBeforeUnmount(() => {
                 </div>
 
                 <div
-                    class="mt-8 flex w-full max-w-lg flex-col items-center gap-3 rounded-2xl border-2 border-foreground bg-card p-5 text-center shadow-2xs"
+                    class="mt-8 flex w-full max-w-lg flex-col items-center gap-3 rounded-2xl border border-border bg-card p-5 text-center shadow-2xs"
                 >
                     <p class="text-base font-bold text-foreground">
                         {{ $t('posts.create.steps.loading_leave_title') }}
@@ -287,7 +287,7 @@ onBeforeUnmount(() => {
                 class="flex w-full max-w-lg flex-col items-center gap-4"
             >
                 <div
-                    class="w-full rounded-xl border-2 border-foreground bg-rose-50 p-4 shadow-2xs"
+                    class="w-full rounded-2xl border border-border bg-rose-50 p-4 shadow-2xs"
                 >
                     <p class="text-center text-sm font-semibold text-rose-700">
                         {{

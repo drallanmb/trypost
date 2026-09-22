@@ -23,7 +23,7 @@ defineEmits<{
 
 <template>
     <header
-        class="flex shrink-0 flex-col gap-3 border-b-2 border-foreground bg-card px-4 py-3 md:flex-row md:items-center md:justify-between md:px-6"
+        class="flex shrink-0 flex-col gap-3 border-b border-border bg-card px-4 py-3 md:flex-row md:items-center md:justify-between md:px-6"
     >
         <div class="flex min-w-0 items-center gap-3 pl-12 md:pl-0">
             <Link :href="index.url()">

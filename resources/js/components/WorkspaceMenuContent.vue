@@ -199,8 +199,8 @@ const handleLogout = (): void => {
             <Avatar
                 :src="workspace.logo_url"
                 :name="workspace.name"
-                class="h-6 w-6 shrink-0 rounded-md border-2 border-foreground"
-                fallback-class="text-[10px] bg-violet-100 text-violet-700 font-bold"
+                class="h-6 w-6 shrink-0 rounded-md border border-border"
+                fallback-class="text-[10px] bg-accent text-accent-foreground font-bold"
             />
             <span class="min-w-0 flex-1 truncate">{{ workspace.name }}</span>
             <IconCheck

@@ -244,7 +244,7 @@ const huePointerStyle = computed(() => ({
                 <button
                     type="button"
                     :disabled="disabled"
-                    class="size-10 shrink-0 cursor-pointer rounded-md border-2 border-foreground bg-card shadow-xs transition-shadow hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-50"
+                    class="size-10 shrink-0 cursor-pointer rounded-md border border-border bg-card shadow-xs transition-shadow hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-50"
                     :style="
                         swatchColor
                             ? { backgroundColor: swatchColor }
@@ -318,7 +318,7 @@ const huePointerStyle = computed(() => ({
                         v-for="hex in PRESETS"
                         :key="hex"
                         type="button"
-                        class="size-5 cursor-pointer rounded-full border-2 border-foreground transition-transform hover:scale-110"
+                        class="size-5 cursor-pointer rounded-full border border-border transition-transform hover:scale-110"
                         :style="{ backgroundColor: hex }"
                         :aria-label="hex"
                         @click="pickPreset(hex)"

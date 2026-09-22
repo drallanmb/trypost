@@ -84,12 +84,12 @@ const stepHeader = computed(() => {
                     <div class="grid gap-4 sm:grid-cols-2">
                         <button
                             type="button"
-                            class="group flex flex-col items-start gap-4 rounded-2xl border-2 border-foreground bg-card p-5 text-left shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-2xs"
+                            class="group flex flex-col items-start gap-4 rounded-2xl border border-border bg-card p-5 text-left shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-2xs"
                             :disabled="submitting"
                             @click="startFromScratch"
                         >
                             <div
-                                class="inline-flex size-12 -rotate-2 items-center justify-center rounded-2xl border-2 border-foreground bg-violet-200 shadow-2xs transition-transform group-hover:rotate-0"
+                                class="inline-flex size-12 items-center justify-center rounded-2xl border border-border bg-secondary shadow-2xs transition-transform"
                             >
                                 <IconPencil
                                     class="size-6 text-foreground"
@@ -110,12 +110,12 @@ const stepHeader = computed(() => {
 
                         <button
                             type="button"
-                            class="group flex flex-col items-start gap-4 rounded-2xl border-2 border-foreground bg-card p-5 text-left shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-2xs"
+                            class="group flex flex-col items-start gap-4 rounded-2xl border border-border bg-card p-5 text-left shadow-2xs transition-all hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-2xs"
                             :disabled="!hasConnectedAccounts"
                             @click="view = 'ai'"
                         >
                             <div
-                                class="inline-flex size-12 rotate-1 items-center justify-center rounded-2xl border-2 border-foreground bg-amber-200 shadow-2xs transition-transform group-hover:rotate-0"
+                                class="inline-flex size-12 items-center justify-center rounded-2xl border border-border bg-warning/10 shadow-2xs transition-transform"
                             >
                                 <IconSparkles
                                     class="size-6 text-foreground"

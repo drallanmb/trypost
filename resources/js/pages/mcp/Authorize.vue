@@ -142,7 +142,7 @@ const onDenySubmit = (): void => {
                         <ComboboxTrigger as-child>
                             <button
                                 type="button"
-                                class="flex h-10 w-full items-center justify-between rounded-md border-2 border-foreground bg-card px-3 py-2 text-sm font-medium text-foreground shadow-2xs transition-colors hover:bg-muted/40"
+                                class="flex h-10 w-full items-center justify-between rounded-md border border-border bg-card px-3 py-2 text-sm font-medium text-foreground shadow-2xs transition-colors hover:bg-muted/40"
                             >
                                 <span
                                     :class="

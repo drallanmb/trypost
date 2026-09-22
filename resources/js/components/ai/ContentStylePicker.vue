@@ -49,8 +49,10 @@ const select = (key: string) => {
             v-for="style in props.styles"
             :key="style.key"
             type="button"
-            class="relative flex cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-foreground bg-card text-left shadow-2xs transition-all hover:bg-foreground/5"
-            :class="modelValue === style.key ? '!bg-violet-100 shadow-md' : ''"
+            class="relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-card text-left shadow-2xs transition-all hover:bg-foreground/5"
+            :class="
+                modelValue === style.key ? '!bg-accent ring-1 ring-ring' : ''
+            "
             @click="select(style.key)"
         >
             <div class="aspect-video w-full overflow-hidden bg-muted">
@@ -86,7 +88,7 @@ const select = (key: string) => {
         <CollapsibleTrigger as-child>
             <button
                 type="button"
-                class="flex w-full cursor-pointer items-center gap-2.5 overflow-hidden rounded-xl border-2 border-foreground bg-card p-1.5 text-left transition-all hover:bg-foreground/5"
+                class="flex w-full cursor-pointer items-center gap-2.5 overflow-hidden rounded-2xl border border-border bg-card p-1.5 text-left transition-all hover:bg-foreground/5"
             >
                 <div
                     class="aspect-video w-28 shrink-0 overflow-hidden rounded-lg bg-muted"
@@ -119,9 +121,11 @@ const select = (key: string) => {
                 v-for="style in props.styles"
                 :key="style.key"
                 type="button"
-                class="flex w-full cursor-pointer items-center gap-2.5 overflow-hidden rounded-xl border-2 border-foreground bg-card p-1.5 text-left transition-all hover:bg-foreground/5"
+                class="flex w-full cursor-pointer items-center gap-2.5 overflow-hidden rounded-2xl border border-border bg-card p-1.5 text-left transition-all hover:bg-foreground/5"
                 :class="
-                    modelValue === style.key ? '!bg-violet-100 shadow-md' : ''
+                    modelValue === style.key
+                        ? '!bg-accent ring-1 ring-ring'
+                        : ''
                 "
                 @click="select(style.key)"
             >

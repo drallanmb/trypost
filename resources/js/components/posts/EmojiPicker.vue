@@ -143,7 +143,7 @@ onBeforeUnmount(() => {
     <div
         class="flex w-[min(340px,calc(100vw-2rem))] flex-col overflow-hidden rounded-[10px] bg-card text-foreground"
     >
-        <div class="border-b-2 border-foreground/10 p-2">
+        <div class="border-b border-border p-2">
             <Input
                 v-model="search"
                 type="search"
@@ -227,7 +227,7 @@ onBeforeUnmount(() => {
         </div>
 
         <div
-            class="flex items-center justify-between border-t-2 border-foreground/10 px-1 py-1"
+            class="flex items-center justify-between border-t border-border px-1 py-1"
         >
             <button
                 v-if="recentEmojis.length > 0"
@@ -235,7 +235,7 @@ onBeforeUnmount(() => {
                 class="flex size-8 cursor-pointer items-center justify-center rounded-md text-base transition-colors hover:bg-foreground/5 focus:bg-foreground/5 focus:outline-none"
                 :class="
                     activeCategory === 'recent' && !isSearching
-                        ? 'bg-violet-100 ring-2 ring-foreground'
+                        ? 'bg-accent ring-2 ring-foreground'
                         : ''
                 "
                 :title="categoryLabel('recent')"
@@ -251,7 +251,7 @@ onBeforeUnmount(() => {
                 class="flex size-8 cursor-pointer items-center justify-center rounded-md text-base transition-colors hover:bg-foreground/5 focus:bg-foreground/5 focus:outline-none"
                 :class="
                     activeCategory === category && !isSearching
-                        ? 'bg-violet-100 ring-2 ring-foreground'
+                        ? 'bg-accent ring-2 ring-foreground'
                         : ''
                 "
                 :title="categoryLabel(category)"
