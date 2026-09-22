@@ -135,7 +135,7 @@ const copy = (value: string): void => {
                                 {{ $t('mcp.name_label') }}
                             </p>
                             <div
-                                class="flex items-center gap-2 rounded-2xl border border-border bg-background p-2 shadow-2xs"
+                                class="flex min-w-0 items-center gap-2 rounded-2xl border border-border bg-background p-2 shadow-2xs"
                             >
                                 <code
                                     dir="ltr"
@@ -161,7 +161,7 @@ const copy = (value: string): void => {
                                 {{ $t('mcp.url_label') }}
                             </p>
                             <div
-                                class="flex items-center gap-2 rounded-2xl border border-border bg-background p-2 shadow-2xs"
+                                class="flex min-w-0 items-center gap-2 rounded-2xl border border-border bg-background p-2 shadow-2xs"
                             >
                                 <code
                                     dir="ltr"
@@ -186,7 +186,7 @@ const copy = (value: string): void => {
                             <p class="font-bold">
                                 {{ $t('mcp.config_label') }}
                             </p>
-                            <div class="relative">
+                            <div class="relative min-w-0">
                                 <pre
                                     dir="ltr"
                                     class="overflow-x-auto rounded-2xl border border-border bg-background p-3 pe-14 text-left font-mono text-xs shadow-2xs"
