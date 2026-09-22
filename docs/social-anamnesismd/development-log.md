@@ -292,3 +292,24 @@ docker compose -f compose.social-dev.yaml exec -T \
 - Independent read-only review found no actionable issues. No dependencies, translations, backend routes, permissions, or publishing behavior changed.
 - The initial desktop check exposed a truncated documentation suffix at the existing sidebar width. Support links now allow natural label wrapping and content-driven height so the upstream name remains readable; the pastel icon treatment is unchanged.
 - Final verification (`653d3ac4`, followed by readability fix `06e0037f`): `npm run check` passed with **18/18 frontend tests**, no skips; `git diff --check` and both independent reviews found no issues. The isolated development client/SSR build exited 0. Browser inspection on Calendar confirmed the Portuguese documentation label and full TryPost name wrap visibly, with no referral/community links and no captured console warnings/errors. The development health endpoint returned **HTTP 200**; production containers remained healthy with uninterrupted **13-day** uptime. No PHP files changed and no backend suite was run for this menu-only change. The preview remains on Calendar.
+
+## 2026-09-22 — Consistent soft surfaces throughout the company interface
+
+### Approved direction and boundaries
+
+- The user identified remaining heavy MCP frames and explicitly approved extending the Calendar/Connections surface treatment to all interface areas. The scope includes decorative cards, panels, dividers, dialogs and icon frames across MCP, settings, media, onboarding, notifications, post editing, analytics and automation chrome.
+- Existing Calendar and Connections are the primary visual reference: thin theme-aware borders, soft elevation, rounded cards and unchanged brand-aware pastel icons. The Refero Aboard reference supports restrained elevation only; its typography, palette and marketing layout are not imported. The 21st component search returned accordion and integration examples, but existing Vue primitives already meet the need, so no external component or dependency is installed.
+- Focus, selection and error indicators remain distinguishable. Native network previews, crop/color-picker handles and graph connection ports are intentional exceptions, not decorative framing. URLs, credentials, permissions, publishing behavior, translations and license/authorship files remain outside the change.
+- Baseline frontend checks: **18/18 tests passed**. The MCP browser baseline showed **2px** opaque card borders in both themes; in Afterglow those frames became bright outlines around the cards and expanded configuration fields. This is the visual regression being corrected.
+- Work is continuing in the established dedicated product checkout on `codex/social-anamnesismd-foundation`, with the existing isolated development deployment. No production deployment is authorized by this change. The implementation plan is recorded in `docs/superpowers/plans/2026-09-22-soft-surface-consistency.md`.
+
+### Implementation and verification notes
+
+- The first implementation updates decorative application surfaces and shared controls, including MCP configuration, settings, media, post editing, onboarding, notifications, toasts and JSON output. Real-component regressions cover MCP destinations and controls, label selection/disabled behavior, and textarea focus/invalid styling. The regressions failed against the old frames before the implementation.
+- Independent review caught three retained dark semantic foregrounds on newly theme-aware backgrounds (API-key notice, current-session status and delete-confirmation icon). Commit `67bfa30e` corrected these to paired semantic tokens and removed permanent selection rings from static billing icon tiles. Focused re-review approved every correction; the real-component fixture passed 14/14 tests.
+- The installed `21st review` excludes `.vue` from its supported extensions: a scoped MCP invocation reviewed zero files, not a passing Vue audit. Its JSON-viewer CSS check reviewed one file with no findings. Vue verification therefore relies on component rendering tests, type/lint checks, independent code review and actual browser inspection.
+
+### Clarified delivery scope
+
+- The user's follow-up restates the immediate deliverable as consistent MCP application cards, configuration fields and connected-client rows in both themes, without changing connection functionality. Complete and verify that deliverable now; do not hold it behind an additional automation/metrics redesign. Previously committed application-surface improvements are preserved.
+- Automation/metric changes were not implemented after the write restriction. The provisional npm command referencing their nonexistent fixture has been removed, so the existing frontend check remains independently runnable. This delivery does not claim the deferred automation work is complete.

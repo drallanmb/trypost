@@ -1,0 +1,93 @@
+{
+    "version": 1,
+    "project": {
+        "name": "social-anamnesismd",
+        "productType": "Agency social publishing and client approval workspace",
+        "stack": ["shadcn", "tailwind-v4", "vite", "vue"]
+    },
+    "sources": {
+        "tokens": ["resources/css/app.css", "resources/css/automations.css"],
+        "components": [
+            "resources/js/components/ui",
+            "resources/js/components/accounts/NetworkConnectGrid.vue",
+            "resources/js/components/IntegrationIcon.vue"
+        ],
+        "assets": ["public/images"],
+        "instructions": ["AGENTS.md", "CLAUDE.md"]
+    },
+    "design": {
+        "colorMode": "Explicit Solar and Afterglow themes",
+        "colors": {},
+        "typography": {},
+        "spacing": {},
+        "radius": {},
+        "shadows": {},
+        "motion": {},
+        "density": "comfortable"
+    },
+    "components": {
+        "installed": [],
+        "preferredPrimitives": [
+            "Existing Vue/Reka UI components",
+            "AppIcon",
+            "IntegrationIcon",
+            "PlatformIcon",
+            "McpClientIcon"
+        ],
+        "patterns": [
+            "Thin theme-aware borders",
+            "Rounded cards",
+            "Soft tokenized shadows",
+            "Brand-aware pastel icon tiles"
+        ]
+    },
+    "constraints": {
+        "must": [
+            "Use existing Solar/Afterglow tokens",
+            "Preserve functional focus, selection and status indicators",
+            "Preserve native social post previews and interaction handles",
+            "Preserve license and attribution"
+        ],
+        "avoid": [
+            "Decorative heavy foreground borders",
+            "Hard offset shadows",
+            "Ornamental icon rotation",
+            "New dependencies or replacement component frameworks"
+        ]
+    },
+    "decisions": [
+        {
+            "date": "2026-09-22",
+            "decision": "Apply the approved Calendar and Connections light surface language throughout the company interface, including MCP, settings, media and automation chrome.",
+            "source": "Explicit user approval in the current task; resources/js/components/accounts/NetworkConnectGrid.vue; resources/css/app.css",
+            "referenceLock": "Existing Orbit-led Solar/Afterglow canvas, typography, icon tones and density remain primary. Refero Aboard contributes restrained elevation only; do not import its palette, typography or marketing layout."
+        }
+    ],
+    "evidence": [
+        {
+            "fact": "project.instructions",
+            "source": "AGENTS.md"
+        },
+        {
+            "fact": "project.instructions",
+            "source": "CLAUDE.md"
+        },
+        {
+            "fact": "project.stack:shadcn",
+            "source": "components.json"
+        },
+        {
+            "fact": "project.stack:tailwind-v4",
+            "source": "package.json"
+        },
+        {
+            "fact": "project.stack:vite",
+            "source": "package.json"
+        },
+        {
+            "fact": "project.stack:vue",
+            "source": "package.json"
+        }
+    ],
+    "generatedAt": "2026-09-22T12:36:07.607Z"
+}
