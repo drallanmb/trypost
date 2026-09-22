@@ -4,14 +4,12 @@ import {
     IconAffiliate,
     IconAlertTriangle,
     IconBolt,
-    IconBrandDiscord,
     IconCalendar,
     IconChartBar,
     IconChevronRight,
     IconClock,
     IconFileCheck,
     IconFileText,
-    IconGift,
     IconHash,
     IconLifebuoy,
     IconPencil,
@@ -187,17 +185,7 @@ const workspaceNavItems = computed<NavItem[]>(() => [
 
 const bottomNavItems = computed(() => [
     {
-        title: trans('sidebar.support.referral'),
-        href: 'https://affiliates.trypost.it/',
-        icon: IconGift,
-    },
-    {
-        title: trans('sidebar.support.discord'),
-        href: 'https://trypost.it/discord',
-        icon: IconBrandDiscord,
-    },
-    {
-        title: trans('sidebar.support.docs'),
+        title: `${trans('sidebar.support.docs')} · TryPost`,
         href: 'https://docs.trypost.it',
         icon: IconLifebuoy,
     },

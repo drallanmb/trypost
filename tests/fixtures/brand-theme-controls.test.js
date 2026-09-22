@@ -23,6 +23,51 @@ function createComponentServer() {
     });
 }
 
+test('the company sidebar keeps upstream documentation without referral or community promotions', async () => {
+    const server = await createComponentServer();
+    try {
+        const { default: AppSidebar } = await server.ssrLoadModule('/resources/js/components/AppSidebar.vue');
+        const { default: SidebarProvider } = await server.ssrLoadModule('/resources/js/components/ui/sidebar/SidebarProvider.vue');
+        const { createInertiaApp } = await import('@inertiajs/vue3');
+        const { configureEcho } = await import('@laravel/echo-vue');
+        configureEcho({ broadcaster: 'null' });
+        // The existing active-URL helper reads window with optional chaining during SSR.
+        globalThis.window = undefined;
+        const { body } = await createInertiaApp({
+            page: {
+                component: 'SidebarTest', url: 'https://social.example.invalid/calendar', version: null,
+                props: {
+                    errors: {}, onboardingProgress: false,
+                    auth: {
+                        user: { id: 'test-user', name: 'Test Operator', email: 'operator@example.invalid' },
+                        currentWorkspace: { id: 'test-workspace', name: 'Test Clinic', logo_url: null, role: 'owner' },
+                        workspaces: [], subscriptionPastDue: false,
+                    },
+                },
+            },
+            resolve: () => defineComponent({ render: () => h(SidebarProvider, null, { default: () => h(AppSidebar) }) }),
+            render: renderToString,
+            setup({ App, props, plugin }) {
+                const app = createSSRApp({ render: () => h(App, props) }).use(plugin);
+                app.config.globalProperties.$t = (key) => key;
+                return app;
+            },
+        });
+        const links = [...body.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
+        const docs = links.find(([, href]) => href === 'https://docs.trypost.it');
+        assert.ok(docs, 'Keep access to upstream documentation');
+        assert.match(docs[2], /TryPost/, 'Clearly identify the upstream documentation');
+        assert.match(docs[0], /target="_blank"/);
+        assert.match(docs[0], /rel="noopener noreferrer"/);
+        assert.ok(!links.some(([, href]) => href.includes('affiliates.trypost.it') || href.includes('trypost.it/discord')), 'Do not promote unrelated upstream services');
+        assert.ok(links.some(([, href]) => href === '/calendar'), 'Keep the company calendar accessible');
+        assert.match(body, /Social AnamnesisMD/);
+    } finally {
+        delete globalThis.window;
+        await server.close();
+    }
+});
+
 test('platform icons resolve every network and account alias to its own monochrome SVG', async () => {
     const server = await createComponentServer();
     try {
